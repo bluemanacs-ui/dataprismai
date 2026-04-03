@@ -1,6 +1,7 @@
 from app.prompts.prompt_builder import build_chat_prompt
 from app.schemas.chat import ChatQueryRequest, ChatQueryResponse
 from app.services.llm_service import generate_with_ollama
+from app.services.query_executor_service import execute_query
 from app.services.response_parser import parse_model_json
 from app.services.semantic_service import resolve_semantic_context
 from app.services.sql_generation_service import generate_sql_from_question
@@ -9,7 +10,8 @@ from app.services.sql_validator_service import validate_sql
 
 def _fallback_response(raw_output: str, persona: str, semantic_context: dict) -> ChatQueryResponse:
     sql_result = generate_sql_from_question("fallback", persona, semantic_context)
-    is_valid, sql_issues, validated_sql = validate_sql(sql_result.sql)
+    _, sql_issues, validated_sql = validate_sql(sql_result.sql)
+    execution_result = execute_query(semantic_context["engine"], validated_sql, semantic_context)
 
     return ChatQueryResponse(
         answer=raw_output or "DataPrismAI could not generate a structured response.",
@@ -25,7 +27,7 @@ def _fallback_response(raw_output: str, persona: str, semantic_context: dict) ->
         ],
         assumptions=[
             f"Metric inferred as {semantic_context['metric']}.",
-            "No real query execution has happened yet.",
+            "Mock query execution was used.",
         ],
         actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
         chart_title=f"{semantic_context['metric']} Trend",
@@ -33,6 +35,11 @@ def _fallback_response(raw_output: str, persona: str, semantic_context: dict) ->
         sql=validated_sql,
         sql_explanation=sql_result.explanation,
         sql_validation_issues=sql_issues,
+        result_columns=execution_result.columns,
+        result_rows=execution_result.rows,
+        result_row_count=execution_result.row_count,
+        result_engine=execution_result.engine,
+        result_execution_time_ms=execution_result.execution_time_ms,
         semantic_context={
             "metric": semantic_context["metric"],
             "dimensions": semantic_context["dimensions"],
@@ -57,6 +64,7 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
 
     sql_result = generate_sql_from_question(message, persona, semantic_context)
     _, sql_issues, validated_sql = validate_sql(sql_result.sql)
+    execution_result = execute_query(semantic_context["engine"], validated_sql, semantic_context)
 
     try:
         parsed = parse_model_json(raw_output)
@@ -83,6 +91,11 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
             sql=validated_sql,
             sql_explanation=sql_result.explanation,
             sql_validation_issues=sql_issues,
+            result_columns=execution_result.columns,
+            result_rows=execution_result.rows,
+            result_row_count=execution_result.row_count,
+            result_engine=execution_result.engine,
+            result_execution_time_ms=execution_result.execution_time_ms,
             semantic_context={
                 "metric": semantic_context["metric"],
                 "dimensions": semantic_context["dimensions"],

@@ -25,8 +25,8 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
             <button
               key={tab}
               className={`rounded-full px-3 py-1.5 text-xs ${tab === "Chart"
-                  ? "bg-blue-600 text-white"
-                  : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
+                ? "bg-blue-600 text-white"
+                : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               {tab}
@@ -44,6 +44,42 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
           <div className="flex h-56 items-center justify-center rounded-xl border border-dashed border-zinc-700 text-sm text-zinc-500">
             Chart rendering comes next
           </div>
+        </div>
+
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
+          <div className="mb-2 text-sm font-semibold">Query Result Preview</div>
+          <div className="mb-3 text-xs text-zinc-500">
+            Engine: {analysis.resultEngine || "N/A"} · Rows: {analysis.resultRowCount ?? 0} · Time: {analysis.resultExecutionTimeMs ?? 0} ms
+          </div>
+
+          {analysis.resultColumns && analysis.resultColumns.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left text-xs text-zinc-300">
+                <thead>
+                  <tr className="border-b border-zinc-800 text-zinc-500">
+                    {analysis.resultColumns.map((column) => (
+                      <th key={column} className="px-2 py-2 font-medium">
+                        {column}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {(analysis.resultRows || []).slice(0, 5).map((row, idx) => (
+                    <tr key={idx} className="border-b border-zinc-900">
+                      {analysis.resultColumns?.map((column) => (
+                        <td key={column} className="px-2 py-2">
+                          {String(row[column] ?? "")}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="text-sm text-zinc-500">No result rows yet</div>
+          )}
         </div>
 
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">

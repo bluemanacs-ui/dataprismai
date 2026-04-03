@@ -9,6 +9,11 @@ export type ChatApiResponse = {
   sql: string;
   sql_explanation: string;
   sql_validation_issues: string[];
+  result_columns: string[];
+  result_rows: Record<string, string | number | null>[];
+  result_row_count: number;
+  result_engine: string;
+  result_execution_time_ms: number;
   semantic_context: {
     metric?: string;
     dimensions?: string[];
@@ -35,6 +40,11 @@ export type AnalysisState = {
   sql?: string;
   sqlExplanation?: string;
   sqlValidationIssues?: string[];
+  resultColumns?: string[];
+  resultRows?: Record<string, string | number | null>[];
+  resultRowCount?: number;
+  resultEngine?: string;
+  resultExecutionTimeMs?: number;
   insights?: string[];
   assumptions?: string[];
   rawModelOutput?: string | null;

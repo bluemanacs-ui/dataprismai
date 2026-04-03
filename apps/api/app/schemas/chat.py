@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 
 class ChatQueryRequest(BaseModel):
@@ -19,5 +19,10 @@ class ChatQueryResponse(BaseModel):
     sql: str
     sql_explanation: str
     sql_validation_issues: List[str]
+    result_columns: List[str]
+    result_rows: List[Dict[str, Any]]
+    result_row_count: int
+    result_engine: str
+    result_execution_time_ms: int
     semantic_context: dict
     raw_model_output: Optional[str] = None
