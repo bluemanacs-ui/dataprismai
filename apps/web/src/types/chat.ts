@@ -12,6 +12,25 @@ export type ChartConfig = {
   data: Record<string, string | number | null>[];
 };
 
+export type SemanticMetric = {
+  name: string;
+  keywords: string[];
+  dimensions: string[];
+  engine: string;
+  domain: string;
+  definition: string;
+};
+
+export type SemanticDimension = {
+  name: string;
+  keywords: string[];
+};
+
+export type SemanticCatalogResponse = {
+  metrics: SemanticMetric[];
+  dimensions: SemanticDimension[];
+};
+
 export type ChatApiResponse = {
   answer: string;
   insights: string[];

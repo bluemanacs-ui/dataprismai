@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TopBar } from "@/components/layout/top-bar";
 import { Sidebar } from "@/components/layout/sidebar";
 import { ChatWorkspace } from "@/components/chat/chat-workspace";
 import { AnalysisPanel } from "@/components/analysis/analysis-panel";
-import { AnalysisState, ChatMessage } from "@/types/chat";
-import { sendChatQuery } from "@/lib/api";
+import { ExplorerPanel } from "@/components/explorer/explorer-panel";
+import {
+  AnalysisState,
+  ChatMessage,
+  SemanticCatalogResponse,
+} from "@/types/chat";
+import { fetchSemanticCatalog, sendChatQuery } from "@/lib/api";
 
 const initialMessages: ChatMessage[] = [
   {
@@ -28,6 +33,14 @@ export function AppShell() {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [analysis, setAnalysis] = useState<AnalysisState>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [activeView, setActiveView] = useState<"chat" | "explorer">("chat");
+  const [catalog, setCatalog] = useState<SemanticCatalogResponse | null>(null);
+
+  useEffect(() => {
+    fetchSemanticCatalog()
+      .then(setCatalog)
+      .catch((err) => console.error("Failed to load semantic catalog", err));
+  }, []);
 
   async function handleSend(message: string) {
     const trimmed = message.trim();
@@ -41,6 +54,7 @@ export function AppShell() {
 
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+    setActiveView("chat");
 
     try {
       const response = await sendChatQuery(trimmed, persona);
@@ -98,12 +112,22 @@ export function AppShell() {
       <div className="flex h-full flex-col">
         <TopBar persona={persona} onPersonaChange={setPersona} />
         <div className="flex min-h-0 flex-1">
-          <Sidebar />
-          <ChatWorkspace
-            messages={messages}
-            onSend={handleSend}
-            isLoading={isLoading}
-          />
+          <Sidebar activeView={activeView} onChangeView={setActiveView} />
+          <section className="flex min-w-0 flex-1 flex-col">
+            {activeView === "chat" ? (
+              <ChatWorkspace
+                messages={messages}
+                onSend={handleSend}
+                isLoading={isLoading}
+              />
+            ) : (
+              <div className="flex-1 overflow-y-auto px-6 py-6">
+                <div className="mx-auto max-w-5xl">
+                  <ExplorerPanel catalog={catalog} />
+                </div>
+              </div>
+            )}
+          </section>
           <AnalysisPanel analysis={analysis} />
         </div>
       </div>

@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.chat import router as chat_router
+from app.api.semantic import router as semantic_router
 
 app = FastAPI(title="DataPrismAI API", version="0.1.0")
 
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(chat_router)
+app.include_router(semantic_router)
 
 
 @app.get("/health")

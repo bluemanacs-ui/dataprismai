@@ -1,4 +1,4 @@
-import { ChatApiResponse } from "@/types/chat";
+import { ChatApiResponse, SemanticCatalogResponse } from "@/types/chat";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
@@ -21,4 +21,16 @@ export async function sendChatQuery(message: string, persona: string) {
   }
 
   return (await response.json()) as ChatApiResponse;
+}
+
+export async function fetchSemanticCatalog() {
+  const response = await fetch(`${API_BASE_URL}/semantic/catalog`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch semantic catalog");
+  }
+
+  return (await response.json()) as SemanticCatalogResponse;
 }
