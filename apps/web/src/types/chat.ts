@@ -1,3 +1,17 @@
+export type ChartSeries = {
+  key: string;
+  label: string;
+};
+
+export type ChartConfig = {
+  chart_type: string;
+  x_key: string;
+  series: ChartSeries[];
+  title: string;
+  description: string;
+  data: Record<string, string | number | null>[];
+};
+
 export type ChatApiResponse = {
   answer: string;
   insights: string[];
@@ -6,6 +20,7 @@ export type ChatApiResponse = {
   actions: string[];
   chart_title: string;
   chart_type: string;
+  chart_config: ChartConfig;
   sql: string;
   sql_explanation: string;
   sql_validation_issues: string[];
@@ -37,6 +52,7 @@ export type ChatMessage = {
 export type AnalysisState = {
   chartTitle?: string;
   chartType?: string;
+  chartConfig?: ChartConfig;
   sql?: string;
   sqlExplanation?: string;
   sqlValidationIssues?: string[];

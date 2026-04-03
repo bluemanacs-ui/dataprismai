@@ -57,6 +57,7 @@ export function AppShell() {
       setAnalysis({
         chartTitle: response.chart_title,
         chartType: response.chart_type,
+        chartConfig: response.chart_config,
         sql: response.sql,
         sqlExplanation: response.sql_explanation,
         sqlValidationIssues: response.sql_validation_issues,

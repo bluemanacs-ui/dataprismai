@@ -16,6 +16,7 @@ class ChatQueryResponse(BaseModel):
     actions: List[str]
     chart_title: str
     chart_type: str
+    chart_config: Dict[str, Any]
     sql: str
     sql_explanation: str
     sql_validation_issues: List[str]
