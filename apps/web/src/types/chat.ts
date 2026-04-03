@@ -31,6 +31,21 @@ export type SemanticCatalogResponse = {
   dimensions: SemanticDimension[];
 };
 
+export type SkillItem = {
+  name: string;
+  title: string;
+  version: string;
+  status: string;
+  owner: string;
+  description: string;
+  scope: string[];
+  guardrails: string[];
+};
+
+export type SkillCatalogResponse = {
+  skills: SkillItem[];
+};
+
 export type ChatApiResponse = {
   answer: string;
   insights: string[];

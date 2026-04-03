@@ -6,12 +6,14 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { ChatWorkspace } from "@/components/chat/chat-workspace";
 import { AnalysisPanel } from "@/components/analysis/analysis-panel";
 import { ExplorerPanel } from "@/components/explorer/explorer-panel";
+import { SkillsPanel } from "@/components/skills/skills-panel";
 import {
   AnalysisState,
   ChatMessage,
   SemanticCatalogResponse,
+  SkillCatalogResponse,
 } from "@/types/chat";
-import { fetchSemanticCatalog, sendChatQuery } from "@/lib/api";
+import { fetchSemanticCatalog, fetchSkillCatalog, sendChatQuery } from "@/lib/api";
 
 const initialMessages: ChatMessage[] = [
   {
@@ -33,13 +35,18 @@ export function AppShell() {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [analysis, setAnalysis] = useState<AnalysisState>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [activeView, setActiveView] = useState<"chat" | "explorer">("chat");
+  const [activeView, setActiveView] = useState<"chat" | "explorer" | "skills">("chat");
   const [catalog, setCatalog] = useState<SemanticCatalogResponse | null>(null);
+  const [skillCatalog, setSkillCatalog] = useState<SkillCatalogResponse | null>(null);
 
   useEffect(() => {
     fetchSemanticCatalog()
       .then(setCatalog)
       .catch((err) => console.error("Failed to load semantic catalog", err));
+
+    fetchSkillCatalog()
+      .then(setSkillCatalog)
+      .catch((err) => console.error("Failed to load skill catalog", err));
   }, []);
 
   async function handleSend(message: string) {
@@ -120,10 +127,16 @@ export function AppShell() {
                 onSend={handleSend}
                 isLoading={isLoading}
               />
-            ) : (
+            ) : activeView === "explorer" ? (
               <div className="flex-1 overflow-y-auto px-6 py-6">
                 <div className="mx-auto max-w-5xl">
                   <ExplorerPanel catalog={catalog} />
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto px-6 py-6">
+                <div className="mx-auto max-w-5xl">
+                  <SkillsPanel catalog={skillCatalog} />
                 </div>
               </div>
             )}
