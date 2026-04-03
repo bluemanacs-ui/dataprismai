@@ -25,13 +25,7 @@ export function ChatWorkspace({
           </div>
 
           {messages.map((message) => (
-            <MessageCard
-              key={message.id}
-              role={message.role}
-              content={message.content}
-              actions={message.actions}
-              followUps={message.followUps}
-            />
+            <MessageCard key={message.id} {...message} />
           ))}
 
           {isLoading && (

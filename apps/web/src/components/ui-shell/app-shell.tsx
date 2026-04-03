@@ -35,7 +35,7 @@ export function AppShell() {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [analysis, setAnalysis] = useState<AnalysisState>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [activeView, setActiveView] = useState<"chat" | "explorer" | "skills">("chat");
+  const [activeView, setActiveView] = useState<"chat" | "explorer" | "reports">("chat");
   const [catalog, setCatalog] = useState<SemanticCatalogResponse | null>(null);
   const [skillCatalog, setSkillCatalog] = useState<SkillCatalogResponse | null>(null);
 
@@ -72,6 +72,26 @@ export function AppShell() {
         content: response.answer,
         actions: response.actions,
         followUps: response.follow_ups,
+        insights: response.insights,
+        assumptions: response.assumptions,
+        chartConfig: response.chart_config,
+        sql: response.sql,
+        sqlExplanation: response.sql_explanation,
+        sqlValidationIssues: response.sql_validation_issues,
+        resultColumns: response.result_columns,
+        resultRows: response.result_rows,
+        resultRowCount: response.result_row_count,
+        resultEngine: response.result_engine,
+        resultExecutionTimeMs: response.result_execution_time_ms,
+        semanticContext: {
+          metric: response.semantic_context.metric,
+          dimensions: response.semantic_context.dimensions,
+          engine: response.semantic_context.engine,
+          domain: response.semantic_context.domain,
+          definition: response.semantic_context.definition,
+          persona: response.semantic_context.persona,
+          promptTemplateLoaded: response.semantic_context.prompt_template_loaded,
+        },
       };
 
       setMessages((prev) => [...prev, assistantMessage]);

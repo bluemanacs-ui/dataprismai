@@ -1,6 +1,6 @@
 type SidebarProps = {
-  activeView: "chat" | "explorer" | "skills";
-  onChangeView: (view: "chat" | "explorer" | "skills") => void;
+  activeView: "chat" | "explorer" | "reports";
+  onChangeView: (view: "chat" | "explorer" | "reports") => void;
 };
 
 const chats = [
@@ -44,8 +44,8 @@ export function Sidebar({ activeView, onChangeView }: SidebarProps) {
           <button
             onClick={() => onChangeView("chat")}
             className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "chat"
-                ? "bg-zinc-900 text-zinc-100"
-                : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
+              ? "bg-zinc-900 text-zinc-100"
+              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
               }`}
           >
             Chat
@@ -53,20 +53,20 @@ export function Sidebar({ activeView, onChangeView }: SidebarProps) {
           <button
             onClick={() => onChangeView("explorer")}
             className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "explorer"
-                ? "bg-zinc-900 text-zinc-100"
-                : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
+              ? "bg-zinc-900 text-zinc-100"
+              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
               }`}
           >
             Data Explorer
           </button>
           <button
-            onClick={() => onChangeView("skills")}
-            className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "skills"
-                ? "bg-zinc-900 text-zinc-100"
-                : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
+            onClick={() => onChangeView("reports")}
+            className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "reports"
+              ? "bg-zinc-900 text-zinc-100"
+              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
               }`}
           >
-            Skills Marketplace
+            Reports
           </button>
         </div>
       </div>

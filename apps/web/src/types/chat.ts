@@ -81,6 +81,26 @@ export type ChatMessage = {
   content: string;
   actions?: string[];
   followUps?: string[];
+  insights?: string[];
+  assumptions?: string[];
+  chartConfig?: ChartConfig;
+  sql?: string;
+  sqlExplanation?: string;
+  sqlValidationIssues?: string[];
+  resultColumns?: string[];
+  resultRows?: Record<string, string | number | null>[];
+  resultRowCount?: number;
+  resultEngine?: string;
+  resultExecutionTimeMs?: number;
+  semanticContext?: {
+    metric?: string;
+    dimensions?: string[];
+    engine?: string;
+    domain?: string;
+    definition?: string;
+    persona?: string;
+    promptTemplateLoaded?: string;
+  };
 };
 
 export type AnalysisState = {
