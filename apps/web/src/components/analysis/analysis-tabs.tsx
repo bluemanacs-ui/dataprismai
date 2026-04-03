@@ -25,8 +25,8 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
             <button
               key={tab}
               className={`rounded-full px-3 py-1.5 text-xs ${tab === "Chart"
-                ? "bg-blue-600 text-white"
-                : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
+                  ? "bg-blue-600 text-white"
+                  : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
                 }`}
             >
               {tab}
@@ -75,8 +75,16 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
           <div className="mb-2 text-sm font-semibold">Semantic Context</div>
           <div className="space-y-2 text-sm text-zinc-300">
             <div>
+              <span className="text-zinc-500">Domain:</span>{" "}
+              {analysis.semanticContext?.domain || "N/A"}
+            </div>
+            <div>
               <span className="text-zinc-500">Metric:</span>{" "}
               {analysis.semanticContext?.metric || "N/A"}
+            </div>
+            <div>
+              <span className="text-zinc-500">Definition:</span>{" "}
+              {analysis.semanticContext?.definition || "N/A"}
             </div>
             <div>
               <span className="text-zinc-500">Dimensions:</span>{" "}

@@ -11,6 +11,8 @@ export type ChatApiResponse = {
     metric?: string;
     dimensions?: string[];
     engine?: string;
+    domain?: string;
+    definition?: string;
     persona?: string;
     prompt_template_loaded?: string;
   };
@@ -36,6 +38,8 @@ export type AnalysisState = {
     metric?: string;
     dimensions?: string[];
     engine?: string;
+    domain?: string;
+    definition?: string;
     persona?: string;
     promptTemplateLoaded?: string;
   };

@@ -65,6 +65,8 @@ export function AppShell() {
           metric: response.semantic_context.metric,
           dimensions: response.semantic_context.dimensions,
           engine: response.semantic_context.engine,
+          domain: response.semantic_context.domain,
+          definition: response.semantic_context.definition,
           persona: response.semantic_context.persona,
           promptTemplateLoaded: response.semantic_context.prompt_template_loaded,
         },

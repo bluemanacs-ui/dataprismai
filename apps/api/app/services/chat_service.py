@@ -2,15 +2,7 @@ from app.prompts.prompt_builder import build_chat_prompt
 from app.schemas.chat import ChatQueryRequest, ChatQueryResponse
 from app.services.llm_service import generate_with_ollama
 from app.services.response_parser import parse_model_json
-
-
-def _default_semantic_context(persona: str) -> dict:
-    return {
-        "metric": "Revenue",
-        "dimensions": ["Region", "Month"],
-        "engine": "StarRocks",
-        "persona": persona,
-    }
+from app.services.semantic_service import resolve_semantic_context
 
 
 def _fallback_response(raw_output: str, persona: str, semantic_context: dict) -> ChatQueryResponse:
@@ -23,27 +15,29 @@ def _fallback_response(raw_output: str, persona: str, semantic_context: dict) ->
         ],
         follow_ups=[
             "Compare by segment",
-            "Analyze South region",
-            "Show monthly contribution",
+            "Analyze regional variation",
+            "Show time-based breakdown",
         ],
         assumptions=[
-            "Default semantic context was used.",
+            f"Metric inferred as {semantic_context['metric']}.",
             "No real query execution has happened yet.",
         ],
         actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
-        chart_title="Revenue Trend by Region",
+        chart_title=f"{semantic_context['metric']} Trend",
         chart_type="line",
         sql=(
-            "SELECT month, region, SUM(revenue) AS revenue\n"
-            "FROM sales\n"
-            "WHERE month >= CURRENT_DATE - INTERVAL '12 months'\n"
-            "GROUP BY month, region\n"
-            "ORDER BY month ASC;"
+            f"SELECT month, {semantic_context['dimensions'][0].lower()}, "
+            f"SUM({semantic_context['metric'].lower().replace(' ', '_')}) AS value\n"
+            f"FROM semantic_model_table\n"
+            f"GROUP BY month, {semantic_context['dimensions'][0].lower()}\n"
+            f"ORDER BY month ASC;"
         ),
         semantic_context={
             "metric": semantic_context["metric"],
             "dimensions": semantic_context["dimensions"],
             "engine": semantic_context["engine"],
+            "domain": semantic_context["domain"],
+            "definition": semantic_context["definition"],
             "persona": persona,
             "prompt_template_loaded": f"Persona: {persona.capitalize()}",
         },
@@ -55,7 +49,7 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
     message = payload.message.strip()
     persona = payload.persona.strip().lower()
 
-    semantic_context = _default_semantic_context(persona)
+    semantic_context = resolve_semantic_context(message, persona)
     prompt = build_chat_prompt(message, persona, semantic_context)
     raw_output = generate_with_ollama(prompt)
 
@@ -76,19 +70,21 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
             follow_ups=follow_ups[:5] if isinstance(follow_ups, list) else [],
             assumptions=assumptions[:5] if isinstance(assumptions, list) else [],
             actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
-            chart_title="Revenue Trend by Region",
+            chart_title=f"{semantic_context['metric']} Trend",
             chart_type="line",
             sql=(
-                "SELECT month, region, SUM(revenue) AS revenue\n"
-                "FROM sales\n"
-                "WHERE month >= CURRENT_DATE - INTERVAL '12 months'\n"
-                "GROUP BY month, region\n"
-                "ORDER BY month ASC;"
+                f"SELECT month, {semantic_context['dimensions'][0].lower()}, "
+                f"SUM({semantic_context['metric'].lower().replace(' ', '_')}) AS value\n"
+                f"FROM semantic_model_table\n"
+                f"GROUP BY month, {semantic_context['dimensions'][0].lower()}\n"
+                f"ORDER BY month ASC;"
             ),
             semantic_context={
                 "metric": semantic_context["metric"],
                 "dimensions": semantic_context["dimensions"],
                 "engine": semantic_context["engine"],
+                "domain": semantic_context["domain"],
+                "definition": semantic_context["definition"],
                 "persona": persona,
                 "prompt_template_loaded": f"Persona: {persona.capitalize()}",
             },
