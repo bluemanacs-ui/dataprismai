@@ -59,7 +59,13 @@ export function AppShell() {
         chartType: response.chart_type,
         sql: response.sql,
         insights: response.insights,
-        semanticContext: response.semantic_context,
+        semanticContext: {
+          metric: response.semantic_context?.metric,
+          dimensions: response.semantic_context?.dimensions,
+          engine: response.semantic_context?.engine,
+          persona: response.semantic_context?.persona,
+          promptTemplateLoaded: response.semantic_context?.prompt_template_loaded,
+        },
       });
     } catch (error) {
       const errorMessage: ChatMessage = {

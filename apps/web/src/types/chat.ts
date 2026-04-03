@@ -11,6 +11,7 @@ export type ChatApiResponse = {
     dimensions?: string[];
     engine?: string;
     persona?: string;
+    prompt_template_loaded?: string;
   };
 };
 
@@ -32,5 +33,6 @@ export type AnalysisState = {
     dimensions?: string[];
     engine?: string;
     persona?: string;
+    promptTemplateLoaded?: string;
   };
 };

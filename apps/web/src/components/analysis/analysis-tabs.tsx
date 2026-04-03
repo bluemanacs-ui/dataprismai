@@ -4,6 +4,18 @@ type AnalysisTabsProps = {
   analysis: AnalysisState;
 };
 
+function formatPersona(persona?: string) {
+  if (!persona) return "N/A";
+  const map: Record<string, string> = {
+    analyst: "Analyst",
+    cfo: "CFO",
+    manager: "Manager",
+    product: "Product",
+    engineer: "Engineer",
+  };
+  return map[persona] || persona;
+}
+
 export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
   return (
     <div className="flex h-full flex-col">
@@ -12,11 +24,10 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
           {["Chart", "SQL", "Insights", "Semantic", "Lineage"].map((tab) => (
             <button
               key={tab}
-              className={`rounded-full px-3 py-1.5 text-xs ${
-                tab === "Chart"
-                  ? "bg-blue-600 text-white"
-                  : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
-              }`}
+              className={`rounded-full px-3 py-1.5 text-xs ${tab === "Chart"
+                ? "bg-blue-600 text-white"
+                : "bg-zinc-900 text-zinc-400 hover:text-zinc-200"
+                }`}
             >
               {tab}
             </button>
@@ -68,7 +79,11 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
             </div>
             <div>
               <span className="text-zinc-500">Persona:</span>{" "}
-              {analysis.semanticContext?.persona || "N/A"}
+              {formatPersona(analysis.semanticContext?.persona)}
+            </div>
+            <div>
+              <span className="text-zinc-500">Template:</span>{" "}
+              {analysis.semanticContext?.promptTemplateLoaded || "N/A"}
             </div>
           </div>
         </div>
