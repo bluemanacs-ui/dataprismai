@@ -7,6 +7,8 @@ export type ChatApiResponse = {
   chart_title: string;
   chart_type: string;
   sql: string;
+  sql_explanation: string;
+  sql_validation_issues: string[];
   semantic_context: {
     metric?: string;
     dimensions?: string[];
@@ -31,6 +33,8 @@ export type AnalysisState = {
   chartTitle?: string;
   chartType?: string;
   sql?: string;
+  sqlExplanation?: string;
+  sqlValidationIssues?: string[];
   insights?: string[];
   assumptions?: string[];
   rawModelOutput?: string | null;

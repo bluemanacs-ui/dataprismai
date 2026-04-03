@@ -51,6 +51,22 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
           <pre className="overflow-x-auto whitespace-pre-wrap text-xs text-zinc-300">
             {analysis.sql || "No SQL yet"}
           </pre>
+
+          <div className="mt-4">
+            <div className="mb-2 text-sm font-semibold">SQL Explanation</div>
+            <div className="text-sm text-zinc-300">
+              {analysis.sqlExplanation || "No explanation yet"}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <div className="mb-2 text-sm font-semibold">Validation Notes</div>
+            <ul className="space-y-2 text-sm text-zinc-300">
+              {(analysis.sqlValidationIssues || ["No validation notes"]).map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">

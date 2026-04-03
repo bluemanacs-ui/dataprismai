@@ -17,5 +17,7 @@ class ChatQueryResponse(BaseModel):
     chart_title: str
     chart_type: str
     sql: str
+    sql_explanation: str
+    sql_validation_issues: List[str]
     semantic_context: dict
     raw_model_output: Optional[str] = None

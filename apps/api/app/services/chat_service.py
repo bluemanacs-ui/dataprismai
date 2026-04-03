@@ -3,9 +3,14 @@ from app.schemas.chat import ChatQueryRequest, ChatQueryResponse
 from app.services.llm_service import generate_with_ollama
 from app.services.response_parser import parse_model_json
 from app.services.semantic_service import resolve_semantic_context
+from app.services.sql_generation_service import generate_sql_from_question
+from app.services.sql_validator_service import validate_sql
 
 
 def _fallback_response(raw_output: str, persona: str, semantic_context: dict) -> ChatQueryResponse:
+    sql_result = generate_sql_from_question("fallback", persona, semantic_context)
+    is_valid, sql_issues, validated_sql = validate_sql(sql_result.sql)
+
     return ChatQueryResponse(
         answer=raw_output or "DataPrismAI could not generate a structured response.",
         insights=[
@@ -25,13 +30,9 @@ def _fallback_response(raw_output: str, persona: str, semantic_context: dict) ->
         actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
         chart_title=f"{semantic_context['metric']} Trend",
         chart_type="line",
-        sql=(
-            f"SELECT month, {semantic_context['dimensions'][0].lower()}, "
-            f"SUM({semantic_context['metric'].lower().replace(' ', '_')}) AS value\n"
-            f"FROM semantic_model_table\n"
-            f"GROUP BY month, {semantic_context['dimensions'][0].lower()}\n"
-            f"ORDER BY month ASC;"
-        ),
+        sql=validated_sql,
+        sql_explanation=sql_result.explanation,
+        sql_validation_issues=sql_issues,
         semantic_context={
             "metric": semantic_context["metric"],
             "dimensions": semantic_context["dimensions"],
@@ -50,8 +51,12 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
     persona = payload.persona.strip().lower()
 
     semantic_context = resolve_semantic_context(message, persona)
+
     prompt = build_chat_prompt(message, persona, semantic_context)
     raw_output = generate_with_ollama(prompt)
+
+    sql_result = generate_sql_from_question(message, persona, semantic_context)
+    _, sql_issues, validated_sql = validate_sql(sql_result.sql)
 
     try:
         parsed = parse_model_json(raw_output)
@@ -64,21 +69,20 @@ def generate_mock_chat_response(payload: ChatQueryRequest) -> ChatQueryResponse:
         if not answer:
             raise ValueError("Missing answer in parsed response")
 
+        merged_assumptions = assumptions[:5] if isinstance(assumptions, list) else []
+        merged_assumptions.extend(sql_result.assumptions[:2])
+
         return ChatQueryResponse(
             answer=answer,
             insights=insights[:5] if isinstance(insights, list) else [],
             follow_ups=follow_ups[:5] if isinstance(follow_ups, list) else [],
-            assumptions=assumptions[:5] if isinstance(assumptions, list) else [],
+            assumptions=merged_assumptions[:5],
             actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
             chart_title=f"{semantic_context['metric']} Trend",
             chart_type="line",
-            sql=(
-                f"SELECT month, {semantic_context['dimensions'][0].lower()}, "
-                f"SUM({semantic_context['metric'].lower().replace(' ', '_')}) AS value\n"
-                f"FROM semantic_model_table\n"
-                f"GROUP BY month, {semantic_context['dimensions'][0].lower()}\n"
-                f"ORDER BY month ASC;"
-            ),
+            sql=validated_sql,
+            sql_explanation=sql_result.explanation,
+            sql_validation_issues=sql_issues,
             semantic_context={
                 "metric": semantic_context["metric"],
                 "dimensions": semantic_context["dimensions"],

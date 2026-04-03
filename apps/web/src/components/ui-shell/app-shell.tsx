@@ -58,6 +58,8 @@ export function AppShell() {
         chartTitle: response.chart_title,
         chartType: response.chart_type,
         sql: response.sql,
+        sqlExplanation: response.sql_explanation,
+        sqlValidationIssues: response.sql_validation_issues,
         insights: response.insights,
         assumptions: response.assumptions,
         rawModelOutput: response.raw_model_output,
