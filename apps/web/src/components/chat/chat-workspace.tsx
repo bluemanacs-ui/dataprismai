@@ -1,7 +1,18 @@
+import { ChatMessage } from "@/types/chat";
 import { MessageCard } from "./message-card";
 import { PromptInput } from "./prompt-input";
 
-export function ChatWorkspace() {
+type ChatWorkspaceProps = {
+  messages: ChatMessage[];
+  onSend: (message: string) => void;
+  isLoading: boolean;
+};
+
+export function ChatWorkspace({
+  messages,
+  onSend,
+  isLoading,
+}: ChatWorkspaceProps) {
   return (
     <section className="flex min-w-0 flex-1 flex-col">
       <div className="flex-1 overflow-y-auto px-6 py-6">
@@ -13,35 +24,30 @@ export function ChatWorkspace() {
             </p>
           </div>
 
-          <MessageCard
-            role="user"
-            content="Show revenue trend by region for the last 12 months."
-          />
+          {messages.map((message) => (
+            <MessageCard
+              key={message.id}
+              role={message.role}
+              content={message.content}
+              actions={message.actions}
+              followUps={message.followUps}
+            />
+          ))}
 
-          <MessageCard
-            role="assistant"
-            content={`Revenue increased 14.2% year over year over the last 12 months.
-
-West region contributed the highest growth, while South remained nearly flat.
-
-Key highlights:
-- West: +22%
-- East: +11%
-- North: +9%
-- South: +1%`}
-            actions={["Show SQL", "Explain", "Change Chart", "Drill Down"]}
-            followUps={[
-              "Compare by segment",
-              "Analyze South region",
-              "Show monthly contribution",
-            ]}
-          />
+          {isLoading && (
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+              <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                DataPrismAI
+              </div>
+              <div className="text-sm text-zinc-400">Thinking...</div>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="border-t border-zinc-800 px-6 py-4">
         <div className="mx-auto max-w-4xl">
-          <PromptInput />
+          <PromptInput onSend={onSend} isLoading={isLoading} />
         </div>
       </div>
     </section>
