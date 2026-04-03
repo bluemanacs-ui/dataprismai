@@ -63,6 +63,15 @@ export function AnalysisTabs({ analysis }: AnalysisTabsProps) {
         </div>
 
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
+          <div className="mb-2 text-sm font-semibold">Assumptions</div>
+          <ul className="space-y-2 text-sm text-zinc-300">
+            {(analysis.assumptions || ["No assumptions yet"]).map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
           <div className="mb-2 text-sm font-semibold">Semantic Context</div>
           <div className="space-y-2 text-sm text-zinc-300">
             <div>

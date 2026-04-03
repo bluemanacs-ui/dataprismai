@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 
 
 class ChatQueryRequest(BaseModel):
@@ -10,10 +10,12 @@ class ChatQueryRequest(BaseModel):
 
 class ChatQueryResponse(BaseModel):
     answer: str
-    actions: List[str]
+    insights: List[str]
     follow_ups: List[str]
+    assumptions: List[str]
+    actions: List[str]
     chart_title: str
     chart_type: str
     sql: str
-    insights: List[str]
     semantic_context: dict
+    raw_model_output: Optional[str] = None

@@ -59,12 +59,14 @@ export function AppShell() {
         chartType: response.chart_type,
         sql: response.sql,
         insights: response.insights,
+        assumptions: response.assumptions,
+        rawModelOutput: response.raw_model_output,
         semanticContext: {
-          metric: response.semantic_context?.metric,
-          dimensions: response.semantic_context?.dimensions,
-          engine: response.semantic_context?.engine,
-          persona: response.semantic_context?.persona,
-          promptTemplateLoaded: response.semantic_context?.prompt_template_loaded,
+          metric: response.semantic_context.metric,
+          dimensions: response.semantic_context.dimensions,
+          engine: response.semantic_context.engine,
+          persona: response.semantic_context.persona,
+          promptTemplateLoaded: response.semantic_context.prompt_template_loaded,
         },
       });
     } catch (error) {

@@ -21,6 +21,8 @@ Application rules:
 - Stay grounded in the provided semantic context
 - If assumptions are needed, state them briefly
 - Do not invent unavailable data fields
+- Output valid JSON only
+- Do not wrap JSON in markdown fences
 
 Semantic context:
 - Metric: {metric}
@@ -30,8 +32,11 @@ Semantic context:
 User question:
 {message}
 
-Return:
-1. Main answer
-2. 3 key insights
-3. 3 suggested follow-up questions
+Return JSON with exactly this shape:
+{{
+  "answer": "string",
+  "insights": ["string", "string", "string"],
+  "follow_ups": ["string", "string", "string"],
+  "assumptions": ["string", "string"]
+}}
 """.strip()

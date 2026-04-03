@@ -1,11 +1,12 @@
 export type ChatApiResponse = {
   answer: string;
-  actions: string[];
+  insights: string[];
   follow_ups: string[];
+  assumptions: string[];
+  actions: string[];
   chart_title: string;
   chart_type: string;
   sql: string;
-  insights: string[];
   semantic_context: {
     metric?: string;
     dimensions?: string[];
@@ -13,6 +14,7 @@ export type ChatApiResponse = {
     persona?: string;
     prompt_template_loaded?: string;
   };
+  raw_model_output?: string | null;
 };
 
 export type ChatMessage = {
@@ -28,6 +30,8 @@ export type AnalysisState = {
   chartType?: string;
   sql?: string;
   insights?: string[];
+  assumptions?: string[];
+  rawModelOutput?: string | null;
   semanticContext?: {
     metric?: string;
     dimensions?: string[];
