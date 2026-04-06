@@ -19,12 +19,15 @@ class Settings:
     app_name: str = os.getenv("APP_NAME", "DataPrismAI API")
 
     # ── LLM / Ollama ────────────────────────────────────────────────────────
-    ollama_host:  str = os.getenv("OLLAMA_HOST",  "http://localhost:11434")
-    ollama_model: str = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+    # Supported models (comma-separated list shown in /model endpoint)
+    #   e.g.  OLLAMA_AVAILABLE_MODELS=qwen2.5:7b,qwen2.5:32b
+    ollama_host:             str = os.getenv("OLLAMA_HOST",             "http://localhost:11434")
+    ollama_model:            str = os.getenv("OLLAMA_MODEL",            "qwen2.5:32b")
+    ollama_available_models: str = os.getenv("OLLAMA_AVAILABLE_MODELS", "qwen2.5:7b,qwen2.5:32b")
 
     # ── Vanna SQL ────────────────────────────────────────────────────────────
     use_vanna:   bool = os.getenv("USE_VANNA", "false").lower() == "true"
-    vanna_model: str  = os.getenv("VANNA_MODEL", "qwen2.5:7b")
+    vanna_model: str  = os.getenv("VANNA_MODEL", "qwen2.5:32b")
 
     # ── StarRocks ────────────────────────────────────────────────────────────
     starrocks_host:     str = os.getenv("STARROCKS_HOST",     "localhost")
