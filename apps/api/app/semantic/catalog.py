@@ -88,7 +88,7 @@ _HARDCODED_CATALOG: dict = {
         {"name": "Geography", "keywords": ["country", "country code", "country_code", "singapore", "malaysia", "india", "per country", "by country", "each country", "region", "location", "geography"]},
         {"name": "Merchant Category", "keywords": ["mcc", "merchant category", "merchant type", "merchant", "by merchant", "per merchant", "food", "retail", "travel", "grocery"]},
         {"name": "Channel", "keywords": ["channel", "online", "in-store", "atm", "mobile", "e-commerce", "pos", "contactless", "by channel"]},
-        {"name": "Segment", "keywords": ["segment", "customer segment", "mass", "affluent", "priority", "hnw", "tier", "by segment", "per segment", "product type", "product category", "card product", "card type", "account type", "by product", "by account", "card tier"]},
+        {"name": "Segment", "keywords": ["segment", "customer segment", "mass", "affluent", "premium", "tier", "by segment", "per segment", "product type", "product category", "card product", "card type", "account type", "by product", "by account", "card tier"]},
         {"name": "Overdue Bucket", "keywords": ["overdue bucket", "1-30", "31-60", "61-90", "91+", "dpd", "days past due", "delinquency bucket"]},
         {"name": "Age Band", "keywords": ["age band", "age group", "25-34", "35-44", "45-54", "55+", "young", "senior", "by age"]},
         {"name": "Payment Method", "keywords": ["payment method", "giro", "paynow", "upi", "fpxpay", "bank transfer", "online banking"]},
@@ -292,16 +292,18 @@ METRIC_SQL_BY_DIMENSION: dict[tuple[str, str], str] = {
         "ORDER BY total_spend DESC"
     ),
 
-    # Total Spend × Merchant Category
+    # Total Spend × Merchant Category — use spend_metrics pre-agg categories
     ("Total Spend", "Merchant Category"): (
-        "SELECT merchant_category, country_code, "
-        "ROUND(SUM(amount), 2) AS total_spend, "
-        "COUNT(*) AS txn_count, "
-        "ROUND(AVG(amount), 2) AS avg_txn_amount "
-        "FROM cc_analytics.semantic_transaction_summary "
-        "WHERE transaction_type = 'PURCHASE' AND auth_status = 'APPROVED' "
-        "GROUP BY merchant_category, country_code "
-        "ORDER BY total_spend DESC LIMIT 20"
+        "SELECT 'food_dining' AS merchant_category, country_code, ROUND(SUM(food_dining), 0) AS total_spend FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'retail_shopping', country_code, ROUND(SUM(retail_shopping), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'travel_transport', country_code, ROUND(SUM(travel_transport), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'grocery', country_code, ROUND(SUM(grocery), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'entertainment', country_code, ROUND(SUM(entertainment), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'utilities', country_code, ROUND(SUM(utilities), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'healthcare', country_code, ROUND(SUM(healthcare), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'hotel', country_code, ROUND(SUM(hotel), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "UNION ALL SELECT 'fuel', country_code, ROUND(SUM(fuel), 0) FROM cc_analytics.semantic_spend_metrics GROUP BY country_code "
+        "ORDER BY total_spend DESC"
     ),
 
     # Total Spend × Segment

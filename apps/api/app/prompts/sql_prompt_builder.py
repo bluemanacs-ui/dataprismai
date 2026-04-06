@@ -15,6 +15,7 @@
 _STATIC_SCHEMA_CONTEXT = """
 Database: cc_analytics (StarRocks / MySQL-compatible)
 Countries: SG (Singapore / SGD), MY (Malaysia / MYR), IN (India / INR)
+Data year: 2025 (full year Jan–Dec 2025; all tables cover 2025-01 to 2025-12)
 
 === PRIMARY: Semantic Tables (prefer for all analytics queries) ===
 
@@ -93,19 +94,28 @@ raw_transaction.merchant_id                   → raw_merchant.merchant_id
 === Important Query Rules ===
 - Always prefix table names: cc_analytics.semantic_customer_360
 - Use DATE_FORMAT(col, '%Y-%m') for monthly grouping; do NOT use date_trunc
-- Segment values: MASS, AFFLUENT, PRIORITY, HNW
-- Payment status values: PAID, OVERDUE, UPCOMING, DUE_TODAY
-- Auth status values: APPROVED, DECLINED, REVERSED
-- Overdue buckets: CURRENT, 1-30, 31-60, 61-90, 91+
-- fraud_score > 0.6 = suspicious; > 0.85 = high risk
+- customer_segment values (lowercase): mass, affluent, premium
+- payment_status values: paid_full, paid_partial, paid_minimum, overdue, pending
+- transaction_type values: purchase, declined
+- auth_status values: approved, declined
+- overdue_bucket values: current, '1-30 days', '31-60 days'
+- channel values: online, pos, contactless, mobile, atm
+- legal_entity values: SG_BANK, MY_BANK, IN_BANK
+- risk_rating values: low, medium, high
+- kyc_status values: verified, pending, enhanced_dd
+- credit_band values: poor, fair, good, very_good, excellent
+- age_band values: 18-25, 26-35, 36-45, 46-55, 56-65, 65+
+- merchant_risk_tier values: low, medium
+- fraud_score > 0.6 = suspicious; > 0.85 = high risk; is_suspicious=1 for flagged
 - For customer name lookups: WHERE full_name LIKE '%Name%' or WHERE first_name = 'Name'
-- For "top N customers in [country]" or "top spending customers": SELECT customer_id, full_name, total_spend, ... FROM cc_analytics.semantic_spend_metrics WHERE country_code = '[CODE]' ORDER BY total_spend DESC LIMIT N
-- Country code mapping: Malaysia='MY', Singapore='SG', India='IN', Indonesia='ID'
+- For spend by category: use semantic_spend_metrics pre-aggregated columns (food_dining, retail_shopping, travel_transport, grocery, entertainment, utilities, healthcare, hotel, fuel, other_spend)
+- For top-N spending customers: SELECT full_name, total_spend FROM cc_analytics.semantic_spend_metrics ORDER BY total_spend DESC LIMIT N
+- Country code mapping: Malaysia='MY', Singapore='SG', India='IN'
 - For multi-country queries, GROUP BY country_code to show per-country breakdown
-- semantic_portfolio_kpis is best for executive/portfolio-level KPI questions
-- semantic_spend_metrics has pre-aggregated category columns (food_dining, retail_shopping, etc.)
+- semantic_portfolio_kpis is best for executive/portfolio-level KPI questions (fraud_rate, delinquency_rate, full_payment_rate are stored as decimals — multiply by 100 for %)
+- semantic_risk_metrics.delinquency_1_30, delinquency_31_60, delinquency_61_90, delinquency_91plus are all decimal ratios — multiply by 100 for %
+- avg_utilization in semantic_portfolio_kpis and utilization_pct in semantic_customer_360 are decimals (0–1) — multiply by 100 for %
 """
-
 # Maps UI time-range labels to SQL WHERE clauses (StarRocks / MySQL-compat DATE_SUB)
 _TIME_RANGE_SQL: dict[str, str] = {
     "L7D":  "transaction_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)",
@@ -118,9 +128,10 @@ _TIME_RANGE_SQL: dict[str, str] = {
 # Alternate date column names used in non-transaction tables
 _DATE_COL_ALIASES: dict[str, str] = {
     "semantic_customer_360":       "as_of_date",
-    "semantic_portfolio_kpis":     "as_of_date",
-    "semantic_payment_status":     "payment_date",
-    "semantic_spend_metrics":      "as_of_date",
+    "semantic_portfolio_kpis":     "kpi_month",
+    "semantic_payment_status":     "as_of_date",
+    "semantic_spend_metrics":      "spend_month",
+    "semantic_risk_metrics":       "metric_date",
 }
 
 
