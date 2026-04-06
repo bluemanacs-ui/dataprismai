@@ -105,6 +105,7 @@ export type ChatApiResponse = {
     prompt_template_loaded?: string;
   };
   reasoning_steps: string[];
+  model_used?: string | null;
   raw_model_output?: string | null;
 };
 
@@ -138,6 +139,7 @@ export type ChatMessage = {
   resultEngine?: string;
   resultExecutionTimeMs?: number;
   reasoningSteps?: string[];
+  modelUsed?: string | null;
   semanticContext?: {
     metric?: string;
     dimensions?: string[];

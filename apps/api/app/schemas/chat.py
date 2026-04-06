@@ -45,4 +45,5 @@ class ChatQueryResponse(BaseModel):
     result_execution_time_ms: int
     semantic_context: dict
     reasoning_steps: List[str] = Field(default_factory=list)
+    model_used: Optional[str] = None
     raw_model_output: Optional[str] = None

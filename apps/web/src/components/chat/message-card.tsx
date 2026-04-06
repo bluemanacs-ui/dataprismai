@@ -227,6 +227,7 @@ export function MessageCard({
   resultEngine,
   resultExecutionTimeMs,
   reasoningSteps = [],
+  modelUsed,
   semanticContext,
   onFollowUpClick,
   userName,
@@ -844,6 +845,17 @@ export function MessageCard({
           accentBg="var(--step-bg)"
           accentText="var(--foreground)"
         >
+          {modelUsed && (
+            <div className="mb-2 flex items-center gap-1.5">
+              <span className="text-[10px]" style={{ color: "var(--muted)" }}>Model:</span>
+              <span
+                className="rounded px-2 py-0.5 text-[10px] font-mono font-medium"
+                style={{ backgroundColor: "var(--tag-bg)", color: "var(--accent-2)" }}
+              >
+                {modelUsed}
+              </span>
+            </div>
+          )}
           {reasoningSteps.map((step, i) => (
             <div key={i} className="flex items-start gap-3">
               <span

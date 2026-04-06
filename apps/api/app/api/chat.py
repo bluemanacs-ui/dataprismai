@@ -25,6 +25,7 @@ from app.graph_nodes.recommendation_node import (
 )
 from app.services.llm_service import generate_with_ollama
 from app.semantic.catalog import _HARDCODED_CATALOG
+from app.core.config import settings as app_settings
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
@@ -90,6 +91,7 @@ def chat_query(payload: ChatQueryRequest) -> ChatQueryResponse:
         result_execution_time_ms=qr.get("execution_time_ms") or 0,
         semantic_context=sc,
         reasoning_steps=final_state.get("reasoning_steps") or [],
+        model_used=app_settings.ollama_model,
         raw_model_output=None,
     )
 
