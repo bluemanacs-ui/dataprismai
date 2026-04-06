@@ -43,7 +43,7 @@ export const ROLE_PERSONA_MAP: Record<UserRole, string> = {
   finance_user:           "finance_user",
   regional_finance_user:  "regional_finance_user",
   regional_risk_user:     "regional_risk_user",
-  admin:                  "fraud_analyst",      // admin gets the broadest analytical persona
+  admin:                  "admin",              // admin: no preset persona — fully semantic/data-driven
 };
 
 export const PERSONAS = [
@@ -62,9 +62,9 @@ export const DEMO_USERS: (AppUser & { password: string })[] = [
     name: "Acs Admin",
     email: "admin@dataprismai.io",
     role: "admin",
-    persona: "fraud_analyst",
+    persona: "admin",
     department: "Platform",
-    default_domain: "risk",
+    default_domain: "all",
     allowed_domains: ["customer", "transactions", "spend", "payments", "risk", "portfolio"],
     country_codes: ["SG", "MY", "IN"],
     password: "admin123",
