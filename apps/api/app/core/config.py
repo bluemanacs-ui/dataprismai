@@ -12,7 +12,12 @@
 # =============================================================================
 
 import os
+from dotenv import load_dotenv
 
+# Load .env before reading any os.getenv() defaults so that the values
+# in apps/api/.env take effect even when config.py is imported before
+# main.py calls load_dotenv().
+load_dotenv()
 
 class Settings:
     # ── Application ─────────────────────────────────────────────────────────
