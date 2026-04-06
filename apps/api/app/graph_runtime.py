@@ -79,6 +79,8 @@ class AgentState(TypedDict, total=False):
     _needs_retry: bool
     _retry_count: int
     prior_context: list
+    sql_llm_used: bool
+    answer_llm_used: bool
 
 
 def _after_guardrail(state: AgentState) -> str:
