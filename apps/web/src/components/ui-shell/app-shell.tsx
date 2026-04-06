@@ -288,6 +288,7 @@ function AppShellInner({
         resultEngine: response.result_engine,
         resultExecutionTimeMs: response.result_execution_time_ms,
         reasoningSteps: response.reasoning_steps,
+        sqlLlmUsed: response.sql_llm_used,
         modelUsed: response.model_used,
         semanticContext: {
           metric: response.semantic_context?.metric,

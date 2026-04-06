@@ -171,6 +171,7 @@ def vanna_sql_node(state: dict) -> dict:
             "generated_sql": sql_result.sql,
             "sql_explanation": sql_result.explanation,
             "sql_assumptions": sql_result.assumptions,
+            "sql_llm_used": sql_result.llm_was_used,
             "reasoning_steps": steps,
         }
     except Exception as e:

@@ -559,6 +559,7 @@ def generate_sql_from_question(message: str, persona: str, semantic_context: dic
             sql=sql,
             explanation=explanation or "SQL generated from semantic context.",
             assumptions=assumptions if isinstance(assumptions, list) else [],
+            llm_was_used=True,
         )
     except Exception:
         metric = semantic_context.get("metric", "")
