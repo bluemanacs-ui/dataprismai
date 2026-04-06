@@ -19,6 +19,12 @@ data/synthetic/pack/
 data/synthetic/raw/
 data/synthetic/parquet/
 
+# Python virtualenvs (anywhere in the tree)
+venv/
+.venv/
+env/
+.env/
+
 # Python cache
 __pycache__/
 *.pyc
