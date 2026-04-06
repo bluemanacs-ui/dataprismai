@@ -122,7 +122,207 @@ def _has_grouping_intent(message: str) -> bool:
 # ---------------------------------------------------------------------------
 # Each entry: (compiled_regex, sql_template)
 # sql_template may contain {limit} which is filled from the message.
+# IMPORTANT: more-specific semantic-table patterns must appear BEFORE
+# generic raw-table patterns so they match first.
 _ANALYTICAL_PATTERNS: list[tuple] = [
+    # ── Semantic table patterns (correct columns, always work) ───────────────
+
+    # Suspicious transactions by merchant category
+    (
+        re.compile(
+            r"\b(suspicious|is_suspicious|suspect)\b.{0,80}\b(merchant.?categor\w*|categor\w+)\b"
+            r"|\b(merchant.?categor\w*|categor\w+)\b.{0,80}\b(suspicious|suspect).{0,40}\b(transaction|volume|count)\b"
+            r"|\b(top|most)\b.{0,30}\b(merchant.?categor\w*|categor\w+)\b.{0,80}\b(suspicious|suspect)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT merchant_category, COUNT(*) AS suspicious_count,"
+            " ROUND(SUM(amount), 0) AS total_amount,"
+            " ROUND(AVG(fraud_score), 3) AS avg_fraud_score"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " WHERE is_suspicious = 1"
+            " GROUP BY merchant_category"
+            " ORDER BY suspicious_count DESC"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Fraud transactions by merchant category
+    (
+        re.compile(
+            r"\b(fraud|is_fraud|confirmed.?fraud)\b.{0,60}\b(merchant.?categor\w*|categor\w+)\b"
+            r"|\b(merchant.?categor\w*|categor\w+)\b.{0,60}\b(fraud).{0,40}\b(transaction|volume|count|rate|amount)\b"
+            r"|\b(top|most)\b.{0,30}\b(merchant.?categor\w*|categor\w+)\b.{0,60}\b(fraud)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT merchant_category, COUNT(*) AS fraud_count,"
+            " ROUND(SUM(amount), 0) AS fraud_amount,"
+            " ROUND(AVG(fraud_score), 3) AS avg_fraud_score"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " WHERE is_fraud = 1"
+            " GROUP BY merchant_category"
+            " ORDER BY fraud_count DESC"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Fraud rate by country / country fraud breakdown
+    (
+        re.compile(
+            r"\b(fraud.?rate|fraud.?trend|fraud.?level)\b.{0,60}\b(country|countries|country.?code|nation|region)\b"
+            r"|\b(country|countries)\b.{0,60}\b(fraud.?rate|fraud.?trend|highest.?fraud|fraud.?breakdown)\b"
+            r"|\b(which|what)\b.{0,30}\b(country|countries)\b.{0,60}\b(fraud|highest.?fraud|most.?fraud)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT country_code, customer_segment,"
+            " SUM(fraud_txn) AS fraud_txn_count,"
+            " SUM(total_txn) AS total_txn,"
+            " ROUND(AVG(fraud_rate) * 100, 3) AS avg_fraud_rate_pct,"
+            " ROUND(AVG(avg_fraud_score), 3) AS avg_fraud_score"
+            " FROM cc_analytics.semantic_risk_metrics"
+            " GROUP BY country_code, customer_segment"
+            " ORDER BY avg_fraud_rate_pct DESC"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Decline reasons breakdown
+    (
+        re.compile(
+            r"\b(decline.?reason|declined.?reason|reason.{0,10}declin|why.{0,20}declin)\b"
+            r"|\b(declin\w+)\b.{0,40}\b(breakdown|split|distribution|by.?reason|reason)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT decline_reason, COUNT(*) AS declined_count,"
+            " ROUND(SUM(amount), 0) AS declined_amount"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " WHERE is_declined = 1 AND decline_reason IS NOT NULL"
+            " GROUP BY decline_reason"
+            " ORDER BY declined_count DESC"
+        ),
+    ),
+    # Transaction breakdown by channel
+    (
+        re.compile(
+            r"\b(channel)\b.{0,60}\b(fraud|decline|transaction|spend|volume|breakdown|split)\b"
+            r"|\b(fraud|decline|transaction|spend)\b.{0,40}\b(by.?channel|per.?channel|across.?channel|channel.?breakdown)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT channel,"
+            " COUNT(*) AS total_txn,"
+            " SUM(is_fraud) AS fraud_count,"
+            " SUM(is_declined) AS declined_count,"
+            " ROUND(SUM(amount), 0) AS total_amount,"
+            " ROUND(100.0 * SUM(is_fraud) / COUNT(*), 3) AS fraud_rate_pct"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " GROUP BY channel"
+            " ORDER BY total_txn DESC"
+        ),
+    ),
+    # Overdue / at-risk customers
+    (
+        re.compile(
+            r"\b(overdue|past.?due|delinquent|late.?payment|missed.?payment|at.?risk)\b.{0,60}\b(customer|customers|account|accounts)\b"
+            r"|\b(customer|customers|account|accounts)\b.{0,40}\b(overdue|past.?due|delinquent|late.?payment)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT full_name, country_code, customer_segment,"
+            " payment_status, overdue_bucket, overdue_days,"
+            " ROUND(total_due, 0) AS total_due,"
+            " ROUND(amount_outstanding, 0) AS amount_outstanding,"
+            " consecutive_late"
+            " FROM cc_analytics.semantic_payment_status"
+            " WHERE payment_status IN ('overdue', 'paid_minimum') OR overdue_days > 0"
+            " ORDER BY amount_outstanding DESC"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Payment status breakdown
+    (
+        re.compile(
+            r"\b(payment.?status|payment.?breakdown|payment.?distribution|how.{0,20}paid)\b"
+            r"|\b(paid.?full|paid.?partial|minimum.?due|overdue.?bucket)\b.{0,40}\b(breakdown|split|count|summary)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT payment_status,"
+            " COUNT(*) AS account_count,"
+            " ROUND(SUM(total_due), 0) AS total_due,"
+            " ROUND(SUM(amount_outstanding), 0) AS amount_outstanding"
+            " FROM cc_analytics.semantic_payment_status"
+            " GROUP BY payment_status"
+            " ORDER BY account_count DESC"
+        ),
+    ),
+    # Portfolio KPIs
+    (
+        re.compile(
+            r"\b(portfolio.?kpi|kpi|portfolio.?health|portfolio.?metric|portfolio.?performance)\b"
+            r"|\b(utilization|delinquency.?rate|full.?payment.?rate|npl.?rate|churn.?rate)\b.{0,60}\b(country|month|quarter|trend|by)\b"
+            r"|\bportfolio\b.{0,30}\b(kpi|health|metric|performance|summary)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT kpi_month, country_code,"
+            " total_customers, active_customers,"
+            " ROUND(total_spend, 0) AS total_spend,"
+            " ROUND(spend_growth_pct * 100, 2) AS spend_growth_pct,"
+            " ROUND(avg_utilization * 100, 2) AS avg_utilization_pct,"
+            " ROUND(fraud_rate * 100, 3) AS fraud_rate_pct,"
+            " ROUND(delinquency_rate * 100, 3) AS delinquency_rate_pct,"
+            " ROUND(full_payment_rate * 100, 2) AS full_payment_rate_pct,"
+            " ROUND(est_interest_income, 0) AS est_interest_income"
+            " FROM cc_analytics.semantic_portfolio_kpis"
+            " ORDER BY kpi_month DESC, country_code"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Top spending customers (semantic_spend_metrics — aggregated, has full_name)
+    (
+        re.compile(
+            r"\b(top|highest|biggest|most)\b.{0,20}\b(spend|spending|spender|spent)\b.{0,20}\b(customer|customers)\b"
+            r"|\b(customer|customers|who)\b.{0,30}\b(highest|most|top)\b.{0,10}\b(spend|spending|spent)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT full_name, country_code, customer_segment,"
+            " ROUND(SUM(total_spend), 0) AS total_spend,"
+            " SUM(transaction_count) AS txn_count,"
+            " top_category"
+            " FROM cc_analytics.semantic_spend_metrics"
+            " GROUP BY full_name, country_code, customer_segment, top_category"
+            " ORDER BY total_spend DESC"
+            " LIMIT {limit}"
+        ),
+    ),
+    # Spend by merchant category
+    (
+        re.compile(
+            r"\b(spend|spending|spent|total.?spend)\b.{0,50}\b(merchant.?categor\w*|categor\w+)\b"
+            r"|\b(merchant.?categor\w*|categor\w+)\b.{0,50}\b(spend|spending|spent|breakdown|split)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT country_code,"
+            " ROUND(SUM(food_dining), 0) AS food_dining,"
+            " ROUND(SUM(retail_shopping), 0) AS retail_shopping,"
+            " ROUND(SUM(travel_transport), 0) AS travel_transport,"
+            " ROUND(SUM(grocery), 0) AS grocery,"
+            " ROUND(SUM(entertainment), 0) AS entertainment,"
+            " ROUND(SUM(utilities), 0) AS utilities,"
+            " ROUND(SUM(healthcare), 0) AS healthcare,"
+            " ROUND(SUM(hotel), 0) AS hotel,"
+            " ROUND(SUM(fuel), 0) AS fuel"
+            " FROM cc_analytics.semantic_spend_metrics"
+            " GROUP BY country_code"
+            " ORDER BY country_code"
+        ),
+    ),
+
+    # ── Raw table patterns (fixed column names) — fallback for direct raw queries ─
+
     # Customers by card count
     (
         re.compile(
@@ -148,62 +348,28 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             re.IGNORECASE,
         ),
         (
-            "SELECT c.customer_id, CONCAT(c.first_name, ' ', c.last_name) AS full_name,"
-            " COUNT(t.txn_id) AS txn_count, SUM(t.txn_amount) AS total_spend"
-            " FROM cc_analytics.raw_customer c"
-            " JOIN cc_analytics.raw_transaction t ON c.customer_id = t.customer_id"
-            " GROUP BY c.customer_id, c.first_name, c.last_name"
+            "SELECT full_name, customer_segment, country_code,"
+            " COUNT(*) AS txn_count,"
+            " ROUND(SUM(amount), 0) AS total_spend"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " GROUP BY full_name, customer_segment, country_code"
             " ORDER BY txn_count DESC"
             " LIMIT {limit}"
         ),
     ),
-    # Customers by dispute count
+    # Merchants by transaction count (not by category — explicit merchant names)
     (
         re.compile(
-            r"\b(customer|customers|who)\b.{0,50}\b(most dispute|highest dispute|dispute.{0,10}count|many dispute|high.*dispute)\b"
-            r"|\b(top|most)\b.{0,10}\bdispute.{0,30}\b(customer|customers)\b",
+            r"\b(merchant|merchants)\b.{0,50}\b(most transaction|highest transaction|active|busiest)\b"
+            r"|\b(busiest)\b.{0,20}\b(merchant|merchants)\b",
             re.IGNORECASE,
         ),
         (
-            "SELECT c.customer_id, CONCAT(c.first_name, ' ', c.last_name) AS full_name,"
-            " COUNT(d.dispute_id) AS dispute_count"
-            " FROM cc_analytics.raw_customer c"
-            " JOIN cc_analytics.raw_dispute d ON c.customer_id = d.customer_id"
-            " GROUP BY c.customer_id, c.first_name, c.last_name"
-            " ORDER BY dispute_count DESC"
-            " LIMIT {limit}"
-        ),
-    ),
-    # Customers by spend
-    (
-        re.compile(
-            r"\b(top|highest|biggest|most)\b.{0,20}\b(spend|spending|spender|spent)\b.{0,20}\b(customer|customers)\b"
-            r"|\b(customer|customers|who)\b.{0,30}\b(highest|most|top)\b.{0,10}\b(spend|spending|spent)\b",
-            re.IGNORECASE,
-        ),
-        (
-            "SELECT c.customer_id, CONCAT(c.first_name, ' ', c.last_name) AS full_name,"
-            " SUM(t.txn_amount) AS total_spend, COUNT(t.txn_id) AS txn_count"
-            " FROM cc_analytics.raw_customer c"
-            " JOIN cc_analytics.raw_transaction t ON c.customer_id = t.customer_id"
-            " GROUP BY c.customer_id, c.first_name, c.last_name"
-            " ORDER BY total_spend DESC"
-            " LIMIT {limit}"
-        ),
-    ),
-    # Merchants by transaction count
-    (
-        re.compile(
-            r"\b(merchant|merchants)\b.{0,50}\b(most transaction|highest transaction|active|top|busiest)\b"
-            r"|\b(top|most|busiest)\b.{0,20}\b(merchant|merchants)\b.{0,30}\b(transaction|txn|volume)\b",
-            re.IGNORECASE,
-        ),
-        (
-            "SELECT m.merchant_id, m.merchant_name, m.merchant_category,"
-            " COUNT(t.txn_id) AS txn_count, SUM(t.txn_amount) AS total_amount"
-            " FROM cc_analytics.raw_merchant m"
-            " JOIN cc_analytics.raw_transaction t ON m.merchant_id = t.merchant_id"
-            " GROUP BY m.merchant_id, m.merchant_name, m.merchant_category"
+            "SELECT merchant_name, merchant_category,"
+            " COUNT(*) AS txn_count,"
+            " ROUND(SUM(amount), 0) AS total_amount"
+            " FROM cc_analytics.semantic_transaction_summary"
+            " GROUP BY merchant_name, merchant_category"
             " ORDER BY txn_count DESC"
             " LIMIT {limit}"
         ),
