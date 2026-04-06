@@ -92,6 +92,7 @@ def chat_query(payload: ChatQueryRequest) -> ChatQueryResponse:
         semantic_context=sc,
         reasoning_steps=final_state.get("reasoning_steps") or [],
         sql_llm_used=bool(final_state.get("sql_llm_used")),
+        answer_llm_used=bool(final_state.get("answer_llm_used")),
         model_used=app_settings.ollama_model,
         raw_model_output=None,
     )

@@ -46,5 +46,6 @@ class ChatQueryResponse(BaseModel):
     semantic_context: dict
     reasoning_steps: List[str] = Field(default_factory=list)
     sql_llm_used: bool = False
+    answer_llm_used: bool = False
     model_used: Optional[str] = None
     raw_model_output: Optional[str] = None

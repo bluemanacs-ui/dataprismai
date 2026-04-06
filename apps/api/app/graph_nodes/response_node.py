@@ -1,7 +1,81 @@
 import re
+import logging
+from app.services.llm_service import generate_with_ollama
 
+logger = logging.getLogger(__name__)
 
 _DATE_LIKE_RE = re.compile(r"^\d{4}-\d{2}(-\d{2})?$")
+
+
+def _build_narrative_prompt(
+    user_message: str,
+    persona: str,
+    metric: str,
+    rows: list,
+    columns: list,
+    insights: list,
+) -> str:
+    """Build a concise LLM prompt to narrate query results."""
+    n = len(rows)
+    top_rows = rows[:8]
+    data_lines = []
+    for i, row in enumerate(top_rows):
+        vals = ", ".join(f"{c}: {row.get(c, 'N/A')}" for c in columns[:7])
+        data_lines.append(f"  {i+1}. {vals}")
+    data_str = "\n".join(data_lines) or "  (no rows)"
+    insights_str = "\n".join(f"- {s}" for s in insights[:4]) if insights else "- none"
+
+    return (
+        f"You are a {persona} analytics assistant for a credit card portfolio.\n\n"
+        f"User asked: {user_message}\n"
+        f"Metric: {metric or 'general analytics'}\n"
+        f"Total rows returned: {n}\n\n"
+        f"Top data rows:\n{data_str}\n\n"
+        f"Statistical insights:\n{insights_str}\n\n"
+        "Write a concise 2-3 sentence analytical response directly answering the user's question.\n"
+        "Rules:\n"
+        "- Be specific — include actual numbers from the data\n"
+        "- Bold the most important values with **value**\n"
+        "- Lead with the key finding, not background\n"
+        "- Do NOT start with 'Based on', 'The data shows', or 'I'\n"
+        "- Do NOT output JSON, markdown code blocks, or headings\n"
+        "- Output only the narrative text"
+    )
+
+
+def _llm_narrative(state: dict, rule_answer: str) -> tuple[str, bool]:
+    """
+    Attempt to generate an LLM narrative answer.
+    Returns (answer_text, llm_was_used).
+    Falls back to rule_answer if LLM fails or is not applicable.
+    """
+    response_mode = state.get("response_mode", "metric")
+    # Only narrate aggregated analytics — not raw table previews or schema
+    if response_mode in ("table", "schema"):
+        return rule_answer, False
+
+    rows = (state.get("query_result") or {}).get("rows", [])
+    columns = (state.get("query_result") or {}).get("columns", [])
+    if not rows:
+        return rule_answer, False
+
+    try:
+        prompt = _build_narrative_prompt(
+            user_message=state.get("user_message", ""),
+            persona=state.get("persona", "analyst"),
+            metric=(state.get("semantic_context") or {}).get("metric", ""),
+            rows=rows,
+            columns=columns,
+            insights=state.get("insights") or [],
+        )
+        llm_text = generate_with_ollama(prompt, temperature=0.3).strip()
+        # Sanity check — reject empty or error responses
+        if llm_text and not llm_text.startswith("DataPrismAI could not reach"):
+            return llm_text, True
+    except Exception as exc:
+        logger.warning("LLM narrative failed, using rule-based answer: %s", exc)
+
+    return rule_answer, False
 
 # Maps numeric column name fragments to human-readable units for inline display
 _UNIT_HINTS = {
@@ -169,7 +243,9 @@ def response_node(state: dict) -> dict:
 
         if bottlenecks:
             answer += f" {len(bottlenecks)} flag(s) raised."
-        return {**state, "answer": answer}
+        rule_answer = answer
+        answer, answer_llm_used = _llm_narrative(state, rule_answer)
+        return {**state, "answer": answer, "answer_llm_used": answer_llm_used}
 
     # Determine if the first column is a date/period (time-series) vs a categorical dimension
     top_dim_val = str(top_row.get(dim_col, ""))
@@ -288,6 +364,7 @@ def response_node(state: dict) -> dict:
     if highlight_actions:
         answer_parts.append(f"{len(highlight_actions)} recommended action(s) generated.")
 
-    answer = " ".join(answer_parts)
-    return {**state, "answer": answer}
+    rule_answer = " ".join(answer_parts)
+    answer, answer_llm_used = _llm_narrative(state, rule_answer)
+    return {**state, "answer": answer, "answer_llm_used": answer_llm_used}
 
