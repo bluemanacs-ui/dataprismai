@@ -1,0 +1,12 @@
+dimension_name,business_name,definition,domain,allowed_values_jsonb
+date,Date,Transaction or event date,date,"{""format"": ""YYYY-MM-DD"", ""range"": ""2022-01-01 to 2024-12-31""}"
+geography,Geography,Location hierarchy,geography,"{""levels"": [""country"", ""state"", ""city"", ""zip""]}"
+merchant_category,Merchant Category,Merchant business category,merchant,"{""codes"": [""5411"", ""5812"", ""5541"", ""5912"", ""5311"", ""4814"", ""4121"", ""5814"", ""5999"", ""6011""]}"
+channel,Channel,Transaction channel,channel,"{""values"": [""online"", ""instore"", ""atm"", ""contactless""]}"
+product,Product,Card product type,product,"{""types"": [""rewards"", ""cashback"", ""basic"", ""business""]}"
+segment,Customer Segment,Customer value segment,segment,"{""values"": [""Platinum"", ""Gold"", ""Silver"", ""Bronze""]}"
+device,Device,Transaction device type,device,"{""types"": [""mobile"", ""desktop"", ""pos_terminal"", ""atm_machine""]}"
+risk_segment,Risk Segment,Credit risk segment,risk,"{""ranges"": [""300-579"", ""580-669"", ""670-739"", ""740-850""]}"
+month,Month,Calendar month,date,"{""format"": ""YYYY-MM""}"
+hour,Hour,Hour of day,time,"{""range"": ""0-23""}"
+cohort_month,Cohort Month,Account origination month,date,"{""format"": ""YYYY-MM""}"

@@ -1,3 +1,13 @@
+# =============================================================================
+# DataPrismAI — Prompt Builder
+# =============================================================================
+# Constructs the system prompt for the LLM from persona text + semantic context.
+#
+# HOW TO CUSTOMISE THE LLM PROMPT:
+#   • Change tone / rules  →  edit this file
+#   • Change persona       →  edit apps/api/app/prompts/personas/<name>.txt
+#   • Change output schema →  update the JSON shape here AND in schemas/chat.py
+# =============================================================================
 from app.prompts.persona_loader import load_persona_prompt
 
 

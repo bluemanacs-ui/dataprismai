@@ -1,0 +1,96 @@
+merchant_id,country_code,merchant_name,merchant_category,mcc_code,business_type,address,city,is_online,risk_tier,fraud_rate,decline_rate,created_at,updated_at
+MCH_00001,SG,NTUC FairPrice,grocery,5411,supermarket,13 Main St,Singapore,0,low,0.0033,0.0389,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00002,SG,Cold Storage,grocery,5411,supermarket,19 Main St,Singapore,0,low,0.0029,0.0305,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00003,SG,Sheng Siong,grocery,5411,supermarket,125 Main St,Singapore,0,low,0.0026,0.0304,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00004,SG,Grab Food SG,food_dining,5812,food_delivery,162 Main St,Singapore,1,low,0.0039,0.036,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00005,SG,McDonald's Singapore,food_dining,5812,fast_food,91 Main St,Singapore,0,low,0.0022,0.0397,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00006,SG,Ya Kun Kaya Toast,food_dining,5812,cafe,159 Main St,Singapore,0,low,0.0025,0.0335,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00007,SG,TCC Coffee,food_dining,5812,cafe,154 Main St,Singapore,0,low,0.0026,0.0389,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00008,SG,Bengawan Solo,food_dining,5812,bakery,196 Main St,Singapore,0,low,0.0022,0.031,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00009,SG,Old Chang Kee,food_dining,5812,fast_food,45 Main St,Singapore,0,low,0.0023,0.0349,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00010,SG,BreadTalk,food_dining,5812,bakery,100 Main St,Singapore,0,low,0.0035,0.0325,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00011,SG,Grab Transport SG,travel_transport,4111,ride_hailing,143 Main St,Singapore,1,low,0.0029,0.0316,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00012,SG,ComfortDelGro,travel_transport,4111,taxi,93 Main St,Singapore,0,low,0.0037,0.0315,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00013,SG,Singapore Airlines,travel_transport,4511,airline,29 Main St,Singapore,1,low,0.0028,0.0338,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00014,SG,Scoot,travel_transport,4511,airline,83 Main St,Singapore,1,low,0.0034,0.0326,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00015,SG,SP Group,utilities,4900,utility,166 Main St,Singapore,0,low,0.0028,0.0396,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00016,SG,Singtel,utilities,4814,telco,50 Main St,Singapore,0,low,0.0035,0.03,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00017,SG,StarHub,utilities,4814,telco,139 Main St,Singapore,0,low,0.0036,0.032,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00018,SG,Raffles Medical Group,healthcare,8011,clinic,75 Main St,Singapore,0,low,0.0026,0.0344,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00019,SG,Mount Elizabeth Hospital,healthcare,8011,hospital,5 Main St,Singapore,0,low,0.0026,0.0384,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00020,SG,Parkway Health,healthcare,8011,clinic,128 Main St,Singapore,0,low,0.003,0.0358,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00021,SG,Golden Village,entertainment,7832,cinema,85 Main St,Singapore,0,low,0.002,0.0346,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00022,SG,Shaw Theatres,entertainment,7832,cinema,43 Main St,Singapore,0,low,0.002,0.0337,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00023,SG,Charles & Keith,retail_shopping,5999,fashion,175 Main St,Singapore,0,low,0.0028,0.0351,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00024,SG,Uniqlo Singapore,retail_shopping,5999,fashion,90 Main St,Singapore,0,low,0.0021,0.0377,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00025,SG,ZALORA Singapore,retail_shopping,5999,fashion,81 Main St,Singapore,1,low,0.0024,0.0368,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00026,SG,Sephora Singapore,retail_shopping,5999,beauty,128 Main St,Singapore,0,low,0.0025,0.037,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00027,SG,Shell Singapore,fuel,5541,petrol_station,47 Main St,Singapore,0,low,0.0028,0.0363,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00028,SG,SPC Petrol,fuel,5541,petrol_station,54 Main St,Singapore,0,low,0.0023,0.0388,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00029,SG,Marriott Singapore,hotel,7011,hotel,190 Main St,Singapore,0,low,0.0026,0.0323,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00030,SG,Pan Pacific Hotel,hotel,7011,hotel,48 Main St,Singapore,0,low,0.0029,0.035,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00031,MY,Giant Malaysia,grocery,5411,supermarket,82 Main St,Kuala Lumpur,0,low,0.0036,0.0316,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00032,MY,Jaya Grocer,grocery,5411,supermarket,92 Main St,Kuala Lumpur,0,low,0.0031,0.0302,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00033,MY,Mydin,grocery,5411,supermarket,21 Main St,Kuala Lumpur,0,low,0.0038,0.0335,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00034,MY,Grab Food MY,food_dining,5812,food_delivery,22 Main St,Kuala Lumpur,1,low,0.0023,0.036,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00035,MY,McDonald's Malaysia,food_dining,5812,fast_food,8 Main St,Kuala Lumpur,0,low,0.0033,0.0357,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00036,MY,Old Town White Coffee,food_dining,5812,cafe,41 Main St,Kuala Lumpur,0,low,0.0023,0.0329,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00037,MY,Rotiboy,food_dining,5812,bakery,19 Main St,Kuala Lumpur,0,low,0.0026,0.0386,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00038,MY,Jollibee Malaysia,food_dining,5812,fast_food,197 Main St,Kuala Lumpur,0,low,0.0028,0.0304,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00039,MY,Grab Transport MY,travel_transport,4111,ride_hailing,152 Main St,Kuala Lumpur,1,low,0.0026,0.0376,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00040,MY,AirAsia,travel_transport,4511,airline,180 Main St,Kuala Lumpur,1,low,0.0032,0.0323,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00041,MY,Malaysia Airlines,travel_transport,4511,airline,63 Main St,Kuala Lumpur,1,low,0.0029,0.0372,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00042,MY,Rapid KL,travel_transport,4111,public_transit,40 Main St,Kuala Lumpur,0,low,0.0033,0.0317,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00043,MY,Tenaga Nasional,utilities,4900,utility,160 Main St,Kuala Lumpur,0,low,0.0034,0.0366,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00044,MY,Maxis,utilities,4814,telco,47 Main St,Kuala Lumpur,0,low,0.0021,0.0338,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00045,MY,Celcom,utilities,4814,telco,86 Main St,Kuala Lumpur,0,low,0.0033,0.0362,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00046,MY,KPJ Healthcare,healthcare,8011,hospital,7 Main St,Kuala Lumpur,0,low,0.0033,0.0355,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00047,MY,Pantai Hospital,healthcare,8011,hospital,25 Main St,Kuala Lumpur,0,low,0.0024,0.0372,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00048,MY,Columbia Asia,healthcare,8011,clinic,58 Main St,Kuala Lumpur,0,low,0.0033,0.0376,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00049,MY,TGV Cinemas,entertainment,7832,cinema,11 Main St,Kuala Lumpur,0,low,0.0021,0.0357,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00050,MY,GSC Cinemas,entertainment,7832,cinema,58 Main St,Kuala Lumpur,0,low,0.0034,0.0316,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00051,MY,Padini,retail_shopping,5999,fashion,165 Main St,Kuala Lumpur,0,low,0.0022,0.0385,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00052,MY,Parkson,retail_shopping,5999,department,25 Main St,Kuala Lumpur,0,low,0.0039,0.0317,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00053,MY,ZALORA Malaysia,retail_shopping,5999,fashion,20 Main St,Kuala Lumpur,1,low,0.0027,0.033,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00054,MY,H&M Malaysia,retail_shopping,5999,fashion,170 Main St,Kuala Lumpur,0,low,0.0038,0.0311,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00055,MY,Petronas Petrol,fuel,5541,petrol_station,96 Main St,Kuala Lumpur,0,low,0.0031,0.0387,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00056,MY,Shell Malaysia,fuel,5541,petrol_station,140 Main St,Kuala Lumpur,0,low,0.0028,0.035,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00057,MY,Hilton Kuala Lumpur,hotel,7011,hotel,103 Main St,Kuala Lumpur,0,low,0.0026,0.0301,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00058,MY,Sunway Hotel,hotel,7011,hotel,196 Main St,Kuala Lumpur,0,low,0.0032,0.0353,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00059,MY,Lazada Malaysia,retail_shopping,5999,ecommerce,68 Main St,Kuala Lumpur,1,medium,0.0091,0.0606,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00060,MY,Shopee Malaysia,retail_shopping,5999,ecommerce,80 Main St,Kuala Lumpur,1,medium,0.01,0.0675,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00061,IN,Reliance Fresh,grocery,5411,supermarket,173 Main St,Mumbai,0,low,0.002,0.0379,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00062,IN,Big Bazaar,grocery,5411,supermarket,46 Main St,Mumbai,0,low,0.0031,0.035,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00063,IN,DMart,grocery,5411,supermarket,128 Main St,Mumbai,0,low,0.0029,0.0352,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00064,IN,Swiggy,food_dining,5812,food_delivery,63 Main St,Mumbai,1,low,0.0037,0.0352,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00065,IN,Zomato,food_dining,5812,food_delivery,199 Main St,Mumbai,1,low,0.0035,0.0339,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00066,IN,McDonald's India,food_dining,5812,fast_food,103 Main St,Mumbai,0,low,0.0026,0.0387,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00067,IN,Cafe Coffee Day,food_dining,5812,cafe,192 Main St,Mumbai,0,low,0.0026,0.0375,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00068,IN,Haldiram's,food_dining,5812,snacks,153 Main St,Mumbai,0,low,0.0029,0.0313,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00069,IN,Ola,travel_transport,4111,ride_hailing,76 Main St,Mumbai,1,low,0.0033,0.0311,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00070,IN,Rapido,travel_transport,4111,ride_hailing,37 Main St,Mumbai,1,low,0.0034,0.0344,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00071,IN,IndiGo,travel_transport,4511,airline,38 Main St,Mumbai,1,low,0.0024,0.0319,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00072,IN,Air India,travel_transport,4511,airline,5 Main St,Mumbai,1,low,0.0026,0.0306,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00073,IN,IRCTC,travel_transport,4112,rail,73 Main St,Mumbai,1,low,0.0023,0.0325,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00074,IN,BSES Delhi,utilities,4900,utility,56 Main St,Mumbai,0,low,0.0036,0.0311,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00075,IN,BESCOM,utilities,4900,utility,188 Main St,Mumbai,0,low,0.003,0.0351,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00076,IN,Airtel,utilities,4814,telco,146 Main St,Mumbai,0,low,0.0035,0.037,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00077,IN,Jio,utilities,4814,telco,29 Main St,Mumbai,1,low,0.0022,0.0386,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00078,IN,Apollo Hospitals,healthcare,8011,hospital,115 Main St,Mumbai,0,low,0.0023,0.0376,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00079,IN,Fortis Healthcare,healthcare,8011,hospital,151 Main St,Mumbai,0,low,0.0032,0.0398,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00080,IN,Max Healthcare,healthcare,8011,clinic,72 Main St,Mumbai,0,low,0.0032,0.0353,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00081,IN,PVR Cinemas,entertainment,7832,cinema,167 Main St,Mumbai,0,low,0.0023,0.037,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00082,IN,INOX Leisure,entertainment,7832,cinema,29 Main St,Mumbai,0,low,0.0035,0.0302,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00083,IN,Myntra,retail_shopping,5999,fashion,57 Main St,Mumbai,1,low,0.0038,0.0342,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00084,IN,Flipkart,retail_shopping,5999,ecommerce,6 Main St,Mumbai,1,low,0.0035,0.0375,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00085,IN,H&M India,retail_shopping,5999,fashion,181 Main St,Mumbai,0,low,0.002,0.0301,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00086,IN,Nykaa,retail_shopping,5999,beauty,51 Main St,Mumbai,1,medium,0.0095,0.0654,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00087,IN,Indian Oil,fuel,5541,petrol_station,50 Main St,Mumbai,0,low,0.0031,0.0319,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00088,IN,HPCL,fuel,5541,petrol_station,25 Main St,Mumbai,0,low,0.002,0.0363,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00089,IN,OYO Hotels,hotel,7011,hotel,84 Main St,Mumbai,0,medium,0.0096,0.0627,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00090,IN,Taj Hotels,hotel,7011,hotel,136 Main St,Mumbai,0,low,0.0038,0.0355,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00091,GL,Amazon,retail_shopping,5999,ecommerce,1 Main St,Online,1,low,0.0039,0.0355,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00092,GL,Netflix,entertainment,7841,streaming,42 Main St,Online,1,low,0.0038,0.0384,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00093,GL,Spotify,entertainment,7929,streaming,158 Main St,Online,1,low,0.0023,0.0378,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00094,GL,Agoda,hotel,7011,travel_ota,197 Main St,Online,1,low,0.0032,0.0306,2024-01-01 00:00:00,2025-12-31 23:59:59
+MCH_00095,GL,Booking.com,hotel,7011,travel_ota,102 Main St,Online,1,low,0.0031,0.0343,2024-01-01 00:00:00,2025-12-31 23:59:59

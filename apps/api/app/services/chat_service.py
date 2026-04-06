@@ -1,12 +1,28 @@
 from app.prompts.prompt_builder import build_chat_prompt
 from app.schemas.chat import ChatQueryRequest, ChatQueryResponse
-from app.services.chart_service import build_chart_config
+from app.services.chart_service import build_chart_recommendations
 from app.services.llm_service import generate_with_ollama
 from app.services.query_executor_service import execute_query
 from app.services.response_parser import parse_model_json
 from app.services.semantic_service import resolve_semantic_context
 from app.services.sql_generation_service import generate_sql_from_question
 from app.services.sql_validator_service import validate_sql
+
+
+def _build_insight_recommendations(semantic_context: dict) -> list[str]:
+    metric = semantic_context.get("metric", "Revenue")
+    dimensions = semantic_context.get("dimensions", [])
+
+    recommendations = [
+        f"Analyze {metric} trend by region",
+        f"Compare {metric} by segment",
+        f"Show {metric} evolution by month",
+    ]
+
+    if "product" in [d.lower() for d in dimensions]:
+        recommendations.append(f"Break down {metric} by product")
+
+    return recommendations[:4]
 
 
 def _build_response(
@@ -22,7 +38,7 @@ def _build_response(
     sql_result = generate_sql_from_question(message_for_sql, persona, semantic_context)
     _, sql_issues, validated_sql = validate_sql(sql_result.sql)
     execution_result = execute_query(semantic_context["engine"], validated_sql, semantic_context)
-    chart_config = build_chart_config(
+    primary_chart, chart_recommendations = build_chart_recommendations(
         result_columns=execution_result.columns,
         result_rows=execution_result.rows,
         semantic_context=semantic_context,
@@ -34,12 +50,14 @@ def _build_response(
     return ChatQueryResponse(
         answer=answer,
         insights=insights[:5],
+        insight_recommendations=_build_insight_recommendations(semantic_context),
         follow_ups=follow_ups[:5],
         assumptions=merged_assumptions[:5],
         actions=["Show SQL", "Explain", "Change Chart", "Drill Down"],
-        chart_title=chart_config.title,
-        chart_type=chart_config.chart_type,
-        chart_config=chart_config.model_dump(),
+        chart_title=primary_chart.title,
+        chart_type=primary_chart.chart_type,
+        chart_config=primary_chart.model_dump(),
+        chart_recommendations=[rec.model_dump() for rec in chart_recommendations],
         sql=validated_sql,
         sql_explanation=sql_result.explanation,
         sql_validation_issues=sql_issues,

@@ -1,0 +1,14 @@
+left_entity,right_entity,join_sql,join_type,approved_flag
+fact_card_transaction,dim_customer,fct.account_key = dc.customer_key,inner,true
+fact_card_transaction,dim_card_account,fct.account_key = dca.account_key,inner,true
+fact_card_transaction,dim_card,fct.card_key = dc.card_key,inner,true
+fact_card_transaction,dim_merchant,fct.merchant_key = dm.merchant_key,inner,true
+fact_card_transaction,dim_date,fct.date_key = dd.date_key,inner,true
+fact_card_transaction,dim_channel,fct.channel_key = dch.channel_key,inner,true
+fact_card_transaction,dim_device,fct.device_key = dd.device_key,inner,true
+dim_card_account,dim_customer,dca.customer_key = dc.customer_key,inner,true
+dim_card_account,dim_product,dca.product_key = dp.product_key,inner,true
+dim_merchant,dim_geography,dm.geography_key = dg.geography_key,inner,true
+dim_merchant,dim_merchant_category,dm.merchant_category_key = dmc.merchant_category_key,inner,true
+dim_customer,dim_geography,dc.geography_key = dg.geography_key,inner,true
+dim_customer,dim_risk_segment,dc.risk_segment_id = drs.risk_segment_id,left,true

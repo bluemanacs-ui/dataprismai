@@ -1,0 +1,1001 @@
+customer_id,first_name,last_name,email,phone,address_line1,address_line2,city,state,zip_code,country,date_of_birth,ssn_last4,income_band,customer_segment,credit_score,created_at
+CUST_000000,Cheryl,Robbins,kimberly36@example.com,+1-724-213-8177x5830,60899 Medina Road,,West Kristina,MO,45307,US,1989-10-10,3316,25-50k,Silver,302,2025-09-18 00:40:26.369256
+CUST_000001,Tyler,Ellis,suzannewilliams@example.net,778-207-5213x48888,0005 David Junctions,,Alexisburgh,HI,76433,US,1961-10-14,9208,<25k,Bronze,558,2024-10-07 22:20:25.991052
+CUST_000002,Beth,Sanders,dianamaldonado@example.org,737-518-7682x7688,20374 Moyer Falls,,West Franktown,CT,03354,US,1970-04-28,9290,50-75k,Platinum,458,2025-04-22 23:09:45.001540
+CUST_000003,William,Collins,crawfordjoshua@example.net,899-764-1824x4696,748 Franklin Hollow Apt. 906,,Griffithberg,NC,18354,US,1967-03-09,2641,50-75k,Bronze,603,2025-09-13 08:58:20.675064
+CUST_000004,Annette,Bartlett,joshua68@example.org,001-281-381-5658x22285,70125 Ponce Inlet,,New Robertside,CT,44861,US,1991-03-08,2413,25-50k,Silver,828,2024-06-30 08:33:50.705128
+CUST_000005,Grace,Sharp,jessica14@example.org,(856)821-0368,76180 Anna Spring,,Port Phillipmouth,WV,43735,US,2006-02-07,8677,75-100k,Platinum,660,2024-08-12 10:48:34.597268
+CUST_000006,Andrew,Marshall,claytonaguirre@example.net,908-589-1495x31675,33793 Jones Court,Suite 877,Castillobury,IL,80977,US,1956-10-24,6306,50-75k,Platinum,322,2024-03-30 20:54:03.652897
+CUST_000007,Christopher,Hunter,pstevens@example.net,+1-360-910-5204x74864,7456 Miller Stravenue Suite 041,,Smithstad,WA,75925,US,1996-01-12,6022,150k+,Gold,353,2024-01-26 14:59:36.294303
+CUST_000008,Michele,Fischer,david35@example.org,(347)838-2078x8360,9803 Melendez Glens,,Pamelaview,NY,78321,US,2006-08-30,4763,50-75k,Platinum,650,2025-02-25 20:38:44.369290
+CUST_000009,Pamela,Mcdaniel,angela25@example.net,001-790-990-5887x8841,6638 Veronica Lake Suite 654,Suite 181,Danielfurt,NE,75407,US,1980-03-21,2246,75-100k,Platinum,548,2025-08-13 08:59:10.634789
+CUST_000010,Joshua,Hernandez,williambarajas@example.org,(536)593-2724x47545,124 Daniel Court Apt. 482,Suite 017,Danaport,MT,47575,US,1971-01-15,5967,100-150k,Platinum,410,2024-03-09 18:49:07.608889
+CUST_000011,Nancy,Tanner,powellkatherine@example.org,(373)803-5492,1732 Carrillo Fords,Apt. 692,Howardburgh,MA,78794,US,1997-07-12,4923,50-75k,Bronze,670,2024-04-03 21:46:42.909193
+CUST_000012,Elaine,Wright,samantha47@example.com,(748)661-1569x9324,364 Jennifer Well Suite 798,,East Ashleyfort,PA,53833,US,1959-12-03,7363,<25k,Gold,655,2025-03-29 03:05:56.587156
+CUST_000013,Christopher,Mercer,williamparker@example.com,490.352.3076x5881,598 Antonio Turnpike,,North Brandonstad,MH,10451,US,1945-05-27,0403,150k+,Bronze,692,2025-04-13 07:17:56.993567
+CUST_000014,Aaron,Mccall,adamsseth@example.com,+1-896-941-9666,423 Harris Drive,Suite 197,Chambersview,NC,83423,US,2005-05-17,0602,50-75k,Gold,301,2024-10-03 21:13:36.891133
+CUST_000015,Gabriela,Tapia,sheilathomas@example.net,(495)600-2466,19235 Reid Circles Suite 363,,New Lydia,SD,73810,US,1999-05-12,5070,75-100k,Bronze,611,2024-05-15 09:29:28.941137
+CUST_000016,Nathan,Tate,michaelgreene@example.com,+1-595-834-8011x927,808 Marquez Estates Apt. 877,,Stacybury,PR,18115,US,1983-07-16,7969,25-50k,Bronze,438,2024-07-08 18:26:32.835570
+CUST_000017,Natalie,Gonzalez,johngarner@example.org,589.241.3431x37708,73066 Ellis Grove,,West Sarah,UT,30099,US,1962-05-23,0294,100-150k,Bronze,599,2025-04-15 20:24:21.179753
+CUST_000018,Pamela,Carter,timothy96@example.org,(756)694-9293x6641,21460 Burnett Ford,,North Belinda,WI,14353,US,1966-01-14,3576,100-150k,Bronze,722,2025-08-31 10:13:29.292893
+CUST_000019,Anthony,Foster,kaitlin21@example.com,343-689-1519,1718 Bishop Valleys Suite 398,Apt. 451,East Marissamouth,TX,81797,US,1964-08-20,7537,150k+,Bronze,325,2024-02-22 01:24:04.442450
+CUST_000020,Elizabeth,Mcdonald,douglascervantes@example.org,385.851.0117x8774,73262 Moore Square,Suite 011,Pagestad,NH,81075,US,1985-12-19,8425,150k+,Gold,567,2025-06-21 10:05:18.641197
+CUST_000021,Courtney,Garza,scotthamilton@example.org,6924857875,89129 Duffy Cliff Suite 027,,Lake Jamesstad,CO,46949,US,1953-04-17,9868,50-75k,Platinum,840,2025-07-06 06:51:17.091085
+CUST_000022,Ashley,Murphy,bboyd@example.com,844-335-2179,251 Adrian Unions,,Cookbury,LA,43864,US,2007-10-14,0911,75-100k,Silver,656,2025-09-03 02:31:32.921575
+CUST_000023,Jeffrey,Marshall,tguerrero@example.org,(993)340-7163x502,25927 Conley Street,Apt. 631,Derekfort,VT,04387,US,1969-02-19,8794,50-75k,Bronze,309,2025-11-28 01:27:27.275903
+CUST_000024,Brian,Sullivan,walkerlucas@example.com,926.225.5146x91860,169 Davis Harbor Apt. 923,,Lake Steventown,RI,20507,US,1985-03-02,3466,25-50k,Platinum,753,2026-02-19 17:39:41.399501
+CUST_000025,Jack,Rodriguez,johnsonchristopher@example.net,7903697518,0105 Kevin Grove Apt. 418,Apt. 641,New Erin,VI,03149,US,1949-10-12,7835,<25k,Platinum,335,2025-02-04 14:45:35.681046
+CUST_000026,Deborah,Smith,robin31@example.net,001-573-826-0156x82383,2018 Schultz Plain,,Trevorburgh,OH,51694,US,1957-01-11,9504,150k+,Silver,465,2024-04-24 09:49:24.057588
+CUST_000027,Sarah,Garrett,mallory48@example.com,(503)618-5961x2435,92462 Jason Lodge Apt. 715,,Jeremychester,AL,94097,US,1958-08-20,9675,25-50k,Silver,445,2024-06-18 20:21:29.040208
+CUST_000028,Angela,Willis,taylorlewis@example.com,+1-691-342-5088x20378,758 Barker Coves,Apt. 291,East Mark,NY,59735,US,1947-10-09,9902,50-75k,Bronze,674,2024-04-20 19:09:19.230572
+CUST_000029,Christopher,Santos,sloancharles@example.net,001-652-635-0598,59211 Reynolds Plain,,Ryanhaven,MA,90855,US,1951-12-20,9660,150k+,Bronze,649,2025-02-07 03:41:03.301624
+CUST_000030,Elizabeth,Sexton,reevesrebecca@example.org,6858888223,96507 Park Route,,Mirandaberg,KS,25396,US,1987-05-25,7333,25-50k,Gold,752,2026-02-14 10:54:44.900944
+CUST_000031,Stacey,Bailey,shannon84@example.com,284.715.8901,4744 Joshua Ranch Suite 999,Suite 421,New Ashley,FL,24715,US,1984-04-24,3631,150k+,Gold,431,2026-02-14 11:53:46.887806
+CUST_000032,Devin,Carlson,cathyhall@example.org,(929)335-8521x485,51158 Campbell Terrace,,Nicholsonshire,IN,20096,US,1973-01-25,4709,25-50k,Silver,513,2024-02-01 14:49:04.621392
+CUST_000033,Dwayne,Osborne,montgomeryyvonne@example.org,(922)928-4950x727,76415 Heather Points Suite 226,Suite 561,Amberfurt,IN,94128,US,1976-01-21,7029,150k+,Bronze,309,2024-09-30 03:09:03.987735
+CUST_000034,Ian,Sandoval,tina41@example.net,698-319-6164x0832,9738 Donna Canyon,Suite 847,Port Joshua,CT,51218,US,1945-10-28,9131,50-75k,Gold,725,2024-06-01 01:07:59.032401
+CUST_000035,Kimberly,Bailey,taylor21@example.com,001-373-468-1974,60506 Murray Pine Suite 902,,North Tammy,NY,08329,US,1982-09-06,5136,75-100k,Platinum,709,2025-06-16 15:17:54.011853
+CUST_000036,Christie,Rose,kristen41@example.com,+1-802-706-7786x842,50029 Tina Harbors Suite 969,,Lake Pamelamouth,HI,89753,US,2001-03-22,9290,25-50k,Platinum,621,2025-11-29 13:08:33.096249
+CUST_000037,Debra,Sweeney,sanchezjames@example.org,+1-938-552-8210x7849,01668 Jones Plain,,East Chadborough,NE,84012,US,1986-11-23,0094,150k+,Gold,475,2024-12-04 16:01:34.394988
+CUST_000038,Crystal,Thomas,nkelly@example.com,809.338.9449,18635 Webb Path Suite 635,,New Erica,VI,62911,US,1960-12-24,6571,75-100k,Platinum,324,2024-09-20 00:30:45.068574
+CUST_000039,William,Kennedy,troywhite@example.org,+1-214-943-8210x419,15052 Watkins Burg,,Heathermouth,IA,02989,US,1989-07-23,6182,75-100k,Platinum,579,2024-01-31 09:34:42.563088
+CUST_000040,Rebecca,Harris,robinsontyrone@example.org,+1-459-449-3099x21144,459 Elizabeth Mountains Suite 247,,Richardsonside,CO,52581,US,2006-11-03,7182,25-50k,Platinum,583,2024-10-07 02:51:53.137898
+CUST_000041,Ashley,Wilkerson,kristiemendoza@example.com,(402)964-6246x810,8950 Carla Flats Suite 228,,Graybury,AZ,68705,US,1959-03-20,4354,100-150k,Silver,413,2025-10-12 02:52:57.805069
+CUST_000042,William,Castaneda,christina42@example.org,7549319250,385 Davila Motorway Apt. 187,,East Dianeport,MN,66432,US,1964-04-26,5868,50-75k,Bronze,452,2024-10-31 21:43:05.974006
+CUST_000043,Jonathan,Robinson,debra90@example.com,+1-337-714-6818x12707,17861 Park Rapid Apt. 463,Apt. 113,Carterberg,IN,69289,US,1953-08-17,3004,50-75k,Silver,468,2024-12-11 19:01:00.061479
+CUST_000044,Teresa,Johnson,wmaxwell@example.com,(813)529-2683,6438 Robert Lake,Apt. 640,Strongchester,PA,49607,US,1950-03-12,5293,150k+,Silver,490,2024-08-23 19:50:42.132646
+CUST_000045,Barbara,Evans,tsmith@example.net,836-764-0628,637 Dennis Well Apt. 647,,Lake Jeffreystad,OR,92122,US,1977-12-27,6873,75-100k,Gold,727,2025-03-03 06:10:54.094928
+CUST_000046,Michael,Watson,dhuang@example.com,276-447-5342x846,439 Jamie Lights Suite 271,,Armstrongtown,FM,89459,US,1977-01-21,7771,50-75k,Gold,613,2025-12-27 10:19:15.641587
+CUST_000047,Nicholas,Williams,akim@example.org,+1-499-812-3690,911 Linda Squares Apt. 345,Suite 262,Port Travisfort,WA,40042,US,1949-05-29,0809,150k+,Bronze,836,2024-09-12 10:16:56.071580
+CUST_000048,Michael,James,saramiller@example.net,453.296.0374x30711,40293 Dustin Freeway,Apt. 095,Angelaside,SD,48315,US,1990-04-12,9144,150k+,Platinum,746,2025-12-21 00:46:59.715476
+CUST_000049,Dawn,Sharp,victoria84@example.org,482.832.1623x4199,7462 Sara Circle Suite 776,Apt. 972,Keithville,CO,75023,US,1964-05-04,4022,<25k,Bronze,399,2024-06-18 14:55:29.187809
+CUST_000050,Crystal,Robinson,walkerbilly@example.org,001-718-379-4188x474,312 Zimmerman Curve,Apt. 274,East Thomasport,DC,44191,US,1970-10-02,0966,100-150k,Silver,449,2025-07-16 19:02:23.411982
+CUST_000051,Leslie,Ford,browndavid@example.net,242.952.5124x962,7185 Garcia Island Suite 985,,Andreastad,TX,81402,US,1982-03-14,8267,50-75k,Silver,442,2025-01-29 03:58:30.066819
+CUST_000052,Christopher,Harvey,laurenerickson@example.org,(390)985-1166x0170,82564 Robinson Gardens,,East Margaretburgh,SD,82084,US,1946-03-01,4588,<25k,Platinum,346,2025-05-12 17:36:05.148790
+CUST_000053,Kathryn,Osborn,patrickcoleman@example.com,+1-901-899-3444x449,09801 Jill Lodge,,Port Amandafurt,AS,52464,US,1976-07-01,6475,100-150k,Platinum,731,2024-12-11 16:16:04.949689
+CUST_000054,Rhonda,Rojas,diazangela@example.net,+1-849-784-6260,8160 Charles Squares,,North Alexander,ND,70134,US,1975-11-21,7248,<25k,Silver,345,2024-03-25 23:15:56.388707
+CUST_000055,Melinda,Kelly,jonathan84@example.net,001-435-317-2033,806 Troy Rue,Suite 809,Richardside,TX,45518,US,1990-08-29,8737,<25k,Platinum,370,2024-09-04 10:01:35.024084
+CUST_000056,Adam,Oneill,mhoward@example.com,524-568-7341x22474,013 Caleb Stravenue,,East Timothystad,AZ,21196,US,1993-03-17,1224,<25k,Platinum,840,2026-01-18 22:26:53.844977
+CUST_000057,Ruth,Collins,vazquezveronica@example.com,(628)989-2929,33537 Gabrielle Springs,,Thomasstad,SC,92623,US,1949-11-09,7053,75-100k,Platinum,459,2025-01-20 20:50:12.186308
+CUST_000058,Rebecca,Reynolds,kristine13@example.net,001-307-367-5865x47259,9070 Roth Wells Suite 749,,East Terri,WV,33713,US,2005-05-19,0981,150k+,Gold,677,2024-03-04 13:46:39.500973
+CUST_000059,Alyssa,Johnson,angelica45@example.net,+1-766-847-9076x2135,024 Belinda Cliff Suite 020,,Kiddberg,OK,45127,US,1974-12-09,4346,75-100k,Silver,644,2025-04-26 16:41:00.200017
+CUST_000060,Willie,Johnson,mendozamichelle@example.com,705-409-5925,224 Robertson Lodge,Apt. 248,Hallchester,AZ,21858,US,1963-03-16,9877,75-100k,Gold,388,2024-09-15 19:51:24.675236
+CUST_000061,Kathleen,Nelson,sandralee@example.com,+1-942-277-3014x53278,084 Jeremy Mill Suite 980,Suite 139,South Kylie,ME,45424,US,1947-11-26,6473,75-100k,Silver,738,2024-01-19 08:02:02.463217
+CUST_000062,Amy,Garcia,john39@example.net,477-972-2820x4789,67538 Caleb Center,,Johnhaven,AZ,87888,US,1968-08-09,3296,75-100k,Gold,535,2025-05-13 14:05:20.422777
+CUST_000063,Carlos,Dean,hayden86@example.com,+1-599-323-5406x037,797 Floyd Viaduct,Apt. 614,West Tiffanyside,WA,10501,US,1954-12-06,7930,150k+,Platinum,823,2024-11-17 20:46:48.433238
+CUST_000064,Corey,Peterson,burtonmichael@example.net,+1-410-415-8614,09193 Cheryl Parkway,,East Julie,MP,55260,US,1973-11-15,6025,50-75k,Bronze,478,2024-03-02 06:39:02.254839
+CUST_000065,James,Cook,paul30@example.org,4026308527,2613 Reynolds Union Apt. 122,,Port Amandamouth,OK,31357,US,1993-05-21,4145,100-150k,Bronze,850,2024-04-03 05:13:03.086201
+CUST_000066,Sara,Grimes,breanna60@example.net,2759650774,396 Steve Rapids Suite 688,Apt. 669,South Gregory,WI,45297,US,1978-06-16,8389,150k+,Platinum,498,2024-01-10 22:10:16.559807
+CUST_000067,Kimberly,Wagner,rogerselizabeth@example.com,(649)400-3057x33592,046 Dunlap Knolls,Apt. 822,Petersonland,VI,61008,US,1962-03-08,2504,150k+,Bronze,580,2024-09-16 23:09:59.404452
+CUST_000068,Bonnie,Clark,michaelball@example.net,(490)644-1187x0028,70557 Jackson Lodge,Suite 361,Melanieton,FL,75216,US,1954-05-26,5301,50-75k,Bronze,809,2024-06-08 06:22:16.902733
+CUST_000069,Jimmy,Russell,nicholas55@example.net,(592)365-2361x49490,352 Teresa Shoals Apt. 489,Apt. 623,North Jeffreybury,PR,43478,US,1984-04-30,9129,100-150k,Bronze,535,2024-09-11 07:24:00.313828
+CUST_000070,Dominique,Snyder,castanedashelby@example.net,5482408642,37649 Singleton Plains Apt. 591,,Williamport,WA,42552,US,1972-05-13,4350,<25k,Platinum,534,2025-09-25 12:42:31.337305
+CUST_000071,Brianna,Howard,jliu@example.com,+1-490-258-2778,88589 Chen Ways Apt. 638,,South Jesse,TX,68344,US,1948-12-29,0492,75-100k,Gold,743,2025-12-26 14:42:35.399689
+CUST_000072,Nathan,Park,pthompson@example.org,200.558.0385x10226,393 Jones Shoals,Apt. 930,Kingfort,OH,26262,US,2001-03-31,9021,100-150k,Gold,559,2025-09-02 22:15:26.164955
+CUST_000073,Rebecca,Erickson,wayers@example.org,(210)410-3549,4886 Hamilton Village,Apt. 407,Smithville,WI,89887,US,1952-04-18,4527,25-50k,Platinum,517,2025-12-23 05:57:51.313242
+CUST_000074,Lynn,Sanchez,sonya22@example.net,+1-774-442-3797,659 Donald Bridge,,North Noahfort,PA,16593,US,1963-06-29,2783,150k+,Bronze,741,2026-02-10 00:53:16.161975
+CUST_000075,Kristina,Salinas,michaelmcdaniel@example.org,+1-659-756-2755x793,68346 Tiffany Drive,,East Joseshire,HI,30434,US,1955-03-01,7967,25-50k,Gold,708,2025-02-03 00:55:10.371862
+CUST_000076,Jennifer,Mckinney,amymoore@example.com,6468274707,11514 Thompson Way Apt. 414,,Lake Johnport,NM,45861,US,1992-04-12,8242,150k+,Silver,788,2025-05-09 06:38:57.568323
+CUST_000077,Andrew,Hart,paul87@example.org,578-635-6136x3850,8809 Johnson Bridge Suite 085,,Scottburgh,NE,20442,US,1956-03-07,1942,<25k,Platinum,637,2025-04-25 22:23:39.673317
+CUST_000078,Scott,Hardy,jerry02@example.org,(613)358-9023x433,0593 Elizabeth Valley Suite 941,,West Hollyport,ID,35774,US,1947-09-28,6378,50-75k,Silver,664,2024-08-16 18:43:12.020656
+CUST_000079,Mary,Stevens,laura16@example.com,+1-521-852-4185x09704,47902 Andrew Unions Suite 678,,Molinaberg,IA,19670,US,1988-06-06,3700,25-50k,Gold,366,2025-06-22 03:58:25.672796
+CUST_000080,Kimberly,Nelson,schmittchelsea@example.com,+1-595-379-2086x48411,13680 Huffman Parkway Suite 417,,Marshallmouth,MT,37882,US,1956-01-12,4421,50-75k,Bronze,576,2026-02-11 00:38:06.608173
+CUST_000081,Amanda,Harris,shodge@example.com,001-225-497-0401x1548,884 David Club Apt. 439,,East Christopher,AK,37826,US,1986-03-21,2489,100-150k,Gold,811,2025-07-12 23:02:36.314225
+CUST_000082,Nancy,Jones,derek21@example.net,001-612-242-3167x055,072 Melissa Trafficway Suite 280,,New Bradley,VT,45316,US,1954-06-09,2664,<25k,Gold,844,2025-08-29 11:26:11.537989
+CUST_000083,Robert,Ortiz,pamela21@example.com,4468278537,882 Mason Garden Suite 310,,Mcculloughville,MP,30251,US,2003-11-22,1548,75-100k,Platinum,416,2025-11-30 09:47:53.778312
+CUST_000084,Ashley,Williams,jeffrey70@example.net,412-830-3287x5276,8132 Turner Spring,,Riggsside,MA,10916,US,1992-05-16,0203,100-150k,Silver,653,2025-01-07 23:13:41.063797
+CUST_000085,Suzanne,Rodriguez,tjones@example.org,+1-810-630-3856x42460,522 Patterson Cape Suite 799,Apt. 492,North Jenna,MD,15981,US,1984-10-10,7915,<25k,Bronze,486,2024-07-02 20:47:45.391918
+CUST_000086,Angela,Freeman,yhoffman@example.net,(793)942-9035x3543,336 Chan Bridge,,New Alexandra,ND,27339,US,1977-01-14,6332,150k+,Platinum,397,2024-05-27 01:53:52.101538
+CUST_000087,Melissa,Rodgers,belljoseph@example.com,001-749-715-1087x5532,455 Evans Manors Suite 119,Suite 570,Port Robertstad,KS,69270,US,1996-05-16,0931,75-100k,Silver,711,2025-03-29 00:39:14.561272
+CUST_000088,Carla,Meyer,oramos@example.org,404-327-4689x29768,36580 Hill Plaza Apt. 376,,Tannerport,AR,02545,US,2003-12-20,0944,75-100k,Silver,303,2025-10-01 17:01:21.703622
+CUST_000089,Katherine,Weiss,crawfordjason@example.com,001-913-622-0984x555,985 Ian Views,Apt. 292,Griffinberg,IA,53892,US,1955-08-03,6719,25-50k,Silver,850,2024-01-06 02:58:58.192433
+CUST_000090,Mark,Wright,wanda04@example.org,001-805-752-1705x3339,01387 Tanya Greens,Apt. 617,West Victoriaport,TX,18722,US,1991-03-15,2591,50-75k,Bronze,782,2024-03-29 07:27:27.397643
+CUST_000091,Stephen,Fisher,washingtoncraig@example.com,333-773-4867,878 Mary Cliffs,Apt. 930,East Ricardotown,MP,93311,US,1967-07-30,3321,100-150k,Gold,680,2026-01-15 20:13:14.530654
+CUST_000092,Marcus,Walker,nicholas91@example.net,505-833-6130x98012,0712 Tyler Rapid,Suite 036,Johnmouth,SC,35770,US,1976-11-30,9863,100-150k,Bronze,449,2024-11-27 01:11:25.935744
+CUST_000093,Elizabeth,Griffith,masonsarah@example.net,656.597.9059,0797 Antonio Corner Apt. 945,Apt. 629,Emilyside,WY,59538,US,2007-02-15,1246,<25k,Platinum,455,2024-06-16 00:57:46.002775
+CUST_000094,Pamela,Fisher,brandygarcia@example.com,551-418-5753,3124 Phillips Creek,Apt. 891,Donnaside,WI,72566,US,2003-08-06,4034,50-75k,Gold,421,2024-12-24 04:10:51.923589
+CUST_000095,Audrey,Montoya,jeffreyyoung@example.net,9165351966,488 Judy Fall,,South Kevin,NM,79219,US,1995-11-01,1176,25-50k,Gold,734,2024-03-20 23:10:52.197726
+CUST_000096,Brenda,Hart,xsharp@example.net,867.390.2773x50435,741 Macias Well,,Lake Adam,NE,67592,US,1973-06-22,9786,50-75k,Bronze,359,2024-05-21 23:40:43.036912
+CUST_000097,John,Garcia,wesley43@example.org,826-909-2816x630,13049 Karen Summit,,West Zachary,MD,73379,US,1959-02-24,1586,150k+,Silver,467,2024-09-18 09:04:50.377226
+CUST_000098,Gail,Nguyen,shirleydyer@example.net,+1-746-747-3862,17361 Johnston Garden,Apt. 760,Rhodesfurt,KY,61616,US,1973-04-04,2145,25-50k,Bronze,844,2024-01-23 17:44:30.419506
+CUST_000099,William,Howard,jeremycordova@example.net,001-787-607-6642x382,13435 Kristi Parkway,,East Nathanside,VA,99566,US,1961-02-23,6020,<25k,Bronze,631,2024-02-27 03:14:10.831280
+CUST_000100,Keith,Castro,susanmiller@example.com,931-870-4005,436 Mark Port Suite 216,Apt. 463,Lake Megan,FM,36424,US,1954-02-20,8514,25-50k,Platinum,421,2025-07-11 15:02:51.672035
+CUST_000101,Kenneth,Lynch,zwhite@example.net,001-934-684-0700x06742,6207 Kane Crossroad,,Smithland,MI,48671,US,1992-10-10,8800,100-150k,Silver,677,2025-10-12 03:51:07.417384
+CUST_000102,Cynthia,Ward,donaldbauer@example.org,5577192931,08115 Dawn Manor,,North Scott,VT,74095,US,1962-07-01,0788,50-75k,Silver,732,2025-08-20 03:48:28.065113
+CUST_000103,Samantha,Reid,peter54@example.com,(477)454-2031,42403 Mitchell Hollow Suite 066,,New Julieshire,MD,91402,US,2007-07-03,8345,25-50k,Gold,574,2025-05-20 10:09:55.743160
+CUST_000104,Larry,Howard,annamack@example.org,+1-431-386-9638x6240,8666 Amber Spur,Suite 329,South Philip,OR,44901,US,2007-05-08,3316,25-50k,Platinum,314,2024-08-22 09:57:05.227522
+CUST_000105,Angie,Sharp,katrina23@example.com,344.498.2995x2443,568 Lisa Spring Suite 800,,Lake Darrell,IN,90959,US,1955-07-15,1901,100-150k,Gold,356,2025-12-28 06:46:00.655970
+CUST_000106,Marvin,Cox,rodriguezdavid@example.org,379.331.2172x62436,9822 Daniel Ways,,North Thomas,UT,76846,US,1949-11-19,4352,150k+,Bronze,782,2024-07-02 19:03:42.506763
+CUST_000107,Eric,Petersen,onunez@example.com,(530)406-1236,07701 Nicole Lakes,,East Edward,NM,64010,US,1984-12-16,8817,25-50k,Silver,403,2024-02-07 23:41:56.447301
+CUST_000108,Roger,Drake,seanelliott@example.org,856-561-6201,85243 Rebecca Lock Apt. 264,,Wadeside,NJ,15855,US,1945-11-07,2165,100-150k,Bronze,607,2025-08-27 03:18:03.983760
+CUST_000109,Kristin,Taylor,chungvictoria@example.org,+1-332-258-1120x397,29881 Smith Course Apt. 964,,Gabrielbury,MP,41494,US,2005-07-08,7308,150k+,Gold,350,2025-12-11 09:28:01.856025
+CUST_000110,Yesenia,Ellis,wwashington@example.com,001-726-761-0706x624,3515 Payne Trace,,Kleinmouth,FL,46888,US,1970-01-22,1989,50-75k,Gold,793,2025-01-10 19:18:43.065239
+CUST_000111,Cheryl,Bishop,tuckerjames@example.com,+1-762-306-9947x91770,2301 Flores Divide Suite 896,,New Waynehaven,CT,60005,US,1989-10-03,7965,100-150k,Silver,827,2025-04-30 04:29:02.181173
+CUST_000112,Julia,Lewis,taragreen@example.com,+1-428-813-2921,819 Kevin Mission Suite 761,Suite 097,Geneton,ND,47476,US,1948-10-18,0642,<25k,Silver,493,2025-05-17 18:44:21.657529
+CUST_000113,Susan,Rowland,gregory81@example.com,001-431-866-3886x780,24432 Washington Ports,,Johnborough,VT,99348,US,1948-08-25,5126,100-150k,Bronze,304,2024-10-02 06:18:13.171401
+CUST_000114,Brian,Oconnor,mcgrathricky@example.com,+1-936-600-0712x40117,13880 Jennifer Landing Suite 033,,Simmonsbury,PR,91012,US,1948-10-07,7284,25-50k,Bronze,821,2025-02-16 23:23:00.524092
+CUST_000115,Patty,Zimmerman,nuneznicole@example.net,850.927.2246x4978,227 Nichole Prairie,,North Samanthaside,PR,27471,US,1985-05-18,1178,25-50k,Silver,311,2024-07-07 10:44:58.338953
+CUST_000116,Carolyn,Williams,iblake@example.com,3025545024,88263 Norris Canyon Suite 894,Apt. 350,New Jonathanstad,RI,99225,US,1952-02-09,9147,50-75k,Silver,540,2024-11-10 08:19:02.333982
+CUST_000117,Angelica,Bell,stephen97@example.org,001-989-459-0029x353,7827 Caldwell Stream,,South Timothy,SD,48840,US,1999-09-29,7607,<25k,Silver,547,2025-01-27 03:09:21.239816
+CUST_000118,Susan,Spencer,aaron41@example.com,001-673-405-8200,4734 Michael Forks Apt. 634,,North Rachel,AL,01797,US,1976-05-19,6491,25-50k,Bronze,571,2025-07-21 20:46:14.408944
+CUST_000119,Jonathan,Jacobson,holmesrobert@example.org,451.525.5555x98809,86617 Stephen Village,,Sheilaton,KS,37415,US,1959-06-21,5895,50-75k,Platinum,589,2025-04-17 23:58:00.846460
+CUST_000120,Jesse,Taylor,meganellis@example.org,(686)206-0508x6034,80283 Nicholas Canyon,,North Sean,MD,51479,US,1961-10-09,2854,50-75k,Bronze,510,2024-11-01 23:24:50.692277
+CUST_000121,Christopher,Jenkins,powersmichael@example.com,513.249.0056x4346,3222 Meredith Parkway,,Port Robert,NY,93724,US,1953-05-11,8438,100-150k,Platinum,528,2024-03-24 21:35:48.966031
+CUST_000122,Emily,Wilkinson,ryan80@example.net,001-777-602-6467x186,72862 Brown Summit,,Port Laurafurt,MI,16410,US,1953-04-08,2408,75-100k,Gold,675,2025-02-05 08:30:23.224808
+CUST_000123,Heidi,Bruce,qvasquez@example.com,971-674-9021x5211,83686 Lynn Pine,,East Kathryn,NE,51192,US,2000-09-20,0515,<25k,Silver,398,2025-10-22 12:14:02.994802
+CUST_000124,Katherine,Yoder,eric77@example.net,001-586-980-2278x663,8897 Espinoza Curve Apt. 087,Apt. 286,Georgefort,DE,27612,US,1960-02-15,8423,<25k,Gold,334,2024-10-19 12:00:12.611806
+CUST_000125,David,Lin,knoble@example.com,(294)965-9458,58286 Scott Path Suite 916,,Freemanport,AZ,66354,US,1984-05-18,8263,25-50k,Platinum,642,2025-09-08 12:30:23.948946
+CUST_000126,Kim,Banks,marilyn66@example.org,6785194421,16093 Christopher Wells,,Dominiquefort,ID,84305,US,1983-08-15,8503,50-75k,Silver,635,2024-06-24 17:40:12.734852
+CUST_000127,Katelyn,Jennings,wmartin@example.net,(446)269-5196,566 Lori Stream Suite 277,,Aaronfurt,GA,56072,US,1962-11-05,8396,50-75k,Bronze,496,2024-05-25 10:14:49.592581
+CUST_000128,Jeremy,Santiago,icarroll@example.net,724-246-7810,0272 Brooks Estate Suite 765,,Christianshire,PW,11766,US,1970-10-05,1963,50-75k,Bronze,438,2024-02-28 13:33:57.666692
+CUST_000129,Christina,Garrett,nguerra@example.net,(359)974-2482,12814 Dawn Crescent,,Patrickfort,GA,12837,US,2001-02-03,1085,50-75k,Silver,547,2025-03-19 17:36:06.001697
+CUST_000130,Peter,Flores,wmoore@example.org,5196267327,359 Matthew Hollow,,Huffmanville,FL,00536,US,1966-04-08,5550,50-75k,Bronze,734,2025-05-19 00:05:50.545411
+CUST_000131,Veronica,Mcclain,tonya49@example.org,(611)440-5042x86749,475 Rebecca Mount,,West Cynthiamouth,GA,48247,US,1983-08-03,8339,25-50k,Platinum,609,2026-02-26 09:59:21.703063
+CUST_000132,Cynthia,Stewart,bradleydeanna@example.org,6937555095,711 Grant Fort,,North David,VA,28399,US,1992-05-31,4773,50-75k,Platinum,748,2025-07-13 08:48:51.297854
+CUST_000133,John,Hopkins,davidboone@example.com,615-986-9560x1890,3897 Kevin Burgs,Apt. 416,Jeffland,MI,55501,US,1980-05-13,1519,25-50k,Platinum,739,2025-06-11 12:11:48.799652
+CUST_000134,Charles,Gonzales,snelson@example.com,721.246.8641x5620,1683 Jones Lock Apt. 559,,Lake Melanie,NY,54835,US,1993-07-29,6296,<25k,Gold,402,2024-05-19 17:11:05.733629
+CUST_000135,Patricia,Sanchez,steven75@example.com,+1-205-484-2813x0851,60484 Parker Tunnel,,New Chadtown,FL,64353,US,1958-09-15,0820,150k+,Platinum,312,2024-04-05 13:04:30.651539
+CUST_000136,Brooke,Green,leah45@example.net,756-849-6939,7510 Tamara Groves,,South Michael,NC,63249,US,1958-05-26,5624,75-100k,Gold,469,2025-01-22 09:09:40.205657
+CUST_000137,Brian,Sawyer,heather81@example.net,+1-838-791-7682x2784,3283 Mcfarland Bridge Suite 915,Apt. 776,West Donna,AZ,50272,US,1982-04-30,1841,<25k,Silver,430,2024-07-30 12:36:41.334646
+CUST_000138,David,Johnson,jacqueline88@example.org,745-686-9739x7209,35781 Johnson Terrace,Apt. 697,New Annafurt,ME,35901,US,1977-08-18,4073,100-150k,Bronze,328,2025-06-13 00:56:21.655141
+CUST_000139,Katelyn,Gould,jburton@example.com,349-332-6039x486,2483 Weeks Rapids,,Darrellberg,MH,16670,US,1948-09-28,5690,25-50k,Platinum,779,2024-08-26 11:25:39.365818
+CUST_000140,Cindy,Jackson,munozheather@example.com,421-726-7064x654,030 Bobby Inlet Apt. 315,,Mckeebury,VT,84180,US,1946-01-31,0889,75-100k,Gold,644,2025-07-21 02:11:40.663392
+CUST_000141,Mitchell,Garcia,webbseth@example.org,(729)913-9087x6812,0824 Caroline Roads,,Johnhaven,HI,61752,US,1966-07-20,7170,75-100k,Platinum,547,2024-08-28 20:22:10.906991
+CUST_000142,Donald,Palmer,olivercalvin@example.org,(900)322-5364x461,55174 Maria Island,,Port Elizabethland,ME,80989,US,1982-11-23,5563,25-50k,Silver,695,2025-07-04 15:04:59.629208
+CUST_000143,Bonnie,Foster,frankwright@example.com,292-593-1368x624,431 Mitchell Crest,,Barnesburgh,CO,29450,US,2002-11-10,1587,100-150k,Platinum,489,2024-09-25 03:01:14.965991
+CUST_000144,Stefanie,Rivera,james41@example.org,001-234-672-3212x130,8896 Bolton Rapids,,Lake Alexis,MT,41739,US,2004-09-10,0621,<25k,Gold,792,2024-09-06 16:05:03.907717
+CUST_000145,Lori,Werner,christensenemily@example.org,232-852-8304x887,034 Cruz Drive Apt. 692,Apt. 986,North Nicholas,CA,20745,US,1989-03-28,8687,150k+,Platinum,756,2025-01-21 16:57:10.081409
+CUST_000146,Catherine,Roberts,sarah32@example.org,519.615.5698x24915,4103 Jeffrey Roads,Apt. 272,North Troy,IA,05251,US,1985-10-01,0828,50-75k,Gold,666,2025-03-19 02:37:28.523783
+CUST_000147,David,Whitehead,millstiffany@example.com,001-312-316-4914x7208,7669 Ortiz Well Suite 254,,West Chase,WY,41738,US,2000-01-30,8854,75-100k,Gold,311,2024-11-18 01:06:25.972439
+CUST_000148,Anthony,Martin,william41@example.org,(316)538-4980x583,50437 Scott Overpass,Apt. 041,Shaneburgh,SC,06081,US,1977-04-29,7597,50-75k,Gold,350,2025-11-09 22:55:25.941598
+CUST_000149,Jennifer,Wallace,jamesriddle@example.com,001-535-286-4693x46609,069 Melissa Valley,,New Jessicaton,FL,67871,US,1999-12-23,9886,25-50k,Silver,417,2024-07-24 20:40:00.805398
+CUST_000150,Angela,Trevino,rodriguezkathy@example.com,5112041816,9475 Snyder Ville Apt. 762,,Hansenberg,VI,45347,US,1975-05-28,0655,150k+,Silver,800,2024-03-15 04:47:08.922493
+CUST_000151,Lisa,Brown,pcrosby@example.org,987-343-1645,755 Omar Fords Suite 334,,Karenbury,NC,74091,US,1951-03-30,9742,100-150k,Platinum,319,2025-08-19 23:28:34.985035
+CUST_000152,Keith,Cox,lauren96@example.org,+1-957-679-3889x3648,1746 Foley Expressway,,Tammymouth,MD,20528,US,2006-11-24,9972,100-150k,Gold,828,2024-04-16 22:12:14.267340
+CUST_000153,Courtney,Wong,zherman@example.org,(700)809-5329,2001 Baker Run,Suite 914,Harrisstad,OH,43493,US,1971-04-27,4226,100-150k,Platinum,351,2025-07-26 10:21:44.017552
+CUST_000154,Erica,Davis,coledwayne@example.com,(891)466-1559,76458 Nelson Groves,,Tinaport,RI,40318,US,1974-06-26,8754,75-100k,Bronze,551,2026-02-27 23:08:29.590818
+CUST_000155,Sarah,Ramirez,crystal67@example.net,645.300.1462,03418 Robert Mountains Apt. 308,,Lake Anthony,WA,27759,US,1981-08-30,9193,<25k,Bronze,533,2025-05-15 16:09:18.184389
+CUST_000156,Michael,Diaz,davisjoseph@example.net,+1-798-755-5275,849 Carpenter Club,,Sharpside,NM,96566,US,1957-02-15,6708,25-50k,Gold,644,2025-10-09 03:38:54.124359
+CUST_000157,Jesus,Jensen,manuelgentry@example.net,777-560-0906x23078,21894 Bennett Forest,,South Robert,NM,55743,US,1973-06-04,7590,150k+,Platinum,311,2024-06-09 10:40:02.050973
+CUST_000158,Christopher,Miller,ruthwatkins@example.org,001-999-657-3137x570,64479 Denise Trail,,New John,WA,17726,US,1953-09-14,3986,150k+,Gold,742,2025-01-04 22:27:53.944714
+CUST_000159,Shane,Monroe,garythompson@example.net,(254)816-6624,843 Nathan Lights Suite 865,,Port Justin,MN,73991,US,1959-04-25,9023,150k+,Platinum,736,2026-01-03 14:40:02.831766
+CUST_000160,Scott,Barrett,ryanbautista@example.com,001-678-676-2677x60618,0519 Charles Run,,Suttonchester,TX,48864,US,1993-06-18,1859,75-100k,Bronze,630,2024-07-08 22:12:17.629685
+CUST_000161,Connie,Lucas,miguelfritz@example.com,996-255-5695x025,716 Daniel Flat,,Andersontown,IA,39685,US,2000-02-16,0096,150k+,Platinum,735,2024-09-05 20:23:06.493618
+CUST_000162,Melissa,Schultz,stevensanders@example.net,(555)418-3393x59667,0920 Adams Crest Suite 256,,Jenniferton,PR,81265,US,1971-03-21,9585,100-150k,Platinum,737,2024-11-10 18:21:13.859002
+CUST_000163,Daniel,Baird,melindawilliams@example.com,974.583.3762x5041,717 Rodriguez Bypass Apt. 057,,North Bradley,RI,87157,US,1977-02-06,7428,150k+,Bronze,479,2026-02-23 03:17:39.443928
+CUST_000164,Daniel,Morris,martinheather@example.org,825-343-1837,31725 Smith Dale,,Hayestown,WY,15699,US,2001-05-25,6375,75-100k,Gold,446,2025-02-25 19:15:51.992016
+CUST_000165,Willie,Hill,gharris@example.com,001-979-958-1153,753 Wilson Ports Apt. 487,,Duffychester,AR,99822,US,1996-05-22,7996,75-100k,Silver,306,2024-03-16 15:26:19.120636
+CUST_000166,Michael,Anderson,fergusonwhitney@example.net,(475)231-2389x7421,75003 Clark Avenue,Apt. 405,Port Courtneychester,ME,63022,US,1945-08-11,2764,75-100k,Silver,511,2025-07-18 06:31:15.168906
+CUST_000167,Jonathan,Martinez,ecarroll@example.com,9734629749,503 Sarah Haven,,Smithview,WI,77143,US,1987-07-18,8286,100-150k,Bronze,580,2025-05-23 19:40:48.707911
+CUST_000168,Dillon,Harper,nancy78@example.net,(616)846-3082x7768,06788 Denise Rapid,Apt. 629,Shieldsburgh,GU,57704,US,1971-12-26,2068,100-150k,Gold,679,2025-02-14 07:56:52.032795
+CUST_000169,Frank,Green,kelly71@example.net,+1-842-824-5667x61906,5687 Howard Squares,,North Steven,NY,66937,US,1987-09-09,2239,50-75k,Gold,627,2024-01-13 04:36:00.405206
+CUST_000170,Alan,Booth,tina94@example.org,(476)352-9837x9100,703 Amy Camp Apt. 676,,Lake Richard,VA,59119,US,1994-03-23,7491,<25k,Bronze,541,2025-09-30 04:33:44.482097
+CUST_000171,Spencer,Mullins,chasepotter@example.org,(720)680-0459x697,152 Ashley Park,,Lake Alexandra,KS,40782,US,1990-05-15,0838,75-100k,Platinum,501,2026-01-21 08:28:18.865324
+CUST_000172,Jason,Clark,jennifer69@example.org,001-398-238-1439,6588 Lee Track Suite 655,Apt. 851,Michaelview,IN,99869,US,2000-01-10,9699,100-150k,Silver,719,2025-02-19 15:26:03.117243
+CUST_000173,Allison,Brooks,armstrongnicole@example.com,784.632.0984x438,16353 Walker Alley,Suite 830,Andersonchester,UT,18208,US,1986-05-09,9730,50-75k,Platinum,510,2025-01-31 06:00:09.075819
+CUST_000174,Donald,Bryant,rebecca29@example.com,001-300-418-2852,464 Tony Ports Apt. 254,Apt. 158,West Cameron,MT,87097,US,1986-08-03,1676,75-100k,Bronze,727,2024-12-18 03:39:56.967510
+CUST_000175,Jo,Powers,wbecker@example.org,001-887-708-4545,75901 Emily Loaf Apt. 362,Suite 275,East Annborough,WY,14983,US,1994-08-05,0764,25-50k,Silver,693,2025-09-22 12:28:11.497686
+CUST_000176,Joan,Morgan,michelle66@example.org,(296)950-5189,43097 Anderson Neck,,Raymondton,RI,02986,US,1962-06-27,9540,<25k,Gold,349,2024-04-18 06:27:22.654577
+CUST_000177,Karen,Grant,felicia07@example.org,307-832-1296,2446 Clark Hills Suite 603,Apt. 271,Justinmouth,MA,24593,US,1956-01-04,6119,<25k,Silver,458,2025-05-29 09:35:43.365696
+CUST_000178,William,Mcconnell,jennifer92@example.org,591-558-8599x260,156 Choi Springs,,Valerieborough,VI,34629,US,1946-07-10,2510,25-50k,Platinum,479,2024-03-21 21:17:38.521892
+CUST_000179,Tony,Thomas,georgestephanie@example.net,747-664-0289x90470,2800 Cathy Station,,Costabury,KY,08597,US,1990-08-02,1602,50-75k,Silver,390,2024-06-20 01:49:45.024825
+CUST_000180,Danielle,Brown,prattrichard@example.com,001-361-713-3940,85358 Amanda Locks,,Jennahaven,GA,24716,US,1975-06-15,2534,100-150k,Gold,328,2026-02-09 08:12:53.250435
+CUST_000181,Kimberly,Sellers,harrisjocelyn@example.org,(614)416-2877x058,278 Monroe Shoals Apt. 267,,Liuburgh,ME,03466,US,1985-04-29,2007,75-100k,Platinum,762,2024-06-21 19:15:20.271984
+CUST_000182,Albert,Mathews,lindadalton@example.net,+1-217-462-7361x45219,8936 Timothy Branch Suite 757,,North Angela,WI,21821,US,1953-09-22,4601,150k+,Platinum,434,2024-04-04 10:01:24.806084
+CUST_000183,Candace,Randall,glarson@example.com,001-868-683-4859x3954,3989 Thomas Port Apt. 048,,Catherinefurt,GU,48337,US,1962-11-30,7772,<25k,Silver,330,2025-01-20 04:05:06.302451
+CUST_000184,Samantha,Brown,joel76@example.com,2507833373,6286 Hernandez Flat,Suite 269,Zacharytown,RI,28215,US,1978-04-16,4662,<25k,Platinum,550,2024-01-18 06:55:43.508637
+CUST_000185,Kristin,James,rachel59@example.com,8489040297,26865 Morales Crossroad,,Kennethberg,DC,09875,US,1976-11-17,2372,75-100k,Platinum,821,2025-08-09 11:16:05.943252
+CUST_000186,Dustin,Davies,hughesian@example.net,309-938-3661x488,16661 Robbins Ferry,Apt. 001,Clayburgh,ID,78012,US,1954-09-23,4204,<25k,Platinum,436,2024-10-28 16:57:15.474537
+CUST_000187,Pam,Kline,sthompson@example.net,(414)595-2536,4800 Tammy Villages,,Brownside,HI,74006,US,1946-11-17,0408,<25k,Platinum,343,2024-10-10 09:10:31.712809
+CUST_000188,Charles,Young,zcoleman@example.net,254-713-2955,81730 Scott Via Suite 114,,Lake Michaelburgh,IL,74236,US,1999-10-18,2207,25-50k,Silver,520,2025-01-28 19:49:54.395349
+CUST_000189,Shelby,Brown,michaeljohnson@example.org,+1-894-340-1808x12487,15805 Heidi Expressway,,Huynhton,MA,52807,US,1978-05-08,0476,25-50k,Silver,356,2024-05-28 00:12:57.183716
+CUST_000190,Adrienne,Buck,thompsonmichelle@example.net,001-951-272-4805x453,4140 Hughes Locks Apt. 507,,East Mackenzie,UT,53319,US,2003-06-12,0182,100-150k,Gold,454,2025-01-30 01:41:45.191854
+CUST_000191,Jessica,Shaffer,chaseruiz@example.com,567.561.1593x47574,936 Fox Skyway,,North Dakota,RI,17537,US,1954-08-26,2490,50-75k,Platinum,406,2026-02-27 18:31:49.326843
+CUST_000192,Elizabeth,Snyder,samantha30@example.org,518.798.0610x179,37754 Ortiz Brooks Apt. 568,,Maxwellmouth,MO,94463,US,1964-06-05,5031,100-150k,Platinum,534,2025-05-25 17:39:25.972807
+CUST_000193,Angela,Ross,fhardy@example.net,7858787248,598 Michelle Cove Apt. 387,,South Justin,MD,30748,US,1979-09-19,7717,100-150k,Bronze,738,2024-09-11 22:01:22.970802
+CUST_000194,Dana,Huber,joshua56@example.com,3853440224,82004 Jessica Cliff,,Hernandezton,GU,12415,US,1967-04-20,6416,75-100k,Silver,348,2024-08-23 15:13:21.521104
+CUST_000195,Makayla,Morrison,cfarmer@example.com,001-214-641-6742x70290,32685 Pamela Road Apt. 485,,Davidmouth,NV,27866,US,1996-02-05,2429,150k+,Gold,829,2024-04-21 08:51:44.677116
+CUST_000196,Jennifer,Turner,charlesalvarez@example.net,+1-492-259-5861x059,850 Allen Landing Apt. 539,,New Danielton,MS,68511,US,1990-11-16,9255,150k+,Bronze,552,2024-05-10 17:01:46.836465
+CUST_000197,Karina,Leblanc,mark35@example.com,994-801-0662,793 Laura Springs,Suite 726,Veronicaside,MH,02178,US,1974-06-10,4251,25-50k,Bronze,648,2024-09-04 21:26:06.432495
+CUST_000198,Steven,Jones,rhonda10@example.com,2558933066,1045 Anne Streets Apt. 611,,South Thomas,IA,29490,US,1988-05-01,7587,100-150k,Gold,482,2024-01-01 08:38:53.096930
+CUST_000199,Tiffany,Hobbs,tonirobinson@example.net,552-222-2094x7324,936 Kevin Island Suite 887,,West James,GA,14460,US,1954-04-14,7510,25-50k,Gold,810,2024-09-26 06:43:21.654893
+CUST_000200,Kimberly,Rodriguez,contrerasbrianna@example.org,(308)754-0009,45850 Melissa Creek Apt. 573,,Lauramouth,ND,67041,US,1957-02-03,7607,25-50k,Platinum,803,2026-02-27 13:24:43.579038
+CUST_000201,Barbara,Mccoy,gcox@example.org,422-602-9921x4046,003 Brianna Landing Suite 068,Suite 045,Gravestown,FM,49341,US,1999-09-10,3352,75-100k,Silver,549,2026-01-07 04:10:11.235059
+CUST_000202,Frances,Luna,jessicastone@example.net,927-871-1965x8330,12802 Williams Greens Suite 091,,Teresabury,WY,86661,US,1961-10-25,3947,150k+,Gold,594,2024-10-12 03:46:11.760080
+CUST_000203,Melissa,Shannon,kgray@example.org,264-451-7622,726 Sara Harbors Suite 373,Suite 972,North Lynnborough,KY,87622,US,1988-08-11,0873,50-75k,Bronze,588,2025-12-10 21:35:45.411112
+CUST_000204,Patricia,Hale,lisa82@example.net,987.855.3087,17327 Mathis Lights,,West John,NJ,83258,US,2004-10-06,0301,150k+,Bronze,724,2024-04-03 15:20:27.861781
+CUST_000205,Joshua,Gonzalez,farrelltyler@example.com,860-862-5488,0363 Robertson Mission Apt. 891,Suite 085,Lake Leontown,ID,33335,US,1957-07-09,4539,150k+,Platinum,534,2025-08-01 01:20:47.400331
+CUST_000206,Crystal,Krueger,cooleyalan@example.net,679-545-8799x1398,58056 Mccarty Lodge,,New Jasonchester,GA,64644,US,1965-01-10,3281,100-150k,Gold,421,2025-08-09 10:15:20.753763
+CUST_000207,James,Allen,jerrypatton@example.org,5609523641,00199 Tyler Cape Apt. 909,,Harrisonstad,IN,84668,US,1963-12-20,5560,25-50k,Gold,776,2024-02-07 00:27:30.499845
+CUST_000208,Eileen,Johnson,mccarthygeorge@example.net,(851)209-4705,004 Amy Knoll,,East Donald,AS,01318,US,1965-07-18,0359,25-50k,Platinum,814,2025-09-04 05:37:51.737318
+CUST_000209,Monica,Wise,khall@example.net,001-487-231-5580,96736 Hernandez Springs Apt. 376,,Jennifermouth,NH,46278,US,1996-12-06,3074,150k+,Bronze,837,2024-05-22 16:01:55.812794
+CUST_000210,Tara,Dickson,garciadesiree@example.net,547-787-6165x0340,000 Mccarthy Road,Suite 982,Alecborough,TN,99199,US,1990-01-30,9816,100-150k,Gold,756,2024-05-09 23:02:32.769941
+CUST_000211,Joseph,Knox,sharon40@example.org,399.701.6038x3100,27607 Brian Ramp Apt. 124,,Gillbury,MA,48027,US,1960-02-29,9879,<25k,Bronze,420,2024-04-19 04:59:47.132524
+CUST_000212,Timothy,Zavala,weaverjoshua@example.net,630-868-1108x4445,6869 Curtis Rapid,Suite 976,Port Rebecca,MO,77313,US,1979-11-09,3264,<25k,Gold,548,2024-09-13 12:54:58.153763
+CUST_000213,Amanda,Garcia,ashley57@example.com,719-540-4709x242,5291 Lindsey Lodge,Suite 361,Bakerport,CO,68808,US,1987-02-06,0131,100-150k,Gold,311,2024-01-09 20:53:18.481869
+CUST_000214,Mary,Rogers,pgill@example.org,2289591253,7060 Delgado Walks Apt. 080,,Port Debrafurt,FL,88098,US,1996-02-18,6651,25-50k,Bronze,629,2025-05-01 03:30:37.038657
+CUST_000215,Joseph,Martin,tony26@example.com,(248)353-5354,744 Michelle Lane,Suite 324,Burtonport,FM,20820,US,1983-10-06,1552,150k+,Silver,374,2025-10-24 21:41:04.633690
+CUST_000216,Kimberly,Smith,fstrickland@example.com,663.711.1520x5069,44043 Kristen Ways,Suite 097,Seanton,MD,26370,US,2000-07-22,9876,100-150k,Silver,724,2025-03-12 11:20:24.137708
+CUST_000217,Tammy,Kidd,pricejennifer@example.net,(832)423-4230,2844 Lisa Canyon Apt. 951,,North Ryan,IA,47327,US,1996-07-06,1677,150k+,Platinum,801,2026-02-18 23:28:01.719234
+CUST_000218,Erika,Cooper,redwards@example.com,(277)609-7288x47678,226 Cruz Parks,Apt. 444,Port Johnmouth,IA,44406,US,1947-12-01,1807,25-50k,Gold,377,2025-12-24 13:14:11.880584
+CUST_000219,Denise,Salazar,johngonzalez@example.com,+1-702-450-1842x881,2281 Armstrong Trafficway,,Cunninghamstad,MD,28906,US,1990-11-03,9114,150k+,Silver,337,2025-09-27 20:53:13.375015
+CUST_000220,Christine,Madden,renee15@example.net,(625)771-5242x04773,504 Martha Path Apt. 354,,East Heather,ND,51091,US,1993-11-12,7397,150k+,Gold,776,2026-02-10 16:46:03.400330
+CUST_000221,Charles,Cuevas,bakerdevin@example.com,001-962-477-4579,1422 Stevens Skyway Apt. 051,Apt. 489,New Cassandratown,RI,66990,US,1998-04-21,8441,100-150k,Bronze,430,2025-05-24 16:42:07.598896
+CUST_000222,Roger,Martinez,portercarolyn@example.com,001-920-206-3274x8267,09627 Andrea Key,,Bookerhaven,IN,20363,US,2006-10-23,4872,<25k,Silver,385,2026-02-10 09:21:01.897985
+CUST_000223,Patricia,Bailey,michaelhumphrey@example.com,+1-206-920-8535x3514,863 Rebecca Prairie Suite 918,,South Veronicamouth,HI,99917,US,2002-04-19,7544,75-100k,Silver,357,2025-12-22 09:41:02.024192
+CUST_000224,Randall,Stevens,stephanie08@example.com,001-408-260-5414x946,50246 Foster Spring Suite 527,,West Tamara,NH,73636,US,1969-07-13,5429,25-50k,Platinum,698,2024-03-23 18:13:25.181534
+CUST_000225,Adrian,Phillips,marygutierrez@example.net,851-691-3500x541,870 Oconnor Crossroad,,Bowersville,SD,69998,US,1946-04-24,8909,50-75k,Gold,506,2024-02-05 03:40:14.929791
+CUST_000226,Michael,Chung,andregardner@example.com,531.541.7566,06013 Thompson Ports,,Karentown,MH,67723,US,1972-11-01,7005,25-50k,Bronze,724,2024-01-29 01:05:39.774993
+CUST_000227,Clayton,Walsh,reynoldsbenjamin@example.net,001-697-743-5090x05390,0156 Gonzalez Inlet Suite 623,,South Joannahaven,MO,21126,US,1950-12-17,2910,50-75k,Gold,355,2026-01-22 09:57:21.601332
+CUST_000228,Pamela,Kennedy,hardybarbara@example.net,438.730.7975,4443 Lowery Manors Apt. 579,,Gabrielleburgh,WA,27799,US,1975-08-14,3571,50-75k,Gold,565,2026-01-25 03:42:00.618808
+CUST_000229,Kenneth,Jackson,zallen@example.net,(322)849-9504x8446,6821 Angela Canyon,,Port Christopher,ID,83961,US,1981-09-07,7973,100-150k,Platinum,631,2024-08-05 12:07:06.701181
+CUST_000230,Erin,Fields,warren18@example.org,001-352-211-0759x65347,85696 Teresa Dam Apt. 242,,Chelseaview,WA,19807,US,1986-08-06,8812,75-100k,Silver,843,2024-11-20 08:45:43.327395
+CUST_000231,Suzanne,Smith,alee@example.net,460.339.8615x45134,98706 Harper Village,,Robinsonville,IN,91272,US,2002-12-15,5731,<25k,Silver,836,2025-03-23 21:25:26.588120
+CUST_000232,Natalie,Brown,eric05@example.org,001-600-573-8596x0107,22791 Mark Summit Suite 536,,Carrollshire,AS,44034,US,1951-07-16,0915,100-150k,Silver,360,2024-06-12 02:19:16.821307
+CUST_000233,Laura,Mendoza,james76@example.org,381.692.9995x198,4591 Jenkins Prairie Suite 380,,Jacobsonland,NM,78204,US,1964-02-10,1182,25-50k,Silver,797,2024-03-25 18:06:45.594500
+CUST_000234,David,Chapman,vwoods@example.com,001-716-969-2430x3561,1697 Nolan Cove,,Cruzhaven,TN,97578,US,1947-03-07,2184,25-50k,Gold,440,2025-01-19 21:40:26.383014
+CUST_000235,Cody,Williams,wball@example.org,4906894031,14400 Aimee Mill,,Williammouth,TN,24025,US,1982-04-14,2272,75-100k,Bronze,345,2024-04-14 02:09:01.795469
+CUST_000236,Robert,Herrera,floresbarbara@example.org,686.665.4879,2858 Blake Unions Suite 267,,New Kristintown,UT,76554,US,2007-09-23,1576,<25k,Gold,780,2025-06-20 11:12:07.025832
+CUST_000237,John,Roman,amandanunez@example.org,(558)784-6851x21890,5576 Scott Ferry,,Doughertyfurt,MO,47998,US,1950-04-26,7611,50-75k,Bronze,533,2024-04-09 08:18:44.808187
+CUST_000238,Kayla,Kelley,perkinskathryn@example.net,001-622-357-0327,87559 Kristy Underpass,,Port Becky,MI,48214,US,1971-10-15,4809,150k+,Bronze,324,2024-04-24 06:25:49.541945
+CUST_000239,Phillip,Brown,anthonycrawford@example.com,001-895-237-0610x6734,82560 Baker Flats,,West Coreyburgh,NM,49519,US,2004-03-23,7023,100-150k,Platinum,667,2024-11-05 23:28:08.726730
+CUST_000240,Scott,Henry,robert89@example.org,300-400-3493x96632,243 Mcfarland Prairie,,Port Emily,WA,24053,US,1976-03-04,9390,50-75k,Silver,702,2024-09-12 18:27:14.667965
+CUST_000241,Christopher,Mclaughlin,teresarose@example.net,726-543-4510,19969 Burnett Ferry Apt. 512,,Lake Adam,PW,75711,US,1966-09-25,2788,25-50k,Gold,346,2026-01-23 10:40:43.115225
+CUST_000242,Pamela,Murphy,monica58@example.net,001-461-626-9102x91530,0173 Johnson Trace Apt. 324,Suite 513,Port Sandraborough,NH,70833,US,1993-10-14,4085,100-150k,Platinum,648,2025-05-11 14:53:27.415146
+CUST_000243,John,Jones,ortegabrian@example.com,001-980-635-1509x10986,1358 Pruitt Road Apt. 134,Apt. 032,Nortontown,IN,87539,US,1960-07-01,0961,150k+,Silver,740,2025-12-11 17:31:29.482296
+CUST_000244,Keith,Salinas,dickersonjuan@example.com,+1-507-986-7008x318,5038 Guzman Green Apt. 660,,South Heatherfurt,DE,93554,US,1994-05-24,5074,50-75k,Silver,688,2024-10-08 13:36:40.400166
+CUST_000245,Teresa,Moore,wallison@example.net,587.620.7344x3132,22449 Keith Creek Suite 889,,New Jasonshire,NC,61981,US,1957-07-16,9309,75-100k,Gold,351,2025-02-16 07:25:59.279518
+CUST_000246,Isaac,Luna,belllucas@example.com,+1-298-233-1198x3190,3198 Mann Corner Suite 174,,New Tamarafurt,ME,46039,US,1966-07-19,0135,25-50k,Gold,679,2024-10-05 20:39:34.347565
+CUST_000247,Ronald,Booth,vincent53@example.net,(448)631-3689x6435,48789 Kenneth Manor Apt. 320,,New James,OK,08074,US,1992-04-01,4535,25-50k,Gold,325,2024-10-11 12:36:48.380931
+CUST_000248,Emma,Ward,lfox@example.com,622.343.6856,15536 Luna Spring,Apt. 309,Lake John,PR,64643,US,1967-02-03,3538,150k+,Silver,594,2025-12-03 09:40:04.624313
+CUST_000249,Sara,Anderson,meagannolan@example.net,+1-834-424-2033x2458,68995 Estrada Branch,,Anthonyborough,GA,98246,US,1991-03-30,0086,150k+,Platinum,585,2025-05-05 05:24:34.950328
+CUST_000250,Spencer,Ortiz,tranchristopher@example.com,856.200.4099x60421,36238 Brandon Isle Apt. 681,,Gonzaleztown,MS,98005,US,1969-04-08,7471,75-100k,Gold,773,2025-09-02 20:28:08.672188
+CUST_000251,Tracy,Sims,millsjames@example.org,3062146579,692 James Land,,New Brendaton,HI,96744,US,1955-01-30,2222,25-50k,Platinum,300,2024-02-02 15:36:48.061304
+CUST_000252,Joel,Williams,hdelgado@example.net,999-347-8839,5414 Robyn Mall Apt. 046,,Mcculloughside,PR,45897,US,1957-10-25,5045,150k+,Platinum,819,2025-10-31 13:20:50.737852
+CUST_000253,James,Blackwell,daltonpeter@example.com,001-356-712-3053x42559,962 Terry Crossroad Suite 081,Suite 161,North Anthony,SD,37879,US,1946-04-02,9751,75-100k,Bronze,847,2024-09-07 19:26:38.844213
+CUST_000254,Jennifer,Hernandez,morgantamara@example.org,440.394.5647x929,6278 Haynes Prairie,,Travisfort,CO,10713,US,1953-11-13,1276,150k+,Gold,358,2024-06-11 20:58:00.413703
+CUST_000255,Alicia,Charles,billyrobinson@example.net,001-415-284-4959,56532 Michelle Flat,,South Tammyfort,SD,97318,US,1974-04-21,9762,<25k,Gold,705,2025-09-05 00:03:42.443068
+CUST_000256,John,Hammond,michaeladams@example.net,721.795.9871x48220,812 Christopher Lock Apt. 146,,Kellyview,DE,34107,US,1972-09-03,2937,100-150k,Bronze,765,2024-04-15 03:29:05.647347
+CUST_000257,Christopher,Martinez,randycross@example.org,+1-477-210-7971x005,420 Price Squares,,Lake Davidbury,GU,62104,US,1954-12-09,0124,100-150k,Bronze,570,2025-03-31 13:49:44.756852
+CUST_000258,Joshua,Williams,melvin66@example.org,817.599.6691x047,694 Joseph Dale Apt. 068,Apt. 804,North Ronald,WA,23293,US,1990-01-04,0145,150k+,Platinum,328,2024-03-29 07:33:14.409751
+CUST_000259,Jacqueline,Spence,johnwolfe@example.com,001-355-751-7208,95898 Griffith Forest,,South Kaylamouth,OH,38548,US,1969-03-11,1015,50-75k,Platinum,337,2024-07-17 07:43:06.539960
+CUST_000260,Eric,Thomas,kara61@example.org,855.631.9361,47237 Butler Fall,,South Kathleen,FL,98169,US,1997-03-08,2159,75-100k,Platinum,509,2025-11-14 21:42:16.581097
+CUST_000261,Brent,Williamson,thorntonmary@example.org,(847)833-8380,817 Barnett Manors Apt. 242,,North Madelineport,NM,02002,US,1995-09-03,8798,150k+,Platinum,393,2024-12-05 11:26:15.200302
+CUST_000262,Pamela,Jackson,rodriguezmelissa@example.org,925.633.2939x0162,1797 Christopher Avenue Apt. 782,,East Melissa,NE,24544,US,1957-03-15,5464,50-75k,Gold,371,2024-07-12 19:26:12.130273
+CUST_000263,Mario,Thomas,bwarner@example.com,+1-392-982-1066x8984,53910 Micheal Glens Apt. 333,,North Nichole,IN,13907,US,1975-10-29,3590,150k+,Bronze,457,2025-02-10 07:58:50.616663
+CUST_000264,Sandra,Rodriguez,michelle41@example.com,001-857-950-7435,57615 Smith Road,,Port Christopher,TN,65327,US,1967-11-01,0855,25-50k,Bronze,834,2025-01-21 14:11:01.560993
+CUST_000265,Alan,Gomez,margaretsoto@example.org,869.335.0314x845,64057 Elizabeth Fields,,Port Jenniferton,AZ,74901,US,2000-04-20,0098,150k+,Bronze,633,2024-10-19 06:03:02.513885
+CUST_000266,Dillon,Murray,emmahobbs@example.net,971.360.5334x590,06988 Myers Mountains,Apt. 162,Floresmouth,PR,17240,US,1995-01-25,9268,<25k,Bronze,667,2024-01-27 06:02:54.325689
+CUST_000267,Sandra,May,nbender@example.com,+1-655-425-8663x13732,553 Nicole Lakes,Apt. 531,West Summerborough,MP,84379,US,1953-09-14,0339,100-150k,Gold,658,2025-12-03 11:40:18.806389
+CUST_000268,Jimmy,Evans,pamelalewis@example.net,758.646.7096,21711 Arellano Canyon Apt. 514,Apt. 765,Dalemouth,VA,09034,US,1991-02-12,0369,75-100k,Gold,301,2025-04-13 10:12:23.810196
+CUST_000269,Justin,Wallace,monica41@example.net,640.581.6461x60729,642 Eric Plaza,,Jesusport,TN,17334,US,1982-06-18,8871,150k+,Gold,461,2025-03-25 04:48:26.721651
+CUST_000270,Gene,Sloan,jeanettejohnson@example.org,9893737804,4703 William Trafficway Suite 773,Apt. 206,Charlesville,ME,66536,US,1977-08-04,2058,150k+,Gold,311,2024-11-05 23:59:20.594396
+CUST_000271,Maxwell,Brown,djohnson@example.org,661-346-7566x698,9231 Gonzales Lodge,,Julianstad,LA,75673,US,1969-10-05,2819,50-75k,Bronze,710,2026-01-08 19:52:08.315119
+CUST_000272,Angelica,Hawkins,bobbyadkins@example.net,735-886-9969,883 Alan Shore,,Christianchester,KY,17170,US,2001-02-03,1605,75-100k,Gold,517,2025-11-08 03:05:52.433314
+CUST_000273,Melissa,Carpenter,wowen@example.com,889-955-3200x896,594 Brown Wall,Suite 877,Jessicastad,NJ,94845,US,1998-08-22,0254,<25k,Gold,522,2024-03-04 13:19:58.562819
+CUST_000274,Tara,Beck,josekeller@example.net,9027551732,59765 Christopher Freeway,Apt. 645,New Aliciaburgh,NM,86714,US,1962-05-30,4692,100-150k,Bronze,788,2025-05-29 22:09:00.597695
+CUST_000275,Austin,Graves,blackburnchristina@example.com,+1-996-515-2625x84121,734 Davis Isle,,Carlosville,OH,80796,US,1975-11-22,2931,75-100k,Gold,648,2026-01-01 16:47:20.935482
+CUST_000276,Jeffrey,Herrera,jessica46@example.com,(292)363-4178x40730,632 Ann Pass Apt. 261,,Santosmouth,PR,26198,US,1966-06-27,4006,25-50k,Bronze,371,2025-01-17 05:55:17.709952
+CUST_000277,Michelle,Kelly,danielle28@example.com,+1-336-724-9813x20046,63045 Reynolds Path Apt. 688,,West Cody,MS,50952,US,1964-08-09,9441,100-150k,Platinum,589,2026-02-13 14:35:26.098806
+CUST_000278,Jeffrey,Smith,johnroberts@example.org,979.751.0631x7420,74376 Jay Crossing Suite 885,Apt. 897,Port Hannahport,DE,34103,US,1950-11-16,1939,25-50k,Platinum,753,2024-10-21 14:02:23.040700
+CUST_000279,Jason,Moody,brandon53@example.net,(629)681-7825x8517,287 Paige Union Apt. 649,,Melissaton,SD,49072,US,1994-10-03,9540,<25k,Bronze,381,2025-02-20 17:59:07.031477
+CUST_000280,Gabriel,Perez,kellireyes@example.org,(727)233-2496,65487 Jason Island Apt. 329,,Harrisonbury,OR,22421,US,1972-12-09,8432,150k+,Silver,660,2025-10-25 05:11:40.440150
+CUST_000281,Michelle,Gonzalez,scottwilliam@example.com,860-519-6467,6789 Robert Street,,East Jamesland,FL,71511,US,1982-02-06,2021,25-50k,Silver,516,2024-11-16 00:53:37.728532
+CUST_000282,Omar,Espinoza,taylorjonathan@example.net,+1-875-620-3201x939,213 Stephanie Island Suite 526,Apt. 556,South Yolanda,WV,69162,US,1985-06-26,1229,<25k,Silver,840,2024-06-25 00:45:11.520006
+CUST_000283,Lisa,Gray,dennisgarrett@example.com,001-952-789-2550x9072,7111 Serrano Run,Suite 211,Donaldfort,NV,19349,US,1992-01-31,9152,100-150k,Bronze,778,2025-04-25 12:23:22.994453
+CUST_000284,Craig,Mendoza,jeffreymoreno@example.net,+1-502-469-4652x8986,026 Justin Lane,,Pittmanfort,PR,05676,US,1998-03-01,5634,25-50k,Platinum,592,2025-08-23 20:25:25.590089
+CUST_000285,Stephanie,Bean,rnelson@example.org,(339)399-8131x620,455 Carol Circles Suite 856,,Lindachester,CO,65709,US,1980-01-29,4351,<25k,Platinum,672,2024-06-03 03:46:09.100836
+CUST_000286,Jonathan,Rollins,goldentracy@example.org,440-840-6620x09277,7814 Ashley Skyway,,Amandatown,MI,40325,US,1994-10-02,9881,150k+,Silver,563,2024-12-25 11:53:32.721425
+CUST_000287,Kevin,Cole,csmith@example.net,(551)309-4810,914 Wilson Rue Apt. 264,,South Brettburgh,IA,02117,US,1997-12-01,2881,<25k,Silver,817,2025-04-16 23:21:32.729234
+CUST_000288,Kimberly,Torres,molinajean@example.net,602-445-3966x3585,6499 Michael Camp,,Lake Matthewview,NM,78673,US,1990-09-25,4030,100-150k,Bronze,452,2024-02-21 23:06:43.341037
+CUST_000289,Diana,Hart,danielshah@example.com,961.800.0173,9500 Mcmillan Trace,Apt. 831,East Masonburgh,MT,85447,US,1991-02-08,6782,50-75k,Gold,763,2024-06-30 04:54:52.958335
+CUST_000290,Gregory,Roman,conniewilson@example.org,561-739-6081x9593,98604 Christian Cliff Suite 207,,East Lisafurt,MH,02527,US,1991-07-12,6156,150k+,Bronze,510,2025-01-04 16:30:52.539306
+CUST_000291,Ian,Ewing,jenniferjohnson@example.org,(920)419-8218,5055 Romero Springs,Suite 096,Thompsonshire,IA,42288,US,1988-02-02,7287,150k+,Platinum,411,2024-04-09 16:44:31.050580
+CUST_000292,Wendy,Moses,fpatton@example.net,310-386-2542,3161 Powell Trace,Suite 484,Port Jessica,AR,24373,US,1958-01-21,4898,50-75k,Silver,543,2024-12-15 15:19:24.687343
+CUST_000293,Diana,Porter,ucaldwell@example.com,398-249-2228x9174,9627 Bray Ferry,,Mossland,MN,48634,US,1962-09-23,6176,100-150k,Platinum,844,2026-02-14 10:39:17.729971
+CUST_000294,Mark,Lang,fprice@example.org,001-515-789-4712x429,10584 Daniel Mountain Apt. 678,,South Michaelshire,DC,54667,US,1998-01-26,5714,<25k,Silver,337,2024-09-21 21:54:35.253907
+CUST_000295,Dawn,Sharp,emilyevans@example.net,(529)306-8063,607 Park Lights Apt. 999,,Port Janice,OH,16877,US,1956-09-02,1481,25-50k,Platinum,803,2026-02-17 11:07:12.893080
+CUST_000296,Megan,Young,theresaramirez@example.com,580.763.1885,13953 Scott Avenue,Apt. 708,New Robert,CO,68889,US,1994-12-10,8457,50-75k,Silver,349,2025-10-22 16:55:08.953547
+CUST_000297,Travis,Morrison,rosstammy@example.com,884.436.1788x53636,54630 Garcia Cape Apt. 243,,Brandyton,NC,28637,US,1989-02-27,7777,150k+,Platinum,491,2024-12-30 01:06:38.461545
+CUST_000298,Amanda,Long,christinawilliams@example.org,771-456-1914x2417,6665 Davies Wells Apt. 202,,North Andrew,AZ,63044,US,1966-08-24,3803,<25k,Bronze,522,2024-04-13 13:15:20.147635
+CUST_000299,Elizabeth,Romero,christopher77@example.com,(979)636-6730x6586,97841 Rogers Garden,,Daviesberg,PA,88267,US,2003-02-24,4749,25-50k,Bronze,714,2024-10-26 00:35:38.813398
+CUST_000300,Carrie,Manning,kingcynthia@example.net,808.429.0765x244,800 Patricia Points Suite 735,,Barberberg,SD,07641,US,1981-10-04,4449,25-50k,Platinum,653,2026-02-11 07:45:51.957043
+CUST_000301,Ricky,Thompson,sharon19@example.com,425.786.5613,655 Daniel Views Apt. 344,Apt. 162,Port Larry,NY,28326,US,1961-04-06,9401,100-150k,Platinum,643,2025-03-09 12:16:17.122384
+CUST_000302,Vincent,Martin,robert12@example.net,(521)357-2698x9072,7856 Cruz Street,,Hicksport,CT,05206,US,1957-03-14,6369,100-150k,Platinum,695,2025-09-28 21:57:46.900664
+CUST_000303,Tiffany,Cline,james17@example.com,+1-923-923-9130x192,65603 Norton Alley Suite 071,,Port Cameron,NH,83213,US,1969-03-24,4528,75-100k,Bronze,399,2026-01-01 06:45:43.343273
+CUST_000304,Regina,Bennett,melissapalmer@example.net,(932)696-6410,1849 Cynthia Islands,,North Saratown,AR,16080,US,1976-10-20,0283,150k+,Bronze,598,2024-02-29 05:56:24.491266
+CUST_000305,Jose,Garcia,edwardsderrick@example.com,903.241.9192,6375 Randall Orchard Apt. 858,Apt. 223,Mcdanielland,VI,37799,US,1987-08-29,0758,100-150k,Bronze,498,2024-09-30 20:40:58.120314
+CUST_000306,Tara,Hardin,powellhunter@example.net,+1-757-645-6290,655 Cox Via Apt. 871,,East Jacqueline,IL,90479,US,1991-03-24,6407,100-150k,Silver,534,2026-02-09 10:00:04.371691
+CUST_000307,Louis,Perry,dana84@example.com,380-725-0177,31710 Carla Ranch,,Henrychester,MN,17657,US,1983-06-17,4868,100-150k,Silver,389,2024-07-20 06:24:59.544359
+CUST_000308,Christopher,Anderson,xmcguire@example.com,+1-588-921-0119,2080 Brock Stravenue Apt. 801,Apt. 371,Michaelshire,WI,18144,US,1999-12-28,9762,150k+,Silver,582,2024-10-02 06:46:48.440030
+CUST_000309,Mary,Patel,xmartin@example.com,4658124121,95402 Hill Mountains,,Bergtown,PA,06656,US,1974-08-20,3580,150k+,Gold,793,2026-01-30 00:18:28.533668
+CUST_000310,John,Randolph,heathercombs@example.org,(987)371-3417,398 Susan Parkways,,East Matthew,NE,57056,US,1997-12-29,4883,150k+,Platinum,300,2025-09-29 13:56:23.549860
+CUST_000311,Michele,Nguyen,millskarla@example.com,001-298-906-4787x085,374 Glenn Groves,Apt. 539,Joanhaven,WA,49878,US,1948-12-15,0620,50-75k,Platinum,771,2025-04-29 13:13:10.409678
+CUST_000312,Shannon,Martin,joe07@example.net,+1-791-620-5977,41179 Hanson Meadows Apt. 769,,Fuentesside,NJ,32983,US,1963-01-30,0074,100-150k,Silver,831,2025-06-26 15:06:19.985645
+CUST_000313,Theresa,Thomas,operry@example.net,001-672-820-1928x3813,396 Sexton Via Suite 975,,Port Jodistad,VI,09154,US,1969-05-12,9170,<25k,Silver,592,2024-06-23 05:40:52.785651
+CUST_000314,Blake,Clark,amycarter@example.org,717-752-3062x17577,59194 Patterson Points Apt. 783,Apt. 185,Brownberg,SC,90540,US,1980-10-27,9925,<25k,Silver,366,2024-04-28 05:13:48.369133
+CUST_000315,Wendy,Cochran,thomasandrade@example.org,(750)753-4141x3503,8755 Katherine Mission,,Port Andreashire,IN,05618,US,2002-03-08,1165,150k+,Platinum,553,2024-11-29 14:08:20.075417
+CUST_000316,Jodi,Williams,jessicapowers@example.com,+1-531-549-5349x70943,9819 Rich Point Apt. 588,,West Alan,CA,85343,US,1995-01-12,1362,75-100k,Silver,475,2024-11-21 03:15:53.326257
+CUST_000317,Benjamin,Foster,monicajohnson@example.org,+1-307-690-6910x788,698 Hicks Isle Suite 716,,North Joshua,MT,88338,US,1962-07-04,0044,50-75k,Platinum,592,2024-07-30 09:40:05.477130
+CUST_000318,Edward,Wilson,dominiquegeorge@example.com,728-874-9904,6003 Eric Road Suite 588,,Jeffland,AZ,41451,US,1981-07-15,4019,25-50k,Bronze,682,2024-06-03 01:53:45.922456
+CUST_000319,Diana,Porter,benjamin72@example.com,(963)505-1706,74292 Scott Dam Apt. 452,,Jeffreyport,MT,35396,US,1964-11-14,0580,<25k,Silver,627,2024-04-13 03:08:08.405718
+CUST_000320,Alison,Casey,kharris@example.com,3182537353,9217 Bobby Underpass,,New Tiffany,AR,53947,US,1987-04-05,2845,100-150k,Silver,732,2025-08-16 17:15:31.006810
+CUST_000321,Jasmine,Thomas,mario98@example.org,344.340.9141x161,8708 Kendra Centers,,Shellybury,VA,06340,US,1989-03-26,6730,75-100k,Gold,705,2024-04-16 00:33:11.486477
+CUST_000322,Wendy,Dean,moralesjessica@example.net,(277)890-3850x443,47912 Matthew Port,,Kristenberg,KY,01564,US,1958-06-19,2605,<25k,Silver,556,2025-09-02 06:29:33.889777
+CUST_000323,Jacob,Villa,montgomeryandrew@example.com,001-461-416-5511,67752 Ashley Dam,,South Cameronton,MN,90566,US,1977-05-25,2754,100-150k,Platinum,694,2024-03-15 20:21:14.266626
+CUST_000324,Joshua,Hawkins,stephen02@example.net,+1-938-239-0770,74002 Ray Loaf Apt. 251,Suite 117,Jasonberg,VI,41363,US,1977-12-02,7312,50-75k,Silver,432,2025-04-22 03:57:34.325448
+CUST_000325,Hayley,Lindsey,james19@example.org,593.465.8379x06870,72317 Campbell Forges,,South Timothyside,FM,31931,US,1995-12-11,0798,25-50k,Platinum,387,2024-10-07 02:15:16.384580
+CUST_000326,Amanda,Bean,millsamber@example.com,(810)983-3304x167,381 Jackson Station Suite 169,,West Jason,WI,37325,US,1959-07-25,2088,100-150k,Platinum,637,2025-01-29 04:56:30.543113
+CUST_000327,Benjamin,Hughes,fletchermark@example.net,397.618.8195x5802,76349 Derek Summit Suite 261,,Lake Gabriela,NE,44722,US,1972-03-20,4733,50-75k,Silver,550,2025-08-09 04:33:48.451184
+CUST_000328,Jessica,Esparza,uyoung@example.net,239-435-5648x47081,93404 Harris Spring Apt. 269,,Charlesbury,MD,34057,US,1956-07-26,6409,<25k,Bronze,682,2025-08-17 17:20:40.594379
+CUST_000329,Patricia,Martin,caitlin93@example.org,765-297-9480x8517,5487 Daniels Meadow,Apt. 499,Tinahaven,VT,07166,US,1975-10-23,5846,100-150k,Platinum,504,2024-01-24 01:36:11.164030
+CUST_000330,Ronnie,Gonzalez,pauledwards@example.net,227-553-9974,3252 Jackson Knoll Suite 910,,New Blaketown,FL,08227,US,1973-04-26,8847,<25k,Platinum,735,2025-04-01 23:14:15.142770
+CUST_000331,Ashley,Butler,mmann@example.net,(228)974-6274,523 Francis Tunnel Apt. 434,Suite 374,Port Sarah,SC,21105,US,1965-08-07,5305,25-50k,Bronze,793,2024-04-26 16:41:28.131797
+CUST_000332,Lisa,Myers,drew52@example.com,(931)921-9106x2184,362 Luis Wall Suite 848,Suite 335,Crossmouth,KS,28244,US,1962-05-16,8152,25-50k,Silver,635,2024-07-17 11:34:57.080667
+CUST_000333,Robert,Reeves,goodian@example.net,5063712053,847 Jones Spurs,Suite 891,West Kevinland,MT,17664,US,2005-10-30,5259,150k+,Bronze,811,2025-11-04 20:47:53.247487
+CUST_000334,Sarah,Dawson,amy75@example.net,+1-366-480-9810,425 Perez Square,Suite 472,Bonnieshire,AZ,89256,US,1987-09-02,2883,50-75k,Bronze,619,2025-03-19 03:48:49.842498
+CUST_000335,Brett,Farrell,jasmine32@example.com,306.716.8880,1167 Robert Street,,West Nicoleton,OH,84707,US,1949-02-11,5799,100-150k,Platinum,668,2025-10-08 03:30:45.791823
+CUST_000336,David,Simpson,rodriguezjonathon@example.org,001-915-678-6690x7633,4276 Tracie Shoal Suite 215,Apt. 444,Christopherhaven,GU,54163,US,1955-10-18,6096,75-100k,Bronze,574,2025-05-10 08:47:27.798838
+CUST_000337,Robert,Matthews,friedmandouglas@example.net,756-915-5819x7416,5795 Matthew Haven Suite 147,,Onealburgh,OK,49847,US,1979-11-21,1541,<25k,Platinum,830,2025-02-01 01:02:31.000749
+CUST_000338,Joseph,Edwards,zlopez@example.com,(768)418-8977x58710,13311 Angela Radial,Suite 580,New James,MO,66840,US,1968-01-31,1442,100-150k,Bronze,544,2024-10-27 04:15:07.626248
+CUST_000339,Julie,Sullivan,msmith@example.com,001-324-723-4530x5555,552 Rodriguez Camp Suite 328,Apt. 690,Joeside,AK,68175,US,1986-02-24,4328,<25k,Gold,606,2024-10-20 14:58:54.495912
+CUST_000340,Holly,West,andersonkimberly@example.com,(342)375-1910,7503 Brandon Loaf,Apt. 348,Robersonton,NC,76613,US,1992-08-13,7121,50-75k,Silver,574,2025-05-01 03:04:53.173485
+CUST_000341,John,Campos,ejones@example.org,001-676-210-1691x83370,909 Jennifer Estates Apt. 269,,North Dominique,AS,51301,US,2003-12-30,8983,50-75k,Platinum,622,2025-09-12 02:08:40.228767
+CUST_000342,Willie,Brooks,bwashington@example.org,876-715-3245,6857 Meadows Square,Apt. 297,Nealmouth,MA,41966,US,1990-02-13,3106,75-100k,Gold,495,2024-04-23 18:20:14.195975
+CUST_000343,William,Johnson,gonzalezdawn@example.org,(743)318-4837x47066,402 Jones Views Apt. 660,,Ramirezview,DC,09690,US,1948-07-08,7118,150k+,Silver,801,2025-05-19 14:06:08.436379
+CUST_000344,Amber,Jordan,reginagomez@example.org,001-386-252-4740x204,031 Brenda Expressway Suite 371,,Lake Heatherville,MI,04162,US,1946-02-13,1590,100-150k,Silver,713,2025-05-05 17:10:03.375153
+CUST_000345,Ryan,Gordon,ehernandez@example.com,(701)237-3247,907 Vanessa Harbors Apt. 698,,West Gilbert,NV,95720,US,1981-04-23,1624,75-100k,Gold,449,2025-08-24 20:35:49.621311
+CUST_000346,Jose,Thompson,imcclain@example.org,374-750-8219x8380,150 Stephen Port Apt. 546,,Lake Anthonyburgh,UT,99200,US,1965-10-10,5924,150k+,Silver,462,2026-02-23 05:30:06.283148
+CUST_000347,Michael,Burns,jessicaschmitt@example.net,773-365-3720,12163 Ross Crest,,Millerstad,UT,15415,US,1978-12-12,0061,150k+,Silver,764,2024-11-25 01:22:51.543613
+CUST_000348,Joshua,Fritz,youngwayne@example.com,001-272-492-2456x7905,8359 Miller Place,,West Michael,MH,28895,US,1962-05-01,7958,100-150k,Gold,754,2025-02-14 00:49:15.809541
+CUST_000349,Mary,Kelley,gail34@example.org,(619)852-2075,834 Taylor Heights Suite 898,,Marymouth,CT,74257,US,2003-10-15,9816,100-150k,Platinum,564,2025-08-05 09:28:47.929924
+CUST_000350,Richard,Carlson,thompsoncrystal@example.net,9606018711,061 Ray Pines,,New Staceyfort,ID,51404,US,1978-02-12,9372,25-50k,Bronze,383,2024-02-25 10:44:37.281425
+CUST_000351,Jonathan,Edwards,gonzaleselizabeth@example.org,001-727-395-6721x79228,550 Ryan Causeway,,South Mitchell,NM,58894,US,1987-09-19,4797,25-50k,Gold,711,2024-09-22 03:18:22.836026
+CUST_000352,Wayne,Wagner,sabrina74@example.net,001-895-621-6726x68538,38291 Dean Streets,,South Shaun,WI,74764,US,1978-05-12,4715,<25k,Platinum,582,2024-07-19 00:29:33.801890
+CUST_000353,Jerry,Clark,ronald78@example.org,+1-349-861-8585x33229,92933 Jennifer Divide,,Brayton,RI,98150,US,1955-08-30,6128,50-75k,Silver,419,2025-01-16 20:22:31.298600
+CUST_000354,Amanda,Sparks,john14@example.com,467-907-0772,455 Moore Court Apt. 676,,Jensenburgh,CT,00636,US,2006-07-19,8131,150k+,Bronze,624,2025-02-18 04:14:23.104666
+CUST_000355,Amy,Santos,michael67@example.org,415.373.4066x01298,8872 Nicole Ferry,,Hamiltonfurt,AS,60430,US,1983-02-18,4656,100-150k,Bronze,468,2025-03-31 19:46:19.206280
+CUST_000356,Garrett,Best,lydia90@example.com,(919)305-9827x1584,3583 Martin Place,,North Katherineview,AS,88359,US,1979-11-01,0298,150k+,Platinum,491,2024-06-18 15:05:28.900554
+CUST_000357,Linda,Reynolds,jasondawson@example.org,628.681.0670x47495,406 Bailey Squares Apt. 310,,Taylorland,GU,13355,US,1945-06-23,4161,75-100k,Gold,647,2025-09-08 12:35:54.860227
+CUST_000358,Rebecca,Lewis,cowanjames@example.org,001-665-341-5804x9267,23445 Phillips Track Suite 283,,Huertafurt,IA,82606,US,1987-07-28,9115,150k+,Silver,324,2024-04-13 10:49:58.417697
+CUST_000359,Colin,James,chadbrown@example.org,693-643-7261,9680 Townsend Canyon Apt. 872,,Lawrenceport,MS,04974,US,1946-02-20,5636,75-100k,Silver,687,2024-04-04 06:22:29.130550
+CUST_000360,Michael,Woodward,ecampbell@example.com,+1-555-229-5401x2291,61731 Kelly Tunnel,,South Paulchester,VA,10063,US,1971-05-18,6196,<25k,Bronze,765,2025-08-21 01:18:34.943771
+CUST_000361,Nicholas,Smith,sylviamcgrath@example.org,001-563-582-3593x711,6074 Malik Junctions Suite 362,,West Kylefort,NC,49504,US,1987-05-21,2428,75-100k,Silver,799,2025-07-24 01:57:51.705126
+CUST_000362,Kim,Brown,lmartinez@example.com,001-261-789-0362x697,88800 Courtney Mall,,West Denisestad,AK,13671,US,2003-11-04,1960,150k+,Bronze,502,2024-01-17 09:10:42.462802
+CUST_000363,Christina,Garcia,dennismorris@example.org,+1-455-486-9577x2395,513 Smith Course Suite 906,Apt. 443,Youngberg,PR,74704,US,1947-02-02,2222,150k+,Bronze,834,2025-05-08 17:32:44.167025
+CUST_000364,Jeremy,Sims,john30@example.com,+1-496-633-4033x072,2340 Green Route Suite 628,,South Anthony,WY,74831,US,1977-12-06,6191,25-50k,Gold,786,2025-02-08 03:23:36.466813
+CUST_000365,Brandi,Wilson,nvaughn@example.net,4214385292,282 Cole Freeway,Apt. 661,Daltonmouth,WV,70505,US,1965-03-19,3653,25-50k,Platinum,548,2025-01-05 10:15:42.058025
+CUST_000366,Shannon,Diaz,dwayneevans@example.org,575-952-9374,816 Hall Ferry,,Murphyton,MN,60667,US,1981-07-31,3891,25-50k,Gold,553,2025-06-17 21:06:32.016998
+CUST_000367,Jacob,Camacho,maldonadomargaret@example.org,6074579300,7258 Kathleen Center,,Robertsfurt,ME,37328,US,1950-12-18,0446,50-75k,Bronze,549,2025-06-20 04:37:31.718815
+CUST_000368,Adam,Hughes,smithcindy@example.org,466.576.1584x186,29865 Mark Corners Apt. 497,Apt. 574,Port Henry,SC,69278,US,1997-08-19,9866,<25k,Gold,360,2025-01-04 18:31:23.273993
+CUST_000369,Daniel,Burke,huangfrederick@example.org,549-345-6888x33348,08910 Christopher Valley,,Lake Deannahaven,CT,78946,US,1986-11-03,7711,100-150k,Bronze,635,2025-06-08 00:12:23.679439
+CUST_000370,Theresa,Perkins,erin47@example.com,584-248-9419,15712 Seth Lane Suite 105,,Taylorberg,SC,38477,US,1993-11-06,5688,100-150k,Silver,442,2024-12-30 14:26:27.187715
+CUST_000371,Michelle,Williamson,rosalesanthony@example.org,001-591-398-4775x462,43048 John Keys,,Velazquezburgh,NV,77219,US,2000-01-10,0384,25-50k,Platinum,712,2025-10-18 06:58:24.091354
+CUST_000372,Amanda,Wells,lisa24@example.org,724-574-8980,454 Craig Trail Apt. 153,,West Phillip,OH,88641,US,1966-11-19,9542,<25k,Silver,376,2024-07-11 03:43:11.870659
+CUST_000373,Shirley,Davis,crawfordhannah@example.org,001-868-912-2891x8343,127 Grant Creek,,Michelleton,NM,58062,US,1991-10-25,4668,150k+,Silver,647,2024-04-22 13:32:08.457175
+CUST_000374,Glen,Torres,yvonne63@example.com,(303)688-2276x11102,2050 Vaughn Circles Suite 214,,West Tyler,TN,27849,US,1977-12-17,7447,<25k,Platinum,338,2025-05-20 13:19:01.481153
+CUST_000375,Robert,Rivers,marissareese@example.com,001-294-874-4805x28712,632 Adkins Glen,,Port Michael,GU,57304,US,2003-02-05,5540,100-150k,Bronze,433,2025-06-22 23:39:51.759468
+CUST_000376,Amber,Contreras,griffithrebecca@example.com,293-627-1802,25194 Gerald Extensions,Apt. 754,New Ruben,TN,24238,US,2003-11-20,4159,150k+,Gold,705,2025-08-26 17:15:33.213240
+CUST_000377,James,Watkins,ladams@example.com,213-813-3513x28183,553 Jonathan Fork,Suite 621,West Amber,NM,96580,US,1945-10-14,9089,<25k,Platinum,392,2025-08-11 15:15:08.273669
+CUST_000378,Vincent,Keller,bmiller@example.com,(912)364-6269x19785,60719 Riggs Knoll Apt. 057,,New Barbara,FM,53553,US,1989-08-06,6762,100-150k,Platinum,490,2025-05-25 02:28:50.611260
+CUST_000379,Lisa,Cook,zmendoza@example.net,+1-820-533-5886x1720,6864 Bartlett Valleys Apt. 760,,New Trevormouth,OR,85123,US,1975-05-19,3569,<25k,Bronze,333,2024-06-28 02:23:31.062326
+CUST_000380,Stacy,Sullivan,robert16@example.org,549-837-0301x90227,2162 Howell Row,,Port Elizabethville,KS,36076,US,1954-10-04,8095,75-100k,Platinum,633,2025-01-19 21:56:31.691027
+CUST_000381,Patricia,Serrano,kwilliams@example.com,4344424828,4166 Lambert Burg,,South Dawn,NH,99697,US,1960-02-03,3757,100-150k,Bronze,475,2024-06-05 19:50:52.176909
+CUST_000382,Nathan,Rogers,kylie79@example.net,001-316-650-6855x795,17732 Morris Falls Suite 003,,Whitestad,CO,67331,US,1991-09-02,4443,100-150k,Platinum,325,2026-02-07 19:57:37.683262
+CUST_000383,Jacqueline,Woods,abigail58@example.org,+1-731-250-5446x070,143 Steven Flat Suite 412,Suite 981,North Danny,NJ,32756,US,1995-06-28,8714,<25k,Silver,648,2025-09-14 09:41:33.224109
+CUST_000384,Kathleen,Gibson,daughertymark@example.com,6354721043,4990 Elizabeth Loop,,North Alexland,TX,96354,US,1983-08-10,6954,75-100k,Gold,411,2024-05-28 03:34:43.300826
+CUST_000385,Kelsey,Murray,toni18@example.net,+1-203-829-2499x4945,91138 Sean Circle Suite 757,Apt. 763,Blevinsbury,CA,03444,US,1948-02-10,2561,50-75k,Silver,720,2024-11-03 10:39:53.343390
+CUST_000386,Rodney,Mejia,toni48@example.net,001-547-896-8474x41981,3017 Olson Inlet Suite 978,,North Andreahaven,FL,62942,US,2000-07-08,7667,50-75k,Gold,364,2024-05-03 04:34:03.599405
+CUST_000387,Sheryl,Taylor,jamie96@example.com,443-396-5125x510,7289 Henry Hill Apt. 384,,Port Jeremiahview,VT,30756,US,1947-12-01,2883,<25k,Gold,406,2025-08-31 09:09:43.005197
+CUST_000388,Ryan,Gomez,christopher95@example.org,937-809-2645x026,351 Cathy Track Apt. 804,Suite 634,West Brandon,FL,46083,US,1971-04-25,1088,25-50k,Platinum,604,2024-10-29 03:42:32.437269
+CUST_000389,Austin,Mills,blevinscurtis@example.org,269.429.5767,09919 Misty Pines,,Hoganchester,CO,94132,US,1979-03-22,1309,<25k,Platinum,636,2024-10-08 06:39:15.574185
+CUST_000390,Leslie,Robinson,james46@example.net,229.914.1190x964,63195 Catherine Mission Suite 729,,West Jessicamouth,MN,44805,US,1952-07-11,3045,75-100k,Gold,515,2025-10-07 01:25:09.337241
+CUST_000391,Monique,Kim,mary86@example.com,976-241-4531x560,182 Carney Plains Suite 258,,Alexandriaberg,DE,19482,US,1993-02-06,0420,150k+,Silver,306,2025-06-24 13:53:40.715341
+CUST_000392,Sydney,Payne,simonelizabeth@example.org,001-862-290-4534x16344,338 Stephanie Lights Apt. 549,,Stephanietown,DE,77276,US,2004-01-21,2159,150k+,Silver,770,2024-02-08 09:21:49.593423
+CUST_000393,Elizabeth,Cole,crystalramirez@example.org,3998166255,558 Denise Branch,,North Jillian,AS,54990,US,1988-10-26,6346,25-50k,Bronze,822,2025-10-11 17:52:27.835658
+CUST_000394,Angela,Mclaughlin,michaeljohnson@example.org,001-390-785-6637x42380,0892 Williams Inlet Apt. 003,Apt. 236,North Tinaside,MA,67562,US,1982-09-07,0797,<25k,Silver,749,2024-02-07 17:02:29.929604
+CUST_000395,Julie,Castro,kimfelicia@example.org,(766)498-2659x752,030 Norton Dam,,Ronaldmouth,MN,86794,US,2006-07-19,6128,50-75k,Gold,623,2024-03-20 10:42:51.518101
+CUST_000396,Samantha,Lewis,marisa08@example.net,+1-288-472-0151x49989,797 Campbell Squares Apt. 914,,Lake Stephenland,VA,40531,US,1995-03-17,2458,150k+,Gold,546,2024-09-20 03:59:15.111567
+CUST_000397,Zachary,Kennedy,julie95@example.org,950-569-4334x068,4882 Hooper Loop,,Angelaburgh,AL,77609,US,1953-04-27,8164,<25k,Gold,617,2025-04-08 17:52:50.116988
+CUST_000398,Rachel,Paul,vwilson@example.com,258.386.9799x446,358 Garza Squares,Suite 366,Whitebury,MA,47053,US,1976-12-30,1195,100-150k,Gold,403,2025-03-07 16:47:22.610152
+CUST_000399,Eddie,Finley,wilcoxmorgan@example.com,001-647-253-1809x822,227 Miller Mills Apt. 323,,New Morgan,NV,03525,US,1993-11-22,4910,100-150k,Bronze,711,2025-10-15 10:34:07.993299
+CUST_000400,Howard,Castillo,andrea08@example.net,5892392826,21620 Michelle Road,,South Joseph,NH,39957,US,2004-09-28,6294,75-100k,Silver,588,2024-04-16 04:54:33.266343
+CUST_000401,Danielle,Griffin,uhenson@example.net,7119065472,974 Brandy View Suite 167,,Ericshire,IL,09413,US,1983-08-04,5098,<25k,Platinum,395,2025-06-07 12:33:01.668487
+CUST_000402,Kelly,Johnson,ryankarl@example.org,936.502.7458,42796 Munoz Glens,Suite 043,Waterstown,NH,72213,US,1993-09-30,1549,<25k,Platinum,690,2024-07-12 18:16:30.843010
+CUST_000403,Kimberly,Conley,jennifer90@example.org,001-946-283-1679x482,04843 Jeffrey Union Apt. 535,,Brianberg,MH,51259,US,1993-10-16,6252,75-100k,Gold,550,2025-11-13 23:18:18.268154
+CUST_000404,Shannon,Cowan,smithdonald@example.net,4173334622,4254 Michael Plains Suite 011,,South Williamfurt,MD,07805,US,2002-08-17,9684,75-100k,Silver,844,2024-12-04 15:43:15.845726
+CUST_000405,Megan,Young,jenniferterry@example.net,+1-831-785-9887x76402,648 Roberts Heights,,Brownburgh,MP,23042,US,2004-12-15,0058,150k+,Bronze,427,2024-04-02 08:12:27.747489
+CUST_000406,Victoria,Chan,john75@example.net,3348636274,87469 Durham Cliffs,,Millermouth,VI,94999,US,1955-11-11,2491,25-50k,Bronze,361,2025-11-02 13:45:22.389020
+CUST_000407,Mallory,Burch,gloriasmith@example.net,6716405260,519 John Well Suite 200,,North Jayborough,MN,17165,US,1956-12-14,0988,75-100k,Bronze,683,2025-05-24 08:24:01.758614
+CUST_000408,Taylor,Barry,mark64@example.com,001-655-528-0577x556,160 Anita Pine Suite 156,,Mendozashire,MA,32488,US,1989-05-11,2543,100-150k,Gold,595,2026-02-06 21:41:17.369717
+CUST_000409,John,Gray,elizabethwolfe@example.net,433-976-5594x77930,39097 Johnson Lake,,Angelbury,AK,94045,US,1989-05-18,4012,75-100k,Silver,773,2024-06-20 02:22:24.034779
+CUST_000410,Christina,Collins,matthewvalenzuela@example.net,7094432000,4811 Stephanie Plaza Apt. 607,,Velezside,RI,14697,US,1975-10-30,8980,75-100k,Platinum,344,2025-02-16 13:43:27.513313
+CUST_000411,Kyle,Sexton,whampton@example.com,(917)387-9353x457,5308 White Isle Apt. 744,Apt. 837,Roachville,NH,37230,US,1997-06-19,8486,50-75k,Bronze,562,2025-09-28 20:03:34.428033
+CUST_000412,Christopher,Smith,jacob28@example.com,5307876362,8658 Christie Lodge Apt. 876,Suite 181,West Shannon,AZ,27857,US,1955-07-29,6542,<25k,Silver,682,2025-03-04 09:13:59.656738
+CUST_000413,Cassie,Price,james18@example.net,639.216.7465,1457 Walker Walk,Apt. 058,Huntfort,AS,04909,US,1981-05-10,8855,<25k,Platinum,445,2025-01-19 00:15:19.645445
+CUST_000414,Phillip,Moore,jenniferhill@example.net,(999)274-0839,902 Mitchell Crossing,,Jamesmouth,ME,85608,US,1972-04-26,5163,50-75k,Silver,390,2024-05-14 23:12:12.026647
+CUST_000415,Brandon,Rodriguez,bvazquez@example.org,337.939.3588,1609 Booker Extensions,,Port Richardfurt,OK,75783,US,1963-03-05,9448,50-75k,Gold,699,2024-04-21 22:42:01.278848
+CUST_000416,Richard,Carter,ronaldbarber@example.com,666-830-3878x899,56533 Mason Curve,,Adamsborough,NJ,74957,US,1955-12-04,0516,25-50k,Bronze,339,2024-05-17 04:08:49.330458
+CUST_000417,Carl,Harris,mark27@example.org,641.526.7807x54439,26629 Chad Fork Apt. 463,,Port Justinmouth,VA,52215,US,1989-04-08,8472,150k+,Platinum,512,2025-08-28 08:13:29.813778
+CUST_000418,Kenneth,Mora,amberbecker@example.net,(729)650-0865x1876,413 Lucas Course,,Martinezfort,SD,60822,US,1964-08-12,7865,50-75k,Bronze,505,2024-12-17 00:00:24.896288
+CUST_000419,Joseph,Roman,kathy96@example.com,7833301651,727 Cory Junction Apt. 923,,Raymouth,WY,10825,US,1977-08-12,7261,75-100k,Silver,741,2024-04-04 13:24:01.331200
+CUST_000420,John,Bauer,summerallen@example.org,6783512873,109 Meyer Mission Suite 621,,East Mark,NJ,46763,US,1953-11-23,1878,75-100k,Bronze,566,2025-06-13 04:56:54.902951
+CUST_000421,Amanda,Duran,tflynn@example.com,2453969722,5926 Sanchez Route Apt. 462,,Port Holly,VI,29007,US,1958-07-23,4104,150k+,Gold,650,2024-05-20 13:26:48.880805
+CUST_000422,Nicholas,Garcia,hollymerritt@example.com,+1-986-633-0072x29016,971 Angelica Corner Apt. 955,,Lake Steven,MN,91700,US,1979-05-05,9299,<25k,Gold,636,2025-11-24 07:53:54.456442
+CUST_000423,Michael,Kelley,lori05@example.net,219.940.1154x727,377 Brian Branch,Apt. 884,Micheletown,OH,69722,US,1975-01-27,0725,<25k,Bronze,850,2026-02-05 05:25:20.901666
+CUST_000424,Amanda,Lane,monica63@example.org,941-912-1216x60818,2978 Bradley Branch Apt. 711,Apt. 022,Susanhaven,TN,11378,US,1984-06-22,6497,150k+,Gold,404,2025-11-10 15:14:05.489302
+CUST_000425,Pamela,Taylor,dmorales@example.com,(270)246-9574,67546 James Gateway Suite 648,,New Jacksonmouth,IA,45584,US,1960-12-21,8074,75-100k,Platinum,830,2025-07-13 19:05:40.833410
+CUST_000426,Brenda,White,amy15@example.org,461.738.2799x7717,31252 Patrick Points Apt. 067,,Garciashire,KS,19636,US,1962-11-03,0604,75-100k,Gold,308,2024-04-07 05:23:02.609765
+CUST_000427,Mary,Wiggins,brett75@example.com,+1-619-543-4440x6442,98848 Mark Lock,,Johnhaven,UT,19382,US,1958-01-01,4934,50-75k,Gold,618,2025-07-13 03:09:21.130357
+CUST_000428,Sarah,Harvey,jill12@example.com,272.977.5235x25269,055 Brittany Hollow,,Masonside,RI,86991,US,1984-04-05,9712,100-150k,Gold,538,2024-04-29 19:52:46.108762
+CUST_000429,Roger,Mathis,taylor70@example.com,765.402.8769x1171,149 Melanie Square Suite 672,,Laurieshire,CA,48320,US,1999-11-27,5517,150k+,Bronze,447,2026-01-24 14:43:07.075330
+CUST_000430,Rachel,Walters,brian58@example.net,838.418.4803x05572,97275 Joshua Cliffs Apt. 791,,New Carla,WI,23767,US,1996-09-24,4527,50-75k,Platinum,600,2025-06-07 13:48:17.937751
+CUST_000431,Daniel,Flores,philliplong@example.com,703.881.6015x95360,34788 Johnson Greens Apt. 575,,Dawnbury,UT,36892,US,1955-07-30,0948,150k+,Silver,505,2024-07-17 09:30:15.860099
+CUST_000432,Joshua,Lin,hmayo@example.org,383.578.7378x6502,342 Lisa Forges Suite 485,Suite 650,Marissaborough,ND,41941,US,1959-08-02,4389,50-75k,Gold,402,2025-12-15 05:50:00.559316
+CUST_000433,Robin,Riley,hcampbell@example.com,328-876-1513x6030,8319 Michael Land Suite 694,,Port Melissa,KY,20201,US,1997-12-29,5286,50-75k,Silver,468,2025-12-15 10:52:09.160429
+CUST_000434,David,Jones,devin30@example.net,593.507.1771x371,01819 Wilkerson Corners Suite 957,,New Daniel,AR,90618,US,1985-06-12,5426,75-100k,Platinum,684,2025-06-13 22:15:14.395891
+CUST_000435,Timothy,Sullivan,lwalsh@example.org,001-221-957-7073x788,930 Danielle Rest,Apt. 313,New Brandy,GU,65575,US,1990-02-01,9526,100-150k,Platinum,527,2024-10-28 13:46:30.181165
+CUST_000436,Michael,Chen,heather49@example.org,378.247.7435x805,97784 Anderson Extensions,,Kennethstad,AZ,37179,US,1951-02-15,5487,<25k,Silver,483,2025-07-13 05:18:22.715330
+CUST_000437,Jerry,Reyes,danabender@example.org,3014945064,1846 Tara Ford Suite 861,,West Pamela,LA,06615,US,1969-05-10,2086,75-100k,Silver,680,2025-09-26 11:52:43.782112
+CUST_000438,Lauren,Sherman,joelcallahan@example.com,+1-665-496-6201x88164,731 Janet Fort Apt. 849,Apt. 935,Melissaburgh,ND,15750,US,1992-01-26,8676,100-150k,Gold,484,2024-10-06 04:31:52.118618
+CUST_000439,Tanner,Wilson,douglas07@example.com,(436)490-1125x02562,0015 Erica Ways Suite 047,,West Jamie,SD,34079,US,1964-11-08,7624,75-100k,Platinum,797,2025-03-09 06:18:55.101574
+CUST_000440,Stacey,Price,ostewart@example.org,001-730-688-4287x970,2645 Aaron Loaf Suite 938,,Ashleeburgh,AS,99176,US,1965-05-21,2087,150k+,Silver,301,2024-11-02 18:38:34.732142
+CUST_000441,David,Burns,kristopheraguilar@example.com,+1-619-553-0286x5350,508 Kelley Corner Apt. 329,,Lake Debbieville,AS,63871,US,1983-11-07,3522,100-150k,Silver,531,2025-03-26 08:40:02.902493
+CUST_000442,Amy,Castillo,andrea69@example.com,(718)468-6118,1621 Wallace Forest,,North Scott,AL,73788,US,1963-06-22,5910,100-150k,Silver,749,2025-06-26 15:14:13.367401
+CUST_000443,Joy,Smith,calderoncharles@example.com,827.343.1037,1460 Miguel Trace Suite 662,,North Williamville,UT,10072,US,2002-12-11,1188,<25k,Gold,758,2024-05-30 19:18:41.375224
+CUST_000444,Natalie,Walker,petersendavid@example.com,401-257-6176x731,305 Vanessa Mission,,East James,KY,74272,US,1957-11-24,2310,25-50k,Platinum,825,2024-05-14 12:30:50.472418
+CUST_000445,Mark,Wilson,simmonschristopher@example.org,(314)798-2557,14021 Sandra Overpass Apt. 477,,Gabrielleborough,MD,03194,US,1951-05-29,9850,25-50k,Bronze,699,2025-07-22 22:40:24.703572
+CUST_000446,Larry,Braun,allen19@example.org,796-907-6726,57475 Lindsey Walks Apt. 838,,West Juliechester,MP,23495,US,1973-08-03,5016,150k+,Gold,402,2025-01-23 20:00:59.371222
+CUST_000447,Amber,Bennett,cameron36@example.org,001-386-741-9269,914 Timothy Springs,,West Nathanshire,OK,66736,US,1984-02-09,2719,100-150k,Gold,784,2024-06-26 04:20:46.665570
+CUST_000448,Jessica,Davis,valdezryan@example.net,+1-890-459-3045x7631,57425 John Villages Suite 307,Suite 958,Amandaside,AK,78854,US,1960-03-29,4553,75-100k,Silver,647,2025-01-25 19:08:50.745911
+CUST_000449,Lauren,Rodriguez,garciapatrick@example.com,236-476-0430x383,49694 Randall Squares Apt. 122,Apt. 011,North Alan,NC,48352,US,1967-07-28,7098,<25k,Platinum,458,2024-02-17 08:41:55.156475
+CUST_000450,Karina,Morse,kerry28@example.com,964.786.9693x224,571 Morrison Lights,,North Roger,NE,53994,US,1959-10-04,8987,75-100k,Silver,405,2024-03-26 02:39:33.852623
+CUST_000451,Michael,Norton,jason64@example.com,+1-289-556-8845x263,2248 James Skyway Suite 392,,Wilkinsonmouth,MO,06914,US,1949-12-22,7668,<25k,Gold,718,2024-09-17 15:56:30.793572
+CUST_000452,William,Walton,richardjones@example.net,248-797-5826x8521,8280 Stephanie Run Apt. 712,,Jamiebury,LA,13760,US,1963-09-21,6339,100-150k,Gold,344,2025-04-20 13:50:48.992570
+CUST_000453,Stephanie,Rogers,nicholas22@example.org,+1-845-955-8683x7904,465 Vanessa Village,,Reginastad,LA,24113,US,2003-10-06,0049,100-150k,Platinum,700,2024-01-17 21:45:35.695591
+CUST_000454,Kevin,Jackson,angel64@example.net,228-841-6044x220,290 Sean Stream Suite 707,,Susanview,TX,09782,US,1954-06-17,4271,75-100k,Gold,585,2024-03-20 06:52:52.750067
+CUST_000455,Michael,Martinez,heatherlawrence@example.net,+1-557-739-8824x1278,31715 Brown Walks Apt. 653,,East Morganborough,CO,38237,US,1999-03-12,7058,<25k,Platinum,819,2024-12-06 06:48:47.666194
+CUST_000456,Meghan,Williams,santosdevin@example.org,+1-347-858-4482,6426 Richard Via Apt. 821,Suite 046,Nicholasburgh,OH,27947,US,1981-11-14,2151,25-50k,Silver,369,2026-01-28 07:39:29.494323
+CUST_000457,Richard,Fowler,martinezsamuel@example.com,+1-768-329-5342x12987,58660 Sullivan Run,Suite 773,Lake Barbarafurt,TN,44454,US,1974-10-26,9765,<25k,Silver,694,2025-05-04 17:13:32.139266
+CUST_000458,Nathan,Freeman,jennarobles@example.com,001-378-721-0199,1916 Turner Canyon,,Bakerberg,AZ,11577,US,1972-05-19,9564,75-100k,Bronze,305,2025-10-22 04:47:22.282357
+CUST_000459,Paul,Neal,benjamin90@example.org,252-592-6731,108 Buchanan Spur Suite 348,,Hannahborough,MP,33935,US,1986-03-27,0310,<25k,Silver,481,2025-02-18 06:26:36.408716
+CUST_000460,Eric,Burton,xmoyer@example.org,+1-651-891-7067x8868,03552 Cortez Park Apt. 995,,Petersonmouth,NM,95623,US,1966-07-12,6854,150k+,Bronze,430,2025-03-28 05:47:00.726126
+CUST_000461,Crystal,Lloyd,stacy85@example.net,+1-416-969-8137x54275,990 Perkins Viaduct,,Phamchester,LA,29818,US,1973-07-28,6766,75-100k,Platinum,319,2025-04-02 22:21:34.426788
+CUST_000462,Joseph,Tucker,smithbenjamin@example.org,(328)682-2517x7565,1528 Ashley Square,,Diazbury,ID,53392,US,1974-03-05,8717,75-100k,Bronze,739,2025-05-22 21:17:08.045528
+CUST_000463,Antonio,Little,downsjulie@example.com,(372)824-3877x7313,57227 Jenkins Village Suite 613,,Dawntown,NV,96350,US,1984-12-11,6111,100-150k,Gold,679,2024-09-19 14:12:50.091494
+CUST_000464,Teresa,Parks,ashley53@example.net,001-758-236-7629x12774,24775 Tyler Valleys Suite 463,Suite 498,East Danatown,AK,41510,US,1950-12-05,1426,100-150k,Gold,777,2024-01-24 17:41:57.263681
+CUST_000465,Eileen,Phillips,davidlee@example.org,(553)636-3017x883,01439 Andrew Turnpike Suite 207,,Jamesland,ND,74029,US,1960-07-03,5294,50-75k,Bronze,365,2024-11-25 03:33:19.744693
+CUST_000466,Gerald,Taylor,matthewpruitt@example.com,3524960230,1449 Amanda Cape,Suite 154,Julieville,DE,03542,US,1968-05-11,4463,50-75k,Bronze,838,2024-01-29 06:18:42.187776
+CUST_000467,John,King,vickietaylor@example.org,(712)553-6277,4028 Lee Valleys Apt. 925,Apt. 084,North Patrickburgh,OK,16677,US,1991-03-14,8160,150k+,Gold,776,2025-11-10 12:55:38.767727
+CUST_000468,Joseph,Webb,lisa88@example.org,4258031120,020 Andrew Plaza Apt. 496,,Karenfurt,FM,17039,US,1950-05-01,4187,<25k,Platinum,380,2025-11-30 08:53:22.008376
+CUST_000469,Kevin,Brooks,samanthaboyd@example.net,280-707-3289x3863,442 Melissa Key,,North Vanessa,AR,01593,US,1985-08-23,8138,<25k,Silver,557,2024-07-24 07:05:18.588531
+CUST_000470,Brian,Harris,carlos57@example.com,(202)498-9633,52132 Kimberly Roads Suite 190,,West Andrea,MI,21914,US,1993-10-15,9537,150k+,Bronze,817,2025-10-31 06:50:14.412586
+CUST_000471,Thomas,George,aaronnguyen@example.org,+1-943-620-1105x942,7623 Edwards Vista,,Jonesshire,MN,17705,US,1985-02-11,2479,100-150k,Silver,601,2025-09-02 23:32:29.844624
+CUST_000472,Monique,Gutierrez,timothyhuynh@example.org,871-678-2061x6259,0067 Heather Path Apt. 320,,Ryanburgh,DC,64188,US,1977-09-10,2367,50-75k,Gold,404,2025-01-11 22:54:09.293345
+CUST_000473,James,Patterson,ereyes@example.com,547.999.9810,5276 Fields Trafficway,Suite 024,Gonzalezstad,NM,70147,US,2001-03-14,3857,150k+,Gold,376,2025-04-25 14:38:45.601438
+CUST_000474,Joanna,Price,christopher67@example.org,(412)985-5278,6019 Sharon Field Suite 192,,Cervantesfurt,ME,44788,US,1961-07-31,2660,75-100k,Silver,340,2025-04-09 11:40:11.058157
+CUST_000475,Christopher,Williams,jscott@example.com,318-449-5973x496,63982 Chad Causeway Apt. 782,,West Kimberlyfurt,CA,61993,US,1996-10-28,7817,150k+,Bronze,721,2025-01-22 14:31:10.301574
+CUST_000476,Dawn,Byrd,richard09@example.org,481-971-9709x4089,2652 Randall Shores Suite 902,,East Russell,NM,64872,US,1950-06-18,2218,75-100k,Gold,707,2025-11-06 05:30:16.084581
+CUST_000477,Kathy,Newton,ashlee14@example.com,(903)652-6578x891,8790 Suarez Wells Apt. 230,,North Ericville,MN,81058,US,1983-11-18,6913,25-50k,Bronze,481,2025-03-14 07:15:20.229616
+CUST_000478,Yolanda,Figueroa,kerickson@example.com,3382901192,693 Anthony Orchard Suite 080,,Tuckerchester,WI,96533,US,1961-09-20,3311,<25k,Silver,847,2025-02-12 09:33:08.505777
+CUST_000479,Jennifer,Wilson,bowenwillie@example.com,895-725-6963x8631,3824 Jacob Hollow Apt. 817,Apt. 015,Lake Emily,ND,29389,US,1947-10-01,9293,<25k,Bronze,844,2024-09-05 05:19:49.532548
+CUST_000480,Caleb,Collins,christopherpowers@example.net,822-837-2681x44118,1266 Jim Shoals,,South Heatherburgh,WI,75846,US,1979-07-03,2440,100-150k,Gold,380,2025-12-15 14:38:19.980095
+CUST_000481,Aaron,Henson,charles86@example.net,571-977-1393,07097 Ferrell Neck,,Mcculloughton,VT,51855,US,1997-10-11,1847,100-150k,Bronze,725,2025-06-10 05:45:38.016549
+CUST_000482,Keith,Walker,mramos@example.org,998.620.6150x97418,7933 Phillips Vista,Apt. 517,Wallschester,DE,52248,US,1987-09-15,0533,150k+,Silver,802,2025-02-26 16:13:11.180721
+CUST_000483,Todd,Cook,jennifer50@example.com,001-994-838-0159x1521,75500 Simmons Shores,,Port Travismouth,NJ,38746,US,2005-02-09,6773,75-100k,Bronze,584,2026-01-01 15:00:39.257924
+CUST_000484,Nicholas,Brown,rbrowning@example.org,+1-700-979-8039x00308,645 Cook Track,Suite 086,East Sandraborough,KY,49871,US,2000-12-30,9604,50-75k,Bronze,671,2026-02-18 15:26:48.015806
+CUST_000485,Brian,Lopez,melissalopez@example.com,999-443-6265x259,6680 Kelly Roads Apt. 754,Apt. 960,Richport,PA,87039,US,1992-08-11,4256,25-50k,Silver,700,2024-09-09 16:56:20.139481
+CUST_000486,Timothy,Jackson,langveronica@example.net,+1-569-347-2634x0761,419 Alicia Streets Suite 568,,West Richardview,NJ,04919,US,1958-07-16,6335,50-75k,Bronze,625,2025-12-30 02:41:04.215035
+CUST_000487,Keith,Olson,misty59@example.com,(244)803-8135x8224,30425 Meyer Ports,,Lake Nathaniel,MO,42268,US,2006-09-27,1188,50-75k,Bronze,822,2024-09-11 18:30:30.477742
+CUST_000488,Joel,Hernandez,patriciachambers@example.org,482.646.0400x108,99760 Martinez Fords,Apt. 643,Kaylamouth,VA,98654,US,1968-12-29,0104,75-100k,Gold,675,2025-07-02 14:38:06.998030
+CUST_000489,Alan,Solis,awarner@example.net,+1-842-848-7630x0003,82654 Lisa Port,,Laurenmouth,MS,67094,US,1994-02-13,2328,75-100k,Bronze,714,2024-01-07 05:44:18.779370
+CUST_000490,Joel,Guerrero,sarah23@example.com,+1-255-873-2519x742,85098 Melanie Track Apt. 799,,New Cassandra,HI,89770,US,1974-03-25,0027,75-100k,Platinum,465,2025-06-19 09:27:30.735383
+CUST_000491,Brandon,Smith,stephaniemitchell@example.com,+1-849-327-8762,211 Alexander Shores,,West Amber,IA,37180,US,1997-03-26,9008,150k+,Gold,783,2024-09-28 18:27:04.910316
+CUST_000492,Melanie,Miller,bgomez@example.org,(547)310-4639,25929 Duffy Crest,,North Kevin,GU,28436,US,1991-11-29,5723,25-50k,Gold,476,2025-08-07 22:27:17.200183
+CUST_000493,Dana,Moore,walkerstephanie@example.org,583-875-2091,7520 Jackson Groves,Suite 288,Moyerfort,AS,39167,US,1998-07-30,9745,25-50k,Bronze,492,2024-06-13 19:36:29.063359
+CUST_000494,Zachary,Harrison,alyssajacobs@example.org,983-226-3724,045 Mary Bypass,Apt. 556,North Anthony,MT,55256,US,1954-09-19,4635,25-50k,Gold,619,2024-01-12 04:20:03.327543
+CUST_000495,Veronica,Allen,stephen17@example.org,513-776-9380,6346 Jones Valleys Apt. 559,,North Manuel,FL,47497,US,1952-06-07,3681,50-75k,Gold,373,2024-06-15 13:06:57.169349
+CUST_000496,Christopher,Owens,chadbond@example.org,+1-691-336-1567,204 Patel Islands Suite 716,,Brendafurt,UT,86060,US,1999-12-19,7784,25-50k,Bronze,301,2025-12-18 16:24:07.819597
+CUST_000497,Christopher,Cruz,omiller@example.net,+1-542-599-5260,80390 Schmitt Trafficway,Apt. 712,Davidside,ND,89487,US,2000-03-05,3129,25-50k,Platinum,620,2024-04-05 21:20:45.675986
+CUST_000498,Cheryl,Jackson,dfitzgerald@example.com,721-623-6314x03170,518 Hicks Walk Apt. 326,Apt. 032,Lake Philip,SD,99310,US,1972-12-22,6772,<25k,Gold,332,2024-03-08 08:18:57.748965
+CUST_000499,Miguel,Stout,nbrown@example.org,853-745-1691,9156 Hunt Rapid,Apt. 820,West Jessica,WI,17532,US,1947-06-11,5132,<25k,Platinum,646,2024-02-20 12:09:06.500504
+CUST_000500,Debra,Clay,martinezsharon@example.com,(598)308-9177x288,683 Ramsey Lights Suite 282,,Peggychester,IA,20719,US,1973-08-25,9002,75-100k,Silver,809,2025-02-16 22:15:07.341569
+CUST_000501,Jennifer,Moran,allenedward@example.org,001-771-391-1284,1386 Mitchell Island Suite 402,Suite 020,Georgefurt,AK,09723,US,1967-07-29,2460,75-100k,Gold,764,2024-11-07 13:47:02.122956
+CUST_000502,Daniel,Johnston,kelly49@example.org,(975)978-6690,4542 Michaela Rapids,,Padillaberg,MO,53364,US,1975-04-29,4055,<25k,Silver,625,2024-09-12 08:03:52.930780
+CUST_000503,Zachary,Herman,jgallegos@example.com,(434)227-1706x1316,48257 Price Turnpike,,Kathrynfurt,GA,37112,US,1950-10-28,3994,75-100k,Gold,426,2025-03-19 03:19:03.747126
+CUST_000504,Stephanie,Valdez,nicholsonisabella@example.org,+1-761-974-4408,029 Yates Track Apt. 136,,South Betty,MD,48748,US,1958-03-13,9896,<25k,Bronze,357,2024-08-24 17:33:00.741694
+CUST_000505,Shari,Neal,amberwilson@example.org,001-760-321-1268x9858,63807 Frank Vista,,Port Dawn,VI,28313,US,1952-12-22,7552,<25k,Bronze,836,2024-10-04 21:44:07.929322
+CUST_000506,Henry,Thompson,xmays@example.net,+1-874-417-1913x627,13225 Wang Road,Apt. 044,Roseborough,MP,28792,US,1981-08-27,7557,100-150k,Platinum,503,2024-09-04 03:24:26.086511
+CUST_000507,Jennifer,Simon,joshua95@example.net,225.674.6682,6910 Joyce Park Suite 205,Suite 686,Andersonmouth,MH,92535,US,1947-11-23,2850,75-100k,Platinum,453,2025-04-15 18:40:00.778360
+CUST_000508,Brian,Heath,brandyhowe@example.com,(296)758-5336,97771 Amy Causeway,,Lake Erica,PW,32046,US,1964-02-29,8767,25-50k,Bronze,485,2025-06-05 08:31:55.032849
+CUST_000509,Rodney,Vincent,sarah89@example.net,+1-378-504-6223x89162,89192 Dustin Locks Suite 552,,New Angelafurt,IN,51170,US,1974-09-16,7331,100-150k,Gold,648,2024-09-30 17:35:20.361094
+CUST_000510,Taylor,Fox,woodardchristopher@example.org,4852222887,102 Michael Highway Apt. 434,,Martinburgh,ME,33639,US,1984-09-05,8832,75-100k,Gold,590,2025-09-11 18:21:31.926296
+CUST_000511,Christopher,Little,russellrobin@example.org,+1-312-510-6235x249,3211 Daniel Mountains,,Thomastown,NM,30949,US,2004-06-28,2068,50-75k,Gold,389,2024-07-13 04:41:59.115472
+CUST_000512,Anthony,Fitzgerald,fgomez@example.org,5105557996,8628 Ray Stream,,Meganfurt,MT,91790,US,1952-10-02,9244,50-75k,Platinum,650,2024-07-02 10:57:10.030662
+CUST_000513,Cheryl,Cooper,douglas69@example.net,+1-246-326-5001x3987,03356 Elliott Dale,,Reidchester,KY,58802,US,1956-06-01,6726,100-150k,Platinum,428,2024-07-23 19:53:30.276944
+CUST_000514,Robert,Castillo,michellelee@example.org,(935)841-9503,64521 Ann Walks Apt. 241,,Michaelfurt,MO,70356,US,1954-03-13,1607,25-50k,Gold,355,2025-11-13 17:25:57.680693
+CUST_000515,Shane,Johnson,alexawebb@example.org,623-865-9228x06481,38204 Thompson Point,,New Margaretbury,NM,26640,US,2006-02-03,1515,150k+,Gold,352,2024-06-03 04:23:56.975852
+CUST_000516,Christopher,Stewart,combsdavid@example.org,335.471.6097x742,160 Morgan Key,,Novakville,WI,73471,US,1946-01-16,0962,50-75k,Silver,392,2026-02-22 20:18:30.968698
+CUST_000517,Mark,Perry,samantha60@example.net,(886)242-1448x8518,0026 Nicole Mountains,,Erintown,PA,16775,US,1995-11-24,5579,<25k,Gold,805,2025-08-23 12:24:51.076617
+CUST_000518,David,Moreno,kimberlyday@example.net,2014578369,791 Shepard Ridges Suite 048,Suite 188,Frankville,WA,93325,US,1954-03-11,0787,75-100k,Gold,782,2025-09-17 09:58:29.880095
+CUST_000519,Mallory,Hines,kwarren@example.com,001-440-653-7370x96666,12759 Jane Course,,Port Richardchester,TN,97906,US,1974-05-24,0727,50-75k,Platinum,437,2024-03-30 22:20:22.989244
+CUST_000520,Christopher,Barber,tdean@example.com,001-995-780-1711x8705,133 Joshua Point,,Michaeltown,FL,72243,US,1948-12-09,5640,<25k,Silver,556,2024-09-10 06:58:42.625988
+CUST_000521,Julie,Goodman,jeffrey56@example.com,778-415-4135x162,756 Smith Path Apt. 284,,Davishaven,PA,44238,US,1985-10-02,3556,150k+,Gold,797,2025-06-11 19:07:56.967777
+CUST_000522,Tabitha,King,rallen@example.net,+1-594-834-9711x440,2185 Marcus Cove,,South Shellybury,MH,56884,US,1950-08-31,1057,50-75k,Silver,384,2025-01-20 11:21:07.245903
+CUST_000523,David,Wilson,ufuller@example.com,(631)940-7339x13352,54208 Mcdonald Curve Suite 061,,West Dustin,ID,22146,US,1981-11-14,0972,<25k,Gold,500,2025-08-06 18:55:58.028607
+CUST_000524,Kim,Stone,ydecker@example.org,(633)280-0960,96995 Christopher Parkway Suite 832,Suite 276,Port Stacey,VT,52011,US,1951-02-13,1546,<25k,Bronze,693,2025-02-21 01:09:38.245275
+CUST_000525,Lucas,Armstrong,jenniferbrown@example.org,499-408-7242x360,33495 Fernandez Club,,Taylortown,MT,59764,US,1985-11-15,0037,<25k,Gold,750,2024-11-25 03:26:16.935953
+CUST_000526,Adam,Mcdonald,riverabethany@example.com,551-342-5636x1993,343 Meagan Parkway,,Jimmybury,AS,87407,US,1998-09-25,5208,50-75k,Bronze,659,2025-10-07 14:10:41.492200
+CUST_000527,John,Hall,zrobinson@example.org,632-581-6026,494 Bowman Crossing,,Austinburgh,MO,72740,US,2002-05-17,3879,150k+,Bronze,805,2024-10-18 02:13:01.765761
+CUST_000528,William,Lewis,sandersbrittany@example.com,001-571-254-0427,141 Elizabeth Village Apt. 056,,Port Davidchester,WA,76607,US,1993-01-26,4957,<25k,Gold,311,2024-09-01 05:49:18.101876
+CUST_000529,Kayla,Doyle,travis54@example.org,826.415.5415x89242,104 Cunningham Ranch,,Rogersmouth,ME,40052,US,1993-03-26,5549,150k+,Bronze,439,2025-11-10 09:57:10.367747
+CUST_000530,Vanessa,Richards,olivia00@example.net,204-363-9311,87080 Salas Creek,,Ericmouth,PW,85894,US,1990-11-14,1381,150k+,Platinum,475,2025-05-15 17:20:00.223231
+CUST_000531,Sheri,Stephens,hwade@example.net,(616)659-9992,773 Hodge Road Suite 727,Apt. 818,Lake Brookestad,ND,12211,US,1993-04-02,1867,150k+,Silver,345,2024-08-10 10:51:47.710943
+CUST_000532,Danielle,Franco,rachelsmith@example.net,287.347.5209,26858 Jacqueline Mission Apt. 155,Apt. 440,West Nancy,CO,20843,US,1968-06-11,7647,150k+,Gold,809,2024-02-11 10:32:09.072010
+CUST_000533,Steven,Gilmore,jessicabrewer@example.net,495.695.7374x26007,863 Smith Via,,Walshshire,MA,24407,US,1965-11-08,6335,150k+,Bronze,422,2025-09-08 07:03:20.740278
+CUST_000534,Mary,Smith,qburgess@example.org,(392)589-0377x854,43852 Dillon Alley,,Sharpbury,KS,18907,US,1970-10-18,6392,150k+,Bronze,373,2025-04-20 23:26:00.588876
+CUST_000535,Taylor,Coffey,brucebrandon@example.com,(407)541-7030,031 Martin Shore Apt. 636,Apt. 380,New Morganside,TX,98953,US,1970-10-25,1650,75-100k,Silver,355,2025-04-22 07:49:31.660526
+CUST_000536,Penny,Rocha,samuelsalinas@example.net,001-638-805-4421x129,30939 Leslie Unions,,Keithville,CT,47745,US,1983-01-02,6184,<25k,Platinum,371,2025-03-21 04:04:57.996802
+CUST_000537,Joanna,Johnson,fredericksmith@example.org,+1-472-596-5959x59703,32547 Warner Terrace,,Owenmouth,SC,09162,US,1994-01-18,8870,100-150k,Platinum,839,2024-12-11 14:23:50.345696
+CUST_000538,Ashley,Freeman,gibbsjulie@example.com,001-736-375-4792x383,0587 Thompson Canyon,,Brettstad,OH,73803,US,1999-09-30,3291,75-100k,Gold,638,2026-02-24 21:08:57.390725
+CUST_000539,Christopher,Brown,ywilson@example.org,+1-888-951-4657x72329,3606 Nichole Isle,,Anitaland,AL,24619,US,1996-05-14,8216,75-100k,Bronze,556,2026-01-30 15:55:09.055643
+CUST_000540,Robert,Lynch,hchen@example.net,4025958671,73622 Jose Brook Apt. 337,,Reedtown,OR,69070,US,1984-08-01,3375,150k+,Gold,386,2024-10-16 12:57:18.789123
+CUST_000541,Lisa,Oneal,charlenesanchez@example.org,(575)360-7301x22164,718 Rose Common,,New Brianfurt,MD,85233,US,1970-05-24,7225,50-75k,Platinum,320,2025-09-13 20:42:52.272609
+CUST_000542,Nichole,Jacobs,tamara82@example.net,(939)357-2698x5617,35793 Griffin Greens,Suite 102,Johnsonbury,NJ,24420,US,1962-03-10,9111,<25k,Silver,493,2025-04-08 18:38:16.709937
+CUST_000543,Billy,Baker,wayne33@example.com,(588)753-4823x6681,704 Jeremy Ways Apt. 082,Apt. 549,New Laurenbury,MN,52212,US,1983-06-01,7398,100-150k,Gold,389,2024-08-18 18:27:01.860965
+CUST_000544,Cole,Parsons,philipdunn@example.net,736.727.9664x04507,014 Mccullough Mission Apt. 535,,West Benjaminbury,WA,85159,US,2001-03-30,5317,100-150k,Gold,300,2024-07-29 22:26:40.240107
+CUST_000545,Michael,Holt,zdouglas@example.org,3314719448,277 Colton Falls,,Kimberlychester,NM,19249,US,2005-02-23,5733,25-50k,Bronze,761,2025-10-10 05:42:04.165453
+CUST_000546,Audrey,Walsh,sarah39@example.com,001-760-800-9163x255,739 Kevin Rapid,,New Mary,KY,99263,US,1992-12-11,8920,50-75k,Platinum,334,2025-01-11 16:20:33.206350
+CUST_000547,Matthew,Larson,smithstephanie@example.net,001-413-891-3767,87743 Matthew Oval Apt. 596,,Jacksonview,MP,38342,US,1962-04-11,9826,25-50k,Silver,452,2024-11-15 20:24:27.133314
+CUST_000548,Tyler,Daniels,sandra72@example.com,(276)513-2391x18131,06111 Connie Harbors,,Moralesview,NC,66508,US,2000-11-18,8206,25-50k,Gold,811,2024-09-19 20:07:44.489724
+CUST_000549,John,Patterson,lhernandez@example.net,8246639693,38999 Andrew Summit,,Davismouth,VA,57997,US,1977-11-19,6545,150k+,Silver,710,2025-01-30 05:44:04.166001
+CUST_000550,Eric,Jackson,fwagner@example.org,644-981-2717x963,52028 Frey Mission,Suite 214,Edwinburgh,VI,69201,US,1970-09-01,1014,25-50k,Bronze,756,2024-10-14 01:06:58.695754
+CUST_000551,Lisa,Davidson,chanleslie@example.org,001-379-962-5075x555,46953 Scott Avenue Apt. 191,,South Roberttown,PW,45397,US,2005-06-17,2730,50-75k,Silver,324,2024-08-30 08:17:41.473820
+CUST_000552,Peter,Tran,sheamarissa@example.net,(922)784-2777x005,84174 Kari Throughway,,Jonesburgh,HI,80117,US,1948-07-14,9842,100-150k,Bronze,619,2024-05-03 23:03:00.062166
+CUST_000553,Lance,Walker,mikayla74@example.net,4452486848,2435 Garcia Place Suite 916,,Arnoldmouth,MA,98214,US,2006-02-15,3859,150k+,Platinum,416,2024-09-20 20:04:11.638724
+CUST_000554,Matthew,Scott,nfrederick@example.net,872-280-1801,771 Gill Plain,,North Tonyburgh,IL,90858,US,1992-10-24,3243,<25k,Silver,669,2025-04-07 02:44:07.734386
+CUST_000555,Shannon,Pugh,davismatthew@example.net,203-567-6661x25845,9257 Brittney Drive,,Brownton,ND,53322,US,1983-08-11,2879,100-150k,Bronze,835,2024-12-29 13:32:10.500686
+CUST_000556,Jeremy,Hartman,gonzalezjacob@example.net,6617150340,495 Carpenter Club,Apt. 064,Ballview,ME,43316,US,1982-04-20,5361,25-50k,Gold,641,2024-12-30 16:28:52.725442
+CUST_000557,Michael,Williams,paulrichard@example.net,(497)985-5970x72776,2844 Logan Brook,Suite 259,Melissabury,NY,08350,US,1958-04-30,6256,150k+,Gold,592,2024-10-03 20:02:52.807590
+CUST_000558,Krystal,Parrish,sgilbert@example.net,(814)253-1159x18006,138 Becker Drives Suite 118,Suite 875,Rodriguezburgh,OR,03333,US,1971-05-04,3425,50-75k,Silver,673,2025-11-08 10:55:13.653600
+CUST_000559,Martin,Medina,molly03@example.net,(744)516-6236,682 Christensen Falls,,West Amyview,IA,33150,US,1976-08-28,8252,50-75k,Silver,747,2025-10-20 06:55:15.552517
+CUST_000560,Nicholas,Harris,charleswatts@example.net,8529425147,9879 Rivera Squares Apt. 209,,Stephanieport,CA,58370,US,1994-01-30,3764,75-100k,Silver,463,2025-05-05 13:47:36.155556
+CUST_000561,Amanda,Gutierrez,kelly25@example.org,+1-440-515-9537x417,028 Nelson Meadows Suite 847,Apt. 801,North Michael,ME,21446,US,1959-07-24,1201,50-75k,Gold,523,2025-09-02 20:49:57.110409
+CUST_000562,Corey,Curtis,guerreroelizabeth@example.net,(378)606-0916,413 Marshall Parks Suite 012,,Lake David,VT,24183,US,1971-10-31,5918,75-100k,Silver,365,2025-10-15 04:24:10.886883
+CUST_000563,Randall,Harvey,michaelstevenson@example.org,5572136632,7799 Chaney Lock Apt. 806,,Kimberlyborough,KS,37836,US,2002-06-26,4463,150k+,Bronze,405,2024-05-22 16:34:50.482978
+CUST_000564,Dawn,Robinson,shannon20@example.net,817-373-6622x01148,8623 Kristin Street,Suite 929,Lake Dean,GA,97056,US,1991-04-08,8092,<25k,Silver,353,2024-07-25 14:00:29.248045
+CUST_000565,Gregory,Rivera,tcardenas@example.com,001-912-344-6417x23906,0084 Rivera Lights Suite 577,Suite 231,Knoxhaven,PW,06237,US,1972-11-22,7514,50-75k,Bronze,495,2024-07-05 21:23:43.272799
+CUST_000566,David,Acevedo,rachelhensley@example.com,510-736-2066x7104,9080 Janice Corners,,Hallville,NY,46002,US,1995-07-30,4121,50-75k,Silver,713,2025-02-14 16:37:19.344736
+CUST_000567,Paul,Johnson,watsonmark@example.com,284-630-6254,412 Rice Flat Suite 481,,Perrymouth,AL,60025,US,1956-07-11,9349,150k+,Silver,488,2026-02-19 14:49:58.723884
+CUST_000568,Scott,Phillips,jenniferpeck@example.com,(765)782-3002x3173,3315 Aaron Squares,,Evansfurt,NV,04205,US,1949-11-16,4288,25-50k,Platinum,406,2026-02-05 12:07:25.827008
+CUST_000569,Nicole,Hill,atownsend@example.net,001-746-398-3619,54864 Monique Villages Suite 503,Apt. 183,Kingview,HI,40735,US,1997-03-20,0837,150k+,Platinum,787,2025-07-27 04:06:38.455979
+CUST_000570,Claudia,Nicholson,chunglisa@example.com,001-288-865-2229x9557,90606 Dodson Springs,,Adamburgh,MP,49130,US,1962-05-26,1217,100-150k,Platinum,428,2024-05-08 21:04:00.930216
+CUST_000571,Arthur,Finley,sharpaustin@example.org,731-496-1071,534 Joshua View Apt. 343,Suite 485,Cooperhaven,IN,97111,US,1973-07-30,8087,50-75k,Gold,591,2025-07-07 11:38:47.692951
+CUST_000572,Dennis,Rodriguez,jenniferblackwell@example.net,001-360-215-1843x544,9760 Anthony Trace,,Proctorstad,NM,20699,US,1955-01-28,2698,75-100k,Platinum,396,2024-03-23 08:10:04.123075
+CUST_000573,Lisa,Valenzuela,diazbrian@example.net,(951)682-2630,078 Turner Lane Suite 994,,Samanthatown,MO,36421,US,1947-05-29,9711,150k+,Platinum,311,2025-07-10 02:24:38.103361
+CUST_000574,Darlene,Thomas,dennischarles@example.net,(548)268-8292,7357 Chang Meadows,Suite 550,New Alicia,WV,11820,US,1949-01-14,8330,75-100k,Platinum,376,2024-01-07 00:46:05.814435
+CUST_000575,Jonathan,Watson,hjackson@example.org,+1-332-429-7272x11471,23785 Diaz Loop,,West Karla,AK,52953,US,1985-12-06,9704,150k+,Platinum,710,2025-04-19 19:21:07.477273
+CUST_000576,Tyler,Burton,carol17@example.net,869.545.2368x45403,856 Lee Tunnel Suite 609,,Port Nicholas,KS,71476,US,1984-10-24,9178,150k+,Gold,423,2026-02-25 22:18:55.677844
+CUST_000577,Cynthia,Robinson,clarktina@example.org,5632767477,38354 James Trafficway,,Port Patriciatown,GU,87027,US,1967-12-04,4908,75-100k,Bronze,655,2025-02-17 07:14:47.371572
+CUST_000578,Jessica,Phillips,johnjones@example.net,+1-268-354-6525x25514,5491 Bryan Glens Apt. 669,,Port Richardmouth,DC,41438,US,2002-04-02,3687,<25k,Platinum,361,2026-02-24 13:03:52.347886
+CUST_000579,Patrick,Dennis,hunter68@example.org,(793)813-3506x173,47411 Baxter Junction,,Justinshire,WV,57784,US,1950-05-09,2147,150k+,Gold,735,2025-07-05 12:55:05.725751
+CUST_000580,Cory,Jones,lisa26@example.org,391-527-4182x3215,620 Mata Mills Apt. 773,Apt. 495,Rubenhaven,OH,25986,US,1984-04-03,7641,100-150k,Bronze,429,2025-08-27 20:23:37.429246
+CUST_000581,Anthony,Cobb,guerrerotimothy@example.org,+1-812-541-8224x261,33267 Ricky Rapids,,Melanieville,AL,87380,US,1954-08-29,3265,75-100k,Bronze,585,2024-07-26 06:03:33.432239
+CUST_000582,Kevin,Wilkins,emilyjohnson@example.net,+1-990-535-4162x664,67962 Daniels Knolls Apt. 107,,Jonesburgh,MH,79207,US,1976-02-03,9041,50-75k,Silver,729,2025-06-11 19:46:55.836818
+CUST_000583,Nancy,White,omarks@example.net,(228)449-6200x32619,299 Samantha Isle Suite 032,,East Joe,OK,95970,US,2005-04-09,5873,100-150k,Gold,849,2025-03-23 22:32:22.778704
+CUST_000584,Jennifer,Scott,sheila34@example.net,+1-357-447-9519x2846,738 Chapman Extensions Suite 970,,Port Daniel,CT,47130,US,1967-11-04,0272,25-50k,Silver,599,2025-07-31 09:26:52.423432
+CUST_000585,Michelle,Delacruz,elizabeth96@example.net,(652)286-5185x7650,85658 Ross Curve Apt. 719,,New Brian,DE,46210,US,1990-01-21,7298,150k+,Gold,306,2026-01-18 04:55:10.776222
+CUST_000586,Sharon,Perry,sblack@example.net,+1-463-893-8354x852,877 Dodson Manors,,Autumnhaven,IA,69305,US,1991-07-17,2401,<25k,Bronze,474,2025-02-21 06:59:53.219144
+CUST_000587,Stephanie,Taylor,wanda85@example.net,925-839-3641x65926,4615 Molina Summit Suite 011,,Salasville,PR,08263,US,1971-06-13,7337,50-75k,Bronze,677,2024-08-29 09:16:31.561687
+CUST_000588,Rita,Esparza,hlarson@example.org,+1-287-898-9700x0976,01473 Guzman Dam Suite 312,Suite 282,Port Mary,WV,82937,US,2005-02-18,3517,50-75k,Silver,598,2025-04-01 22:18:49.676589
+CUST_000589,Jared,Meyer,jenniferhuynh@example.net,001-477-325-8247x9641,6601 Kristen Wall Apt. 205,,Morrishaven,MA,41683,US,1983-12-29,9213,150k+,Gold,638,2024-09-24 17:38:44.268526
+CUST_000590,Dawn,Smith,andrea31@example.com,+1-362-452-0811,88885 Brooks Pass,,Schwartzview,IA,87185,US,1961-05-31,3269,25-50k,Platinum,311,2024-04-17 15:43:21.859573
+CUST_000591,Kyle,Chan,joshua72@example.net,+1-638-700-1238x102,10059 Zachary Spring,,North Rhonda,MD,44242,US,1997-03-15,2129,75-100k,Silver,324,2024-05-28 12:28:50.744489
+CUST_000592,Angela,Jones,wallacerhonda@example.org,268.640.7024x277,251 Andrew Meadow,,North Dwayne,DC,12915,US,1962-10-11,5291,25-50k,Platinum,577,2025-03-20 23:18:48.169029
+CUST_000593,Jesus,Singh,hooverdavid@example.net,001-979-681-8414x93450,883 Beverly Fall,Suite 287,North Stephanie,MN,80118,US,1975-07-11,2857,<25k,Bronze,780,2024-05-10 05:52:26.349135
+CUST_000594,Jonathan,Juarez,bferguson@example.org,+1-639-879-6608x4368,60655 Jason Bypass Apt. 162,,Jeffreyland,VT,22282,US,1986-12-16,6966,<25k,Gold,758,2024-01-22 14:31:12.054162
+CUST_000595,Rebecca,Washington,dale44@example.org,+1-869-502-6219x7442,65915 Vanessa Green,,Beardland,CA,97503,US,1997-06-15,1253,<25k,Gold,437,2025-09-11 02:46:33.153743
+CUST_000596,Michael,Mayer,iaguilar@example.com,2277573685,424 Malone Course,,Brownshire,MI,45343,US,1958-11-21,5014,100-150k,Bronze,738,2025-01-18 00:20:01.914008
+CUST_000597,Kimberly,Morales,sullivanwilliam@example.net,+1-930-723-1362,995 Sarah Parks Suite 555,Apt. 590,Kristatown,DC,38066,US,2003-06-02,2327,50-75k,Silver,519,2025-09-05 09:30:51.190375
+CUST_000598,Sylvia,Parks,zgutierrez@example.net,974.778.2210,92532 Karen Roads,,New Ronaldberg,PR,37199,US,1950-06-20,3966,150k+,Silver,548,2025-11-01 10:32:28.296026
+CUST_000599,Douglas,Burns,angela85@example.net,+1-840-262-2949x79001,238 Chen Park Suite 879,,South Ronald,DE,63648,US,1998-07-01,8041,50-75k,Gold,614,2024-07-10 20:16:23.505105
+CUST_000600,Alexis,Brown,qjones@example.net,001-512-909-6439x1940,21967 Berry Plaza Apt. 624,,Port Sydney,NM,12516,US,1974-12-06,9982,50-75k,Silver,385,2024-08-05 22:24:54.072034
+CUST_000601,Daniel,Carey,gmelton@example.org,001-613-627-4992,6505 Hernandez Divide Suite 893,,Wadeville,WA,37922,US,1991-04-07,6310,100-150k,Gold,495,2024-11-09 17:58:38.686243
+CUST_000602,Susan,Sandoval,morganlaura@example.org,(300)618-6283,8849 Scott Vista,,Millerfurt,CA,19016,US,1957-12-12,1114,100-150k,Silver,751,2024-01-10 06:07:17.392049
+CUST_000603,Carlos,Fleming,cbell@example.org,(266)287-8405x363,3881 John Avenue,Suite 727,North Bruce,ND,17065,US,1975-08-07,2199,25-50k,Platinum,618,2025-11-24 02:30:43.499086
+CUST_000604,Regina,Calderon,jacobsjason@example.net,(879)415-9717,646 Sandra Pine,Suite 290,Sotoland,AK,76708,US,1990-05-28,6714,<25k,Silver,381,2025-05-29 14:16:20.768130
+CUST_000605,Rebecca,Romero,mkramer@example.com,272.596.0675,220 Rebecca Parks Suite 453,,East Jenna,DC,56709,US,1974-08-10,0024,75-100k,Silver,511,2024-01-27 02:03:43.005312
+CUST_000606,Christopher,Proctor,ysullivan@example.org,(913)466-9995x4295,5956 Potter Throughway,Apt. 698,Tamaraport,MN,88414,US,1998-08-15,1134,100-150k,Gold,764,2025-01-07 23:30:17.657796
+CUST_000607,David,Rush,lindseyjames@example.net,(625)483-8104,516 Weiss Stravenue,,Lake Anthony,ID,53024,US,1992-06-27,7560,25-50k,Bronze,569,2024-10-08 03:54:32.820395
+CUST_000608,Bryan,Roth,cmartin@example.com,256-821-9391x68554,9213 Lindsey Centers Apt. 796,,Ronaldside,SD,77206,US,1967-12-12,6665,50-75k,Bronze,803,2024-10-31 17:54:09.172078
+CUST_000609,Jonathan,Cook,cunninghamjames@example.com,547-858-5313x9816,7282 Colton Gateway Suite 753,,Lake Peggy,ND,46568,US,1982-02-07,5825,<25k,Platinum,789,2025-07-30 20:47:16.598668
+CUST_000610,John,Smith,shaffercesar@example.org,001-313-619-0495x3968,1570 Lawson Brook,,Port Meganmouth,MT,36196,US,1970-02-19,9040,100-150k,Bronze,342,2024-02-08 20:23:45.494734
+CUST_000611,Andrew,Velasquez,nancy60@example.com,+1-499-675-5323x0095,0569 Jason Brooks,,Jamesborough,AZ,78268,US,2002-12-13,6019,<25k,Platinum,703,2025-05-15 05:12:38.501916
+CUST_000612,Brittany,Morris,ericpeterson@example.org,540-479-3555,04374 Rachel Centers,Apt. 723,Woodsland,GA,68744,US,1999-09-18,8662,75-100k,Bronze,483,2025-05-11 17:49:05.549587
+CUST_000613,Mark,Harris,wrightnancy@example.com,919.667.3385,49823 Campbell Isle,,North Rachelland,NJ,07368,US,1970-06-08,2112,50-75k,Silver,390,2024-01-10 10:53:36.026600
+CUST_000614,Jonathan,Reyes,andrewherman@example.com,3808467448,51858 Schmidt Crossing Apt. 836,,Jameston,SD,80097,US,1978-08-02,6423,75-100k,Platinum,390,2024-10-23 14:59:04.460473
+CUST_000615,Alexander,Wilkinson,michael43@example.org,+1-858-549-3863x192,380 Sara Lakes Suite 461,,Ashleystad,MA,73394,US,2002-05-02,6339,<25k,Gold,604,2025-04-13 01:58:46.200239
+CUST_000616,David,Fernandez,williamsabigail@example.com,3814291995,82496 Alexandra Crescent,,Fraziermouth,FL,63494,US,1952-07-24,4453,50-75k,Platinum,377,2025-11-05 06:15:16.213058
+CUST_000617,Ralph,Ryan,maureen36@example.net,+1-624-866-3282x4667,07693 Greene Valleys Suite 727,Apt. 394,East Vanessaburgh,VA,94075,US,1969-07-06,7571,100-150k,Silver,433,2024-07-04 04:42:22.688810
+CUST_000618,Michael,Daniels,aguilarmichael@example.org,624-804-6846x192,12122 Contreras Parkways Suite 681,,Danielchester,WV,90314,US,1983-05-07,8774,100-150k,Platinum,724,2024-05-12 18:37:11.730831
+CUST_000619,Elizabeth,Landry,kennethtucker@example.org,(660)750-5959x111,24596 Karen Shore Apt. 816,Suite 906,Port Andrew,AR,40492,US,1997-12-09,7700,100-150k,Silver,580,2025-04-18 22:11:16.596775
+CUST_000620,Chris,Sosa,wendyperez@example.com,+1-731-248-3951x53415,578 Gregory Lakes,,Lake Janet,NM,61418,US,1969-12-26,7140,150k+,Silver,805,2024-10-04 05:17:33.898862
+CUST_000621,John,Gallagher,jeffrey25@example.net,(526)691-0628x2424,577 Gaines Inlet Apt. 804,,Freemanshire,MH,04828,US,1955-09-05,4161,75-100k,Bronze,680,2024-01-08 14:49:08.849410
+CUST_000622,Christina,Harris,emassey@example.com,859.899.9672x404,2217 Paul Meadow Suite 767,,West Jeffreymouth,MI,58548,US,2000-04-29,4940,100-150k,Bronze,807,2024-09-20 01:00:51.839215
+CUST_000623,Ryan,Madden,codyestrada@example.org,361-985-2921x6413,545 Ritter Stream,,East Allison,KY,18222,US,1992-01-05,9129,150k+,Gold,549,2024-04-27 15:40:55.089606
+CUST_000624,Christina,Hayes,stewartjoshua@example.net,887.962.3029x550,13092 Jones Street,Suite 408,West Sara,AZ,76419,US,1950-04-28,3704,150k+,Bronze,577,2026-02-21 14:15:19.123404
+CUST_000625,Jessica,Carter,laura07@example.net,863-210-3917x29630,247 Nguyen Hill,,Port Jesse,FL,55746,US,1983-05-07,3247,25-50k,Bronze,499,2024-05-04 19:24:34.134514
+CUST_000626,Patrick,Diaz,robinsonsteven@example.com,001-615-770-9110x655,03935 Lauren Brooks Apt. 370,Suite 992,New Samantha,PA,52042,US,1990-11-09,8470,75-100k,Platinum,837,2024-10-07 15:14:15.091493
+CUST_000627,Brian,Jimenez,michelletaylor@example.org,(762)283-2156,4265 Bryant Junction Apt. 161,,Christophermouth,NC,69822,US,1975-01-11,9401,<25k,Platinum,798,2025-04-25 03:06:58.070851
+CUST_000628,Adam,Robinson,uadams@example.net,3064436217,51999 Howell Forks,,Chadport,SC,87925,US,1988-11-27,2720,50-75k,Platinum,770,2025-10-30 20:15:12.843274
+CUST_000629,Amber,Mckee,rroy@example.org,+1-509-223-3588,53839 Stevenson Cape Apt. 141,,South Patriciabury,OR,12104,US,2008-01-11,8303,50-75k,Bronze,304,2025-10-03 03:51:20.781418
+CUST_000630,Christina,Fowler,kimberlyli@example.org,(442)638-8068x830,02305 Nicole Trail,,Starkborough,NM,48045,US,1966-10-05,5435,75-100k,Platinum,301,2026-01-09 22:26:33.450233
+CUST_000631,Dylan,Jones,patrickcaldwell@example.org,819.647.6334,9766 Vanessa Brooks Suite 392,,West Michael,TX,44219,US,1986-08-08,7274,100-150k,Platinum,818,2025-12-30 18:20:26.658753
+CUST_000632,Ryan,Ponce,unguyen@example.net,+1-794-779-3634x440,68237 Harmon Ville,Suite 625,North Andrea,AS,17187,US,1953-12-27,7308,100-150k,Gold,530,2025-01-07 15:51:38.921079
+CUST_000633,Cassie,Reed,vincent08@example.net,237.641.0688x2750,8026 Thompson Locks Apt. 521,,Lisatown,CA,43884,US,1949-01-25,1470,150k+,Platinum,615,2024-09-03 16:43:39.799942
+CUST_000634,Aaron,Rodriguez,megan12@example.org,8368951807,261 Rebecca Fields Suite 516,Apt. 887,Angelaburgh,IN,09343,US,1972-05-29,9485,<25k,Silver,429,2024-09-14 21:41:00.232435
+CUST_000635,Joshua,Cannon,qnguyen@example.org,(649)529-9972x239,744 Denise Village Apt. 441,,Kimland,AS,61801,US,1997-02-14,5965,<25k,Platinum,552,2025-03-30 06:27:41.977504
+CUST_000636,Mark,Pace,tamararobinson@example.net,001-635-353-6209x77202,6189 Hardy Plaza,Suite 730,Port Brandonhaven,WV,95931,US,1990-01-19,2821,150k+,Bronze,384,2024-01-17 23:39:01.292312
+CUST_000637,Lee,Thomas,maureendickson@example.org,(378)708-3487x8050,999 Megan Manor Apt. 916,Apt. 676,Susanburgh,MT,84534,US,1981-12-08,0830,50-75k,Gold,607,2024-10-20 11:20:36.046809
+CUST_000638,Michele,Rollins,adamgonzalez@example.com,337.686.4632,55151 Kirby Dale,Apt. 262,Thomasshire,GU,10506,US,1965-04-28,3165,75-100k,Silver,717,2025-04-22 06:39:44.027131
+CUST_000639,Lisa,Maddox,kristaclarke@example.org,(275)856-4020,978 Strickland Stravenue Apt. 731,,West Davidmouth,WY,60285,US,1949-08-08,1644,50-75k,Bronze,359,2025-04-20 03:34:35.560205
+CUST_000640,Victoria,Mendoza,martinjoe@example.com,6524661499,6454 Collins Tunnel Suite 371,Suite 342,Suarezberg,PW,58655,US,1965-08-28,5261,25-50k,Platinum,763,2024-03-13 12:59:02.568136
+CUST_000641,Amy,Garza,gregoryquinn@example.net,858-903-5423x180,08125 Ford Village Suite 322,Suite 006,Lake Dominique,NM,33444,US,2002-11-24,8803,75-100k,Gold,713,2024-12-25 23:48:15.233969
+CUST_000642,Annette,Martinez,tbeck@example.com,+1-305-807-5292,099 Rivers Walk Suite 923,,South Adrian,MD,82634,US,1993-05-06,1416,100-150k,Silver,350,2025-02-08 09:30:01.025811
+CUST_000643,Dawn,Harris,ryan97@example.com,+1-298-427-2240x40663,24366 Fischer Crossing Apt. 913,Suite 480,East Megan,WI,54716,US,1968-07-26,3191,25-50k,Silver,690,2025-07-10 02:26:05.472075
+CUST_000644,Nathan,Combs,lisajohnson@example.net,+1-863-480-8230x747,3863 Byrd Groves Apt. 965,,Lake Sally,KS,48133,US,1957-01-15,2220,25-50k,Gold,650,2024-03-18 09:00:13.561112
+CUST_000645,Brenda,Mcbride,mark83@example.com,(947)760-8752,0875 Williams Island,,Andresport,DC,82599,US,1998-02-14,0158,150k+,Platinum,597,2024-09-28 16:48:35.556922
+CUST_000646,Vincent,Mullins,tfisher@example.com,(660)793-0286,2836 Jensen Courts Apt. 903,,South Rebeccaberg,AK,67660,US,1968-03-18,5491,<25k,Gold,524,2024-05-20 00:06:50.780658
+CUST_000647,Steven,Johnson,qwatts@example.net,435.665.9665x3088,65302 Perez Ville,,East Evantown,AL,52089,US,2002-11-16,1528,150k+,Silver,493,2024-11-20 13:24:25.753611
+CUST_000648,Billy,Brown,brittanyjordan@example.net,869.538.2518x75531,362 Steven Mountain Apt. 052,,New Deborah,NY,36691,US,1966-05-26,5092,50-75k,Bronze,776,2024-12-29 23:07:19.633932
+CUST_000649,Paige,Campbell,lauriecaldwell@example.com,628.851.2477x3284,38321 Mccoy Extensions,Apt. 767,East Tara,OR,25311,US,1946-01-08,0106,100-150k,Platinum,803,2026-01-19 13:27:25.291824
+CUST_000650,Stephanie,Lucero,warren81@example.com,919-421-3982x86468,1585 Wolf Row Suite 183,Suite 011,Hermanmouth,NJ,57503,US,1990-05-15,5589,100-150k,Bronze,607,2025-06-05 12:44:25.456025
+CUST_000651,Carly,Robinson,xrobinson@example.com,001-631-212-2534x1319,0096 David Manors Apt. 155,Apt. 902,Cherylland,AS,27365,US,1978-10-16,0759,100-150k,Platinum,548,2024-05-23 09:34:44.021899
+CUST_000652,Melanie,Roth,fowlersandra@example.org,+1-589-583-8402,99682 Cabrera Mission Apt. 181,Suite 293,East Kristinmouth,MI,17762,US,1966-09-18,2232,150k+,Bronze,644,2024-05-16 19:10:30.681761
+CUST_000653,Henry,Hodge,danielgates@example.org,902.519.4911,89546 Joseph Island,Suite 921,Stewartburgh,MS,79198,US,2001-09-01,4849,75-100k,Silver,449,2024-10-28 21:14:10.543705
+CUST_000654,Benjamin,Moore,beltrankristie@example.net,743-293-1355x823,17782 Rasmussen Inlet Suite 922,,Morenochester,KS,73306,US,2002-07-21,7845,<25k,Silver,850,2025-06-16 11:01:24.729656
+CUST_000655,Susan,Acevedo,pbarnett@example.com,725.927.5261x34268,994 Logan Fords Apt. 792,,Brownton,KY,91227,US,1949-07-23,1406,150k+,Bronze,721,2025-07-10 03:53:13.974845
+CUST_000656,Melissa,Rivera,robinsontammy@example.net,8212523290,454 Antonio Unions,,Johnsonstad,CA,06444,US,1959-06-15,9320,75-100k,Platinum,536,2025-04-24 02:51:24.008783
+CUST_000657,Mary,Stevens,hallandrew@example.com,001-872-206-3231x156,966 Williams Garden,,West Janethaven,MS,81568,US,1984-08-18,9952,100-150k,Gold,533,2024-05-27 17:41:23.396355
+CUST_000658,Rachel,Burton,annecochran@example.com,001-902-353-0923,48563 Sanchez Estate Suite 671,,South Davidmouth,MH,99782,US,1965-11-26,5378,150k+,Bronze,782,2024-04-05 18:30:41.146014
+CUST_000659,Alan,Parker,bryan47@example.com,899-813-9695x5551,49130 Carter Inlet Suite 430,Apt. 434,Lake Kevinbury,MH,41693,US,2001-10-25,9211,100-150k,Gold,698,2025-05-23 15:39:26.360951
+CUST_000660,Alex,Warren,aarondavis@example.com,(383)516-9086,64790 Jason Park Suite 028,Apt. 152,West Cynthiaton,FL,49205,US,1964-09-19,3284,150k+,Silver,493,2024-11-09 09:31:11.889826
+CUST_000661,John,Ross,mmorris@example.org,(319)584-1157x968,441 Carrie Fall,Suite 851,Donaldfort,AZ,93026,US,1975-06-17,7655,100-150k,Platinum,312,2024-07-04 01:12:00.691946
+CUST_000662,Malik,Davis,pdavidson@example.com,928.469.0731x6666,955 Ian Burgs Apt. 110,Apt. 459,Shawnfurt,MS,28427,US,1982-03-17,0714,<25k,Gold,364,2024-12-17 17:16:05.575984
+CUST_000663,David,Smith,xshaw@example.org,(907)978-5911,1636 Megan Port,,Nelsonland,OK,30233,US,1947-10-03,8678,75-100k,Platinum,659,2024-02-23 17:16:53.135665
+CUST_000664,Tara,Fitzgerald,sara64@example.net,247.326.1886x6017,26482 Rice Mountain,,Lisamouth,MH,87729,US,2005-02-25,2210,100-150k,Gold,744,2024-10-20 04:50:18.229822
+CUST_000665,Amber,White,raymondwalton@example.net,+1-452-840-5962x574,244 Frank Valley,,New Kimberlyburgh,IN,61591,US,1972-04-08,2889,50-75k,Platinum,829,2026-02-08 00:55:40.544772
+CUST_000666,Lindsay,Alvarez,jeffery49@example.com,(249)366-8419x50706,9657 Singleton Drive,,Jameschester,PW,80215,US,1947-06-07,6480,150k+,Silver,786,2024-06-22 14:38:55.271409
+CUST_000667,Lisa,Stewart,dyork@example.net,(484)218-8353x48872,6351 Peter Mission Apt. 425,,East Angelaburgh,ME,98735,US,1996-09-12,3633,150k+,Bronze,583,2025-11-01 08:34:36.935540
+CUST_000668,Nathan,Barker,tamarahess@example.net,655.600.3628x4835,6705 Christine Fall Apt. 698,,West Haleyside,PA,44324,US,1966-08-24,4474,<25k,Silver,425,2024-09-12 04:06:07.748401
+CUST_000669,Jacob,Zimmerman,kathleenwells@example.net,616-395-7922x012,1311 Gonzalez Stravenue Suite 785,,Lake Melissafurt,NH,51879,US,1999-06-01,1992,<25k,Silver,467,2025-06-08 15:18:20.725833
+CUST_000670,Molly,Long,ejohnson@example.com,905.395.7890x85428,4823 Lewis Mission,,Cindymouth,IA,98114,US,1982-03-17,6584,150k+,Gold,423,2025-02-23 06:11:54.749008
+CUST_000671,Kathy,Lopez,crystal59@example.org,+1-998-512-8188x98438,870 Hector Stravenue,,North Joshualand,MT,20885,US,1949-11-16,2047,<25k,Gold,822,2025-03-08 08:43:16.869701
+CUST_000672,William,Nelson,joshuaherrera@example.com,854.914.0585x580,497 Sullivan Stream,,Christopherfort,AK,14472,US,2004-05-06,5527,100-150k,Bronze,729,2024-09-24 21:38:50.241652
+CUST_000673,Kurt,Gilbert,perrychristopher@example.org,001-716-868-5522x77217,94780 Gibbs Vista,,North Seanfort,IN,89732,US,1990-05-02,7092,<25k,Gold,580,2024-07-21 17:29:13.993963
+CUST_000674,Sean,Solomon,fpope@example.net,540-484-8213,724 Nichols Road Suite 889,,North Matthew,NM,28304,US,1950-04-16,0281,75-100k,Bronze,795,2025-01-20 03:25:20.148517
+CUST_000675,Steven,Meadows,wcherry@example.com,+1-893-569-9485x34532,62448 Travis Field Apt. 885,,West Paul,PR,65599,US,1947-06-21,5383,50-75k,Silver,386,2025-09-13 00:17:58.972875
+CUST_000676,Matthew,Brown,jennifer88@example.com,+1-409-593-6726x4447,12234 Scott Valleys Apt. 917,,Port Guytown,IL,21676,US,1989-01-18,1904,50-75k,Bronze,547,2025-08-06 08:16:02.490240
+CUST_000677,Christopher,Saunders,nicole48@example.org,(684)429-2635,404 Jill Pines,Suite 844,Shawntown,PW,14362,US,1998-08-05,2694,75-100k,Platinum,697,2025-10-04 18:04:16.133184
+CUST_000678,Katie,Rodriguez,brianwilkinson@example.com,+1-836-757-9948x4729,548 Erica Causeway Suite 881,Apt. 669,Jacksonchester,UT,08527,US,1989-12-26,7797,50-75k,Platinum,328,2025-04-28 05:00:19.848585
+CUST_000679,Robert,Snyder,ryanboone@example.net,478.642.1198x188,647 West Forks Suite 054,Suite 630,South Markbury,IA,53431,US,2007-07-21,1654,<25k,Bronze,626,2025-03-12 06:15:07.582529
+CUST_000680,Michael,Allen,sabrinasosa@example.com,(356)559-1201x6147,1825 Shaffer Gardens,,South Reginald,DE,69376,US,1951-12-29,4847,150k+,Gold,490,2024-10-15 14:19:10.942865
+CUST_000681,Rebecca,Ochoa,curtisboone@example.net,+1-255-691-5009,05685 Audrey Lock Suite 125,,North Jacob,GA,46671,US,1999-06-12,8852,50-75k,Platinum,796,2024-11-19 07:27:50.062838
+CUST_000682,Ricardo,Lopez,mrichardson@example.com,347-478-6363x1308,1757 Colon Isle,Apt. 432,Campbellfurt,WI,26014,US,1956-05-10,8024,75-100k,Bronze,838,2024-09-09 12:57:52.398975
+CUST_000683,Gwendolyn,Scott,kcastillo@example.net,419.525.9751x77953,2679 Fuller Prairie Apt. 623,Apt. 303,Andrewston,MI,33317,US,1945-09-04,3853,<25k,Gold,429,2025-05-25 00:10:48.771510
+CUST_000684,Joe,Davies,ryanwoodward@example.com,(564)459-2830x693,848 Linda Point,,Jonathanview,MO,78669,US,1961-11-22,2772,100-150k,Bronze,395,2025-12-15 00:11:29.200322
+CUST_000685,Matthew,Jimenez,tuckerdenise@example.net,(955)577-8937,2023 Hendricks Village Apt. 099,,Kristenfort,PW,40408,US,2006-04-28,2195,75-100k,Gold,781,2024-09-25 05:28:06.806865
+CUST_000686,Katrina,Burns,melissastewart@example.org,+1-960-922-5394,02816 Bailey Knolls Apt. 064,,East Breanna,MT,68848,US,2001-11-15,1385,25-50k,Gold,563,2024-10-14 21:09:19.035998
+CUST_000687,Adam,Cochran,hannah79@example.org,+1-209-554-6592x48428,1535 Velasquez Island Suite 248,,Petersonland,NV,08267,US,1949-04-08,9735,25-50k,Bronze,602,2025-04-01 18:51:32.706586
+CUST_000688,Karen,Peters,ewingbarbara@example.org,868-245-1254,353 Jacqueline Brook Suite 907,,West John,NC,29599,US,1982-08-29,9811,50-75k,Bronze,581,2024-01-25 22:50:59.119839
+CUST_000689,James,Stewart,brewercody@example.net,001-677-343-3368x18189,4548 Kimberly Parkway Apt. 862,Suite 704,Norrisburgh,OK,07098,US,1946-12-23,4691,<25k,Bronze,457,2025-05-31 21:31:49.156576
+CUST_000690,Cameron,Tucker,joel88@example.net,338-719-1414x906,740 Ramirez Flat,,East Jeffrey,MT,96135,US,1972-01-03,7150,150k+,Bronze,348,2025-01-01 03:03:21.589386
+CUST_000691,Susan,Daniels,ricenicholas@example.org,8612315687,63089 Daniel Loaf Apt. 128,Suite 194,East Amytown,AR,10931,US,1970-06-29,8925,50-75k,Silver,645,2025-02-24 18:03:17.117773
+CUST_000692,Courtney,Fisher,leslieramos@example.net,9177105641,3692 Miller Brooks,Apt. 226,Lake Donna,NV,60057,US,1969-04-05,5422,150k+,Gold,487,2024-01-20 07:14:33.347500
+CUST_000693,Joseph,Smith,stewartcassandra@example.com,+1-475-416-1730x67854,3395 Foley Green,,West Elizabeth,PA,90781,US,1979-04-09,4224,100-150k,Bronze,525,2024-03-04 14:02:59.053988
+CUST_000694,Nathan,Nelson,daniel16@example.net,4073830428,7775 Mark Isle Apt. 102,Apt. 571,Timothyburgh,CO,21249,US,1950-04-26,6619,75-100k,Silver,594,2025-04-06 18:56:26.413598
+CUST_000695,Johnny,Smith,brownadrian@example.net,676.474.0979x882,32696 Jonathan Cliff Suite 445,,Lake Sarah,VT,18769,US,2004-11-12,9503,75-100k,Gold,351,2025-11-21 09:13:30.564732
+CUST_000696,John,Mays,sgibson@example.net,001-817-264-4580x85844,8528 Coleman Pike,,Port Johnfurt,IA,86020,US,1995-06-13,8894,<25k,Silver,456,2025-08-04 16:09:00.943730
+CUST_000697,Luis,Holmes,erica55@example.net,(495)670-6486,03656 Underwood Lakes Apt. 041,,West Nancyview,DC,57875,US,1969-01-26,7258,100-150k,Platinum,520,2024-09-30 16:57:37.594567
+CUST_000698,Brendan,Mcdaniel,ericksonanna@example.net,613.766.8140,2563 Gentry Shore Suite 532,,Lindsayborough,MS,84524,US,2001-11-10,7062,150k+,Silver,591,2025-12-05 07:13:50.961552
+CUST_000699,Darryl,Gordon,ccox@example.org,448-372-8501x5528,44619 Hodge Mission,,Sandraton,DE,86432,US,1975-09-12,7386,25-50k,Gold,709,2024-03-04 17:25:53.575757
+CUST_000700,Brian,Evans,pamela39@example.org,+1-813-940-6181,11378 Kevin Via,,North Jerryburgh,ID,92634,US,1996-05-08,1129,100-150k,Bronze,560,2025-04-11 19:18:07.996126
+CUST_000701,Ryan,Edwards,rodneygreene@example.org,625-699-4673x5059,62257 Christopher Locks Apt. 803,Apt. 494,Charlesfurt,HI,60792,US,1978-04-01,4756,75-100k,Bronze,499,2024-11-13 23:05:47.080271
+CUST_000702,Caleb,Hill,hectorhickman@example.org,444.969.0843x93791,29759 Cynthia Island Apt. 770,,Morrisberg,GU,25458,US,1991-04-15,0518,50-75k,Gold,387,2026-01-31 11:58:18.738321
+CUST_000703,Christine,Mclaughlin,chicks@example.net,001-355-578-7515x197,4665 Miller Tunnel,,Markport,ID,28395,US,1999-11-05,3519,75-100k,Platinum,316,2024-03-06 13:56:57.398728
+CUST_000704,Michael,Holder,harrisonnicole@example.org,(740)707-9209,65791 Daniel Tunnel,,Berryview,IL,27507,US,1988-09-10,9331,25-50k,Gold,649,2024-07-19 09:10:55.469210
+CUST_000705,Matthew,Williams,acarroll@example.org,+1-712-266-8710,417 Mahoney Plaza Suite 450,,Lake Heather,WY,19128,US,1988-04-12,7061,150k+,Platinum,824,2024-06-20 11:55:01.263605
+CUST_000706,Kim,Shaw,donald78@example.net,577-689-0996,714 Kristen Crossing Suite 216,,East Ambermouth,MO,38355,US,1953-10-17,3177,150k+,Bronze,427,2024-09-03 21:21:51.025953
+CUST_000707,Aaron,Liu,cynthiaelliott@example.net,+1-714-509-3429,4095 Oliver Squares,,North Susan,WV,55578,US,1988-08-06,1732,100-150k,Gold,631,2024-12-04 15:06:41.261982
+CUST_000708,Terry,Rivera,carlsalas@example.org,(483)857-3958x57021,59373 Roberto Key Apt. 654,,Lake Curtis,IL,12525,US,1947-11-15,9143,25-50k,Gold,388,2025-10-15 21:26:40.428072
+CUST_000709,Ryan,Rhodes,mnewman@example.org,001-689-606-0502x34631,1522 Hodges Turnpike Suite 153,,Cordovaview,NM,21798,US,1973-07-20,3382,25-50k,Silver,392,2024-11-15 00:31:37.131438
+CUST_000710,Terri,Robinson,ortizkaren@example.com,438.954.0976x967,9857 Karen Forks Suite 571,Suite 140,New Cassandrafort,SD,86445,US,1956-05-09,0938,100-150k,Gold,613,2025-07-19 15:41:47.931848
+CUST_000711,Kelly,Thomas,ambermayo@example.net,607.525.2898,270 Scott Dam Apt. 182,,East Erin,FM,46399,US,1951-09-10,5373,75-100k,Bronze,793,2024-08-26 00:25:57.456432
+CUST_000712,Steven,Marquez,woodsjulie@example.com,+1-811-461-6286x63939,5105 Richardson Ramp,,Port Patricia,LA,07273,US,1993-03-24,0672,75-100k,Gold,745,2024-10-26 19:28:09.812245
+CUST_000713,Kimberly,Hart,chad81@example.com,295.756.3665x64399,72251 Sandra Manor,,West Sherryton,GU,55916,US,1976-10-31,0209,100-150k,Gold,742,2025-08-03 09:01:01.690437
+CUST_000714,Craig,Hall,bwilliams@example.net,568-947-2144,353 Gardner Rue Suite 137,,Jenniferstad,OH,25287,US,1980-05-10,2243,75-100k,Bronze,698,2025-07-07 15:04:39.057304
+CUST_000715,Justin,Dunn,blakeortiz@example.com,001-320-388-0607x791,97121 Samantha Bypass Suite 399,Suite 443,Lake Angelamouth,OR,39259,US,1979-02-28,7667,75-100k,Gold,406,2025-12-09 05:46:31.415835
+CUST_000716,Keith,Johnson,ysullivan@example.org,+1-653-886-0038x92304,7838 Michele Course Apt. 411,Suite 497,Lake Christopherstad,CO,29845,US,1998-12-21,5109,75-100k,Silver,807,2025-03-08 20:02:35.393200
+CUST_000717,Thomas,Wilson,rogerscarolyn@example.org,(653)750-4655x879,5421 Cole Glen,,Port Phyllis,HI,56493,US,1981-05-24,5280,150k+,Bronze,452,2026-01-12 01:10:00.002930
+CUST_000718,Gregory,Ali,ohubbard@example.org,001-475-900-0548,879 Copeland Place,,Sergiotown,NH,01552,US,1959-06-09,0058,25-50k,Silver,301,2024-11-25 12:16:22.388504
+CUST_000719,Dylan,Smith,wscott@example.net,(205)771-1683x59008,8546 Jamie Track,Suite 863,Stevenburgh,DE,44177,US,1967-01-30,5466,150k+,Silver,626,2024-06-28 00:14:38.925475
+CUST_000720,Jessica,Franklin,victoria88@example.com,001-875-919-7431,87716 Martin Ford Suite 591,Suite 100,West Melissamouth,DC,45693,US,1963-01-14,9458,100-150k,Bronze,334,2025-02-22 13:49:08.978099
+CUST_000721,Michael,Jones,julia20@example.org,245-385-9904,44326 Lee Fort,,Wilsonfurt,TN,50219,US,1970-09-30,1822,75-100k,Silver,685,2024-12-23 02:24:32.129906
+CUST_000722,Laurie,Mcmahon,shannon17@example.net,569.792.7692x228,703 Guzman Drives Apt. 410,,Lake Chase,OH,67836,US,2007-10-24,9177,100-150k,Platinum,367,2024-08-25 11:14:52.443364
+CUST_000723,Jason,Grant,merrittwilliam@example.com,(496)691-0589x80709,4676 Robert Expressway,,North Carlos,MT,70711,US,1965-01-11,8602,150k+,Platinum,415,2025-12-24 21:20:21.173954
+CUST_000724,Jeffrey,Schneider,anthony03@example.net,9362708220,088 Alyssa Canyon Apt. 667,,West Jessicamouth,OR,93833,US,1965-04-29,0231,150k+,Silver,794,2024-04-20 13:01:45.840802
+CUST_000725,Michael,Jones,kpatterson@example.net,(376)466-0169x5251,74848 Kevin Shoals Apt. 550,,Tracystad,OH,82616,US,1969-07-04,0716,150k+,Silver,565,2025-06-17 04:00:04.947264
+CUST_000726,Richard,Lutz,ylee@example.org,406.950.3260x665,266 Pamela Camp,,Port Joshuastad,NJ,28283,US,1969-01-10,2122,100-150k,Silver,462,2024-10-28 16:31:19.515394
+CUST_000727,Samantha,Mora,ashleymerritt@example.com,+1-297-746-1618x16549,6320 Ruiz Skyway,,Hallview,ND,01317,US,1950-10-30,4971,50-75k,Bronze,497,2025-03-10 09:26:33.879782
+CUST_000728,Jason,Ayers,pjohnson@example.com,+1-870-328-5388,746 Chan Knolls Apt. 993,Apt. 356,Kristaborough,OH,15653,US,1959-06-26,7415,25-50k,Gold,355,2024-04-17 18:59:06.670449
+CUST_000729,Rachel,Wallace,greenjames@example.org,287.859.5201x99289,170 Lindsey Passage,,South Shannon,ID,35479,US,1987-10-18,1237,50-75k,Gold,846,2025-10-14 04:48:14.578651
+CUST_000730,Denise,Arnold,westcharles@example.net,544-951-9192x30467,3117 Margaret Ridges Suite 476,,North Krystal,RI,58007,US,1996-06-08,6236,75-100k,Platinum,626,2024-05-11 11:04:03.522524
+CUST_000731,Angela,Collins,johnsonthomas@example.org,912-202-5683x12504,06931 Shawn Place,,West Rachel,MT,48388,US,1947-04-05,9058,50-75k,Bronze,624,2025-12-29 15:58:56.319381
+CUST_000732,Stephen,Brown,tammynguyen@example.net,227.643.7267,648 Campos View,,Danielbury,KS,09881,US,1956-06-28,8772,75-100k,Gold,800,2024-12-26 17:42:13.027966
+CUST_000733,Alexander,Brown,johnsstephanie@example.com,+1-489-993-7962x0067,440 Mary Parkways Apt. 097,,South Bradfort,WY,58457,US,1979-05-03,3944,<25k,Bronze,493,2025-10-16 21:18:31.521374
+CUST_000734,Tiffany,Gonzalez,charlesgibson@example.com,001-471-379-4465x408,140 Carolyn Locks,,Dennismouth,RI,37589,US,1970-05-27,5638,150k+,Gold,367,2026-02-18 23:19:58.068034
+CUST_000735,Doris,Rivas,patrick06@example.com,(805)244-6291,868 Daniels Tunnel,,South Kathleen,PA,45706,US,1981-04-28,3509,<25k,Platinum,444,2025-05-11 21:23:07.074982
+CUST_000736,Russell,Hudson,sbartlett@example.org,+1-770-864-1559x91362,63701 Haney Plains Apt. 592,Apt. 709,Fullerstad,GA,29480,US,1979-03-17,1171,100-150k,Bronze,709,2025-01-26 04:46:07.047084
+CUST_000737,Kimberly,Mccoy,caroline43@example.org,854-877-3078,381 Palmer Station Apt. 178,Apt. 657,Gutierrezfort,UT,28370,US,1981-04-10,1942,100-150k,Silver,342,2024-05-27 20:02:51.027680
+CUST_000738,Melanie,Barker,xbishop@example.net,663.447.0057x9547,215 Joel Isle,Suite 759,Lake Rebecca,MS,36775,US,1997-01-23,5344,<25k,Gold,441,2025-03-04 06:34:23.915446
+CUST_000739,Mary,Nelson,reginald30@example.com,001-972-970-9206x5705,4156 Jason Union Apt. 678,Suite 361,Christopherside,PW,43136,US,1987-05-09,1880,50-75k,Silver,723,2024-01-19 00:52:23.944891
+CUST_000740,Eddie,Sparks,darlene42@example.net,463-601-5815,1627 Small Fall,,Port Gregoryborough,LA,26078,US,1970-02-15,6938,150k+,Gold,819,2025-08-18 21:06:51.982313
+CUST_000741,William,Bell,mitchellroberts@example.com,+1-302-432-7141x21583,288 Brown Groves Suite 176,,Johnstad,ID,14349,US,1979-01-10,6555,100-150k,Platinum,547,2025-06-18 23:15:31.498979
+CUST_000742,Craig,Scott,lallen@example.net,566-886-1283,5028 Herring Fort,,Lynchburgh,GU,60430,US,1978-04-30,7424,50-75k,Platinum,349,2024-03-05 19:13:41.546535
+CUST_000743,Dustin,Jones,xherrera@example.com,001-218-773-6533x221,78830 Hancock Drive,,Donaldsonfort,NC,70629,US,2008-01-11,4782,<25k,Platinum,683,2025-10-08 06:14:12.000210
+CUST_000744,Caleb,Carson,lynncoleman@example.org,2348545703,85336 Vicki Mountain Apt. 061,Suite 662,East Matthewshire,MD,26859,US,1963-09-07,5190,25-50k,Gold,358,2024-09-13 12:22:10.508782
+CUST_000745,James,Harris,anna76@example.org,426.211.9093,77130 Karla Turnpike Suite 581,Suite 307,Port Jonathan,NM,04081,US,2007-03-05,5284,100-150k,Bronze,506,2024-11-30 06:03:57.959067
+CUST_000746,Zachary,Lucas,billy23@example.org,791.815.4602x3243,756 Cathy Lane Apt. 469,,Andreaberg,AR,65520,US,1969-07-28,6722,25-50k,Silver,532,2025-02-19 18:47:53.808275
+CUST_000747,Matthew,Baldwin,denise32@example.net,605-865-3706x251,1266 Micheal Courts Apt. 086,Suite 284,East Justinton,DC,46909,US,1949-11-14,0844,150k+,Bronze,771,2024-01-30 09:49:14.314364
+CUST_000748,Jerome,Miranda,michelle42@example.net,001-320-945-5814,636 Garcia Pines Apt. 581,,Johnsonport,NJ,86487,US,1972-01-05,2868,<25k,Silver,535,2024-12-15 13:26:51.112586
+CUST_000749,Tommy,Cruz,cassandra62@example.org,309-260-7172,65890 Atkinson Estates Apt. 289,,Harrisstad,MI,68575,US,1984-05-31,7051,25-50k,Platinum,686,2024-04-26 03:41:12.565739
+CUST_000750,Joseph,Bruce,cassandrarandall@example.net,+1-831-439-5849x2364,00478 Griffin Coves,,Maciaschester,MH,68148,US,1985-06-06,4103,<25k,Bronze,536,2025-10-14 08:59:40.773050
+CUST_000751,Daniel,Morales,ccross@example.org,001-650-791-5584x9255,742 Joe Fork Apt. 373,,Cochrantown,MA,98581,US,1952-03-24,0671,75-100k,Silver,721,2024-07-24 22:10:38.437340
+CUST_000752,Kathryn,Johnson,jeffrey12@example.com,(363)849-4452x6292,8385 Paul Mill,,North Sharon,KY,52891,US,2002-03-26,8708,150k+,Silver,502,2025-01-19 00:52:50.050233
+CUST_000753,Stacy,Hall,kochdawn@example.org,834.646.2031,161 Johnny Rest,Apt. 067,Perezhaven,IA,85585,US,1978-10-11,5193,50-75k,Platinum,485,2025-07-12 19:23:20.143769
+CUST_000754,Tabitha,Martin,brentnichols@example.org,001-894-389-5475x7207,26467 Brittney Valleys Suite 605,,Patriciafurt,AS,15084,US,1972-10-24,5840,100-150k,Gold,339,2025-03-10 03:11:47.353518
+CUST_000755,Nicholas,Vasquez,davishector@example.org,983-248-8663,41326 Margaret Street Apt. 844,,Deborahfort,MA,58564,US,2006-12-11,1799,150k+,Silver,514,2025-04-30 15:50:33.451392
+CUST_000756,Megan,Rodriguez,kevin03@example.net,001-819-786-8846,99410 James Ways,,East Sharon,GA,96343,US,1964-10-13,3371,<25k,Platinum,802,2024-01-13 01:50:34.944014
+CUST_000757,Michael,Boyd,gregorymacdonald@example.net,204.472.3480,28972 Lee Ways Apt. 486,,East Craigland,KS,63336,US,2000-04-13,0935,150k+,Bronze,480,2025-11-09 13:28:04.467006
+CUST_000758,Todd,Miller,cynthia76@example.net,2515061944,88253 Susan Walk,,Morrisfurt,OH,98858,US,1955-09-11,1639,100-150k,Silver,523,2024-05-11 20:19:32.995095
+CUST_000759,Taylor,Gonzales,wolfgeorge@example.org,428-352-7669x76336,9992 Baker Glen Apt. 641,,East Matthewshire,UT,02135,US,1972-05-20,1939,50-75k,Gold,682,2024-03-14 06:27:33.537224
+CUST_000760,Lee,Lopez,shawn32@example.com,+1-535-740-0141x014,2114 Tara Motorway Apt. 673,,Millerside,NE,48847,US,1988-11-03,4327,50-75k,Bronze,341,2025-06-20 11:11:43.723178
+CUST_000761,Anthony,Herrera,sdavis@example.com,+1-639-500-7524x974,9769 Kevin Trafficway,Suite 843,Walshton,CO,94951,US,1965-10-26,2043,75-100k,Platinum,465,2025-07-05 01:17:42.429220
+CUST_000762,Emily,Wise,jacksonrandall@example.net,857-872-8756x5713,846 Smith Skyway,,Thomasport,TX,53348,US,1975-09-18,6301,100-150k,Silver,371,2025-01-14 16:06:03.057796
+CUST_000763,Dustin,Martinez,torresmax@example.org,6765629174,88552 Fuller Wall,,South Charles,MA,19230,US,1951-05-07,4621,25-50k,Gold,495,2024-02-27 18:26:35.648161
+CUST_000764,Jessica,Morris,brianmeyers@example.com,658-619-0948x65880,76226 Haney Village Apt. 060,,West Donaldstad,DC,69206,US,1963-08-24,3991,<25k,Gold,654,2025-01-31 00:48:20.342324
+CUST_000765,Michael,Harris,arobertson@example.net,515.821.0114x35407,20535 Carter Orchard,,Michaelfort,FL,53038,US,2005-06-02,5593,150k+,Bronze,649,2026-01-07 12:23:40.271099
+CUST_000766,Carolyn,Bennett,hubbardolivia@example.com,(260)268-2690,9281 Wise Underpass Suite 193,,Andrewsbury,WV,49319,US,1975-12-09,6717,50-75k,Gold,797,2024-06-02 01:39:29.900625
+CUST_000767,Keith,Lewis,haleyrobert@example.org,868.349.9118,651 Hall Shores,Suite 488,West Linda,MT,77085,US,1973-08-09,6822,50-75k,Bronze,484,2024-12-04 06:34:31.027128
+CUST_000768,Sharon,Sanchez,barbarabrown@example.org,+1-620-585-9034,051 Gibson Ramp,,Port Victorialand,AZ,32708,US,1991-08-08,3762,150k+,Silver,392,2024-09-22 08:37:15.738591
+CUST_000769,Beth,Montgomery,proctorrobin@example.org,222.365.6902x74988,660 Erica Lodge,,Autumnfurt,TX,15763,US,2005-08-27,4573,75-100k,Gold,659,2024-04-18 19:35:05.090216
+CUST_000770,Christopher,Juarez,heatherhunter@example.org,+1-478-239-7001x635,1056 Henry Hills,Apt. 930,North Caitlinville,KS,59096,US,1954-07-30,0872,25-50k,Gold,421,2024-08-30 12:49:06.213454
+CUST_000771,Larry,Perez,lkirby@example.net,(808)271-3324x87507,5300 Martinez Spurs Suite 701,Apt. 618,Haneyfort,KY,67572,US,1954-04-23,7264,25-50k,Silver,395,2025-03-31 00:29:33.416005
+CUST_000772,Matthew,Thomas,patriciatownsend@example.net,4304681296,8607 Jason Roads Apt. 330,,Jonesshire,RI,03099,US,1994-08-02,5846,25-50k,Platinum,344,2024-12-12 02:17:12.743015
+CUST_000773,Danielle,Adams,kingjonathan@example.org,531-533-6220,178 Goodwin Underpass Suite 041,,East Douglas,TN,96228,US,1996-04-24,4059,75-100k,Bronze,842,2025-04-28 13:52:28.287608
+CUST_000774,Crystal,Brown,mmoran@example.com,001-225-281-1920x52690,398 Maurice Corners,Apt. 680,East Jacqueline,AZ,60585,US,1980-05-19,7366,150k+,Bronze,842,2025-07-29 23:18:35.080060
+CUST_000775,Ronnie,Trujillo,melissa45@example.org,(265)677-8348x733,99728 Lopez Stravenue,,Jamesland,MH,88442,US,1996-06-12,6801,100-150k,Bronze,495,2024-06-02 12:21:19.008258
+CUST_000776,John,Stevens,mpalmer@example.net,3709794946,31675 Jeffrey Inlet Suite 919,,North Sarahfurt,MO,49933,US,2006-04-08,5373,50-75k,Gold,794,2024-03-05 21:03:33.987752
+CUST_000777,Kara,Knight,mistybrown@example.org,890.924.0608,3260 Mason Unions Apt. 221,,Bradleyview,MP,59396,US,1953-09-24,0247,50-75k,Silver,663,2024-03-20 02:21:30.535306
+CUST_000778,Kenneth,Parker,tgomez@example.net,001-702-928-2074x8743,989 Mcdonald Meadows,,Nancyhaven,TX,49111,US,1951-05-25,0626,75-100k,Bronze,682,2025-03-19 15:51:53.336320
+CUST_000779,Lori,Williams,joshuaallen@example.com,001-900-915-3686x23140,1707 Christopher Highway,,Brandonhaven,VT,02686,US,1990-08-31,5992,25-50k,Bronze,785,2026-01-30 17:02:33.731694
+CUST_000780,Leslie,Stephens,thompsonaustin@example.com,(537)521-5374x03117,17058 Harris Ridge,,Parkerchester,IL,36937,US,1952-08-24,8249,<25k,Bronze,314,2025-01-30 06:26:14.109293
+CUST_000781,Tanya,Johnson,jeremyprince@example.com,8369652802,12103 Michelle Mission Suite 897,,Butlerburgh,MH,56836,US,1991-10-08,7771,25-50k,Bronze,666,2025-09-27 07:43:03.547067
+CUST_000782,Jennifer,Bishop,hoffmanamanda@example.net,238.301.4110x61783,4668 Randy Forest,,East Keith,MI,37105,US,2004-07-30,1406,50-75k,Bronze,346,2024-03-25 10:33:22.324968
+CUST_000783,Amy,Baker,christophermeyers@example.net,+1-444-821-6969x84875,42901 Cole Skyway,,Port Angelahaven,CA,35909,US,1997-10-22,6106,75-100k,Platinum,564,2024-11-08 08:17:08.265933
+CUST_000784,Natalie,Evans,lancerose@example.com,001-693-913-1945,488 Wesley Mall Apt. 597,Suite 625,Cunninghammouth,WY,27441,US,1951-03-12,2160,50-75k,Bronze,585,2025-05-07 21:20:55.860006
+CUST_000785,Jonathan,Mccormick,aimee60@example.com,001-603-329-0654,055 Amy Field Apt. 360,,Lake Ryanhaven,MD,01875,US,1958-09-16,7226,50-75k,Silver,696,2025-03-04 15:55:40.695820
+CUST_000786,Steven,Nicholson,brian37@example.org,8722938716,57571 Rodney Rest,,Matthewville,MN,83947,US,1956-01-23,9034,100-150k,Platinum,679,2024-01-13 16:37:16.510286
+CUST_000787,Courtney,Mitchell,loconnell@example.com,676.434.6978,426 Jon Dam,,Parkbury,CA,02057,US,1992-02-13,1896,50-75k,Bronze,619,2026-02-02 15:23:37.019814
+CUST_000788,Kent,Santiago,shatfield@example.net,404.670.7525,620 Elizabeth Route Suite 270,Apt. 971,West John,NV,31761,US,1953-09-01,3797,100-150k,Gold,322,2024-05-02 16:23:27.282248
+CUST_000789,Stephanie,Medina,jesse17@example.org,8936230268,5512 Griffin Plain,,Beltranland,KS,51781,US,1967-09-27,4943,75-100k,Gold,830,2025-07-04 01:27:28.009901
+CUST_000790,Jeffrey,Gutierrez,dschmidt@example.net,754.413.7276x1443,5061 Moody Station Suite 825,,New Michael,VI,67472,US,1960-01-26,7228,100-150k,Gold,598,2024-06-02 08:04:29.617451
+CUST_000791,Sarah,French,wharris@example.org,(241)476-8967x42036,7627 Yang Harbor,Apt. 347,West Jordan,SD,38948,US,1961-03-05,5648,100-150k,Silver,384,2025-12-17 03:00:53.017579
+CUST_000792,Jason,Jennings,lindsey84@example.org,281.840.0981,14493 George Ways Suite 855,,Christophermouth,WY,59215,US,1973-12-03,3755,<25k,Bronze,509,2025-06-18 08:25:03.632064
+CUST_000793,Raymond,Martin,gcrane@example.net,6977069211,417 Pham Plain,Apt. 657,Garrettborough,GA,56501,US,1965-02-07,6648,150k+,Gold,421,2024-04-14 08:03:24.380745
+CUST_000794,Michael,Kelly,delgadoangelica@example.org,257-396-1095,309 Watson Branch Apt. 696,Apt. 744,New Denise,SC,76454,US,1974-12-09,8215,75-100k,Silver,763,2026-02-22 09:37:46.344978
+CUST_000795,Katherine,Owen,williamsmith@example.org,731.535.7804x71410,27061 Thompson Oval,,West Howardside,AR,71801,US,1988-05-01,9053,<25k,Platinum,716,2025-09-24 08:24:49.283615
+CUST_000796,Christina,Lopez,parsonsjennifer@example.org,9632716327,332 Samantha Hills Suite 931,,New Joseph,TN,98192,US,2008-03-20,2838,100-150k,Silver,783,2024-11-08 12:04:35.270862
+CUST_000797,Mark,Young,alanlove@example.net,+1-565-563-7699x0299,48607 Joseph Roads,,Joditon,GA,64744,US,1957-07-26,1377,<25k,Silver,525,2026-02-10 20:51:42.518149
+CUST_000798,Franklin,Kramer,fphillips@example.net,+1-985-389-3264,338 Kristen Islands Apt. 037,,Steventown,MT,03178,US,1954-03-12,6658,150k+,Bronze,818,2025-03-28 11:50:46.038727
+CUST_000799,Joseph,Kirk,cortezmichael@example.org,836-582-7118,35251 Bell Station Suite 356,,West Vincent,AZ,55728,US,1968-09-03,0493,75-100k,Gold,615,2024-12-31 19:41:01.323560
+CUST_000800,Morgan,Walker,gregorychavez@example.net,726.896.2319,708 Melissa Mill Apt. 663,,West Glendafurt,AR,07054,US,1975-11-28,8657,<25k,Silver,523,2025-10-17 01:40:15.976293
+CUST_000801,Brandon,Robertson,jmcconnell@example.net,+1-568-712-5803,2328 Joseph Ferry Suite 108,,Ryanberg,OK,84640,US,1972-02-19,2553,25-50k,Gold,389,2025-11-13 14:19:15.031190
+CUST_000802,Darren,Hall,rachel18@example.com,001-407-582-0254x8054,729 Jeffrey Extension,Apt. 477,South Theresahaven,GU,26758,US,1982-03-11,8531,100-150k,Gold,452,2026-02-12 14:56:36.665752
+CUST_000803,Brian,Brewer,reginald82@example.org,957-944-0193,1915 Castillo Tunnel Apt. 839,,Christophertown,LA,96467,US,2006-08-18,4868,<25k,Silver,436,2026-01-16 07:11:31.036451
+CUST_000804,Ashley,Fritz,lisa59@example.com,765.368.0802x2365,7507 Kathleen Mill Suite 997,,Williamsland,CO,30298,US,1962-07-06,4209,<25k,Platinum,345,2024-11-25 20:35:59.639109
+CUST_000805,Sierra,Rose,paynebrianna@example.com,+1-444-479-2344x436,584 Ayala Island,,Garciamouth,WV,42318,US,1999-10-27,4488,100-150k,Gold,569,2025-04-26 08:58:43.404718
+CUST_000806,Christopher,Johnson,hflores@example.org,001-972-693-5523x94552,8080 Jennifer Ports,,East Kimberly,IL,55050,US,1992-10-31,1134,100-150k,Platinum,395,2024-10-29 21:57:02.650832
+CUST_000807,Troy,Garrett,edward44@example.net,001-570-973-4264x157,8150 Reynolds Stream Suite 937,,Port Cynthiaburgh,AS,43498,US,2000-01-02,5090,75-100k,Bronze,662,2025-02-17 08:24:20.292831
+CUST_000808,Jon,Jackson,cathy71@example.com,632-238-9265,33712 Chavez Oval,,New Kimberlyton,GA,56612,US,1966-12-27,7403,75-100k,Gold,686,2024-10-28 21:37:04.879146
+CUST_000809,Brian,Medina,mrojas@example.net,521-443-4879,474 Ramos Loaf Apt. 399,,Benjaminview,TN,54317,US,2005-08-25,6820,150k+,Gold,332,2025-11-20 17:14:02.839381
+CUST_000810,Brian,Scott,jasmineford@example.net,(280)416-2280,643 Miller Corner,,North Carolynfurt,NE,41331,US,1985-06-05,8366,100-150k,Bronze,799,2024-02-12 22:12:18.406671
+CUST_000811,Alyssa,Walls,eschmidt@example.net,+1-523-415-0698,379 Ward Orchard Suite 560,Suite 421,Markville,MP,42264,US,1959-10-19,7055,100-150k,Gold,826,2025-11-28 19:34:26.880415
+CUST_000812,Adam,Johnston,wendyarnold@example.org,2912103801,04470 Matthew Shore,,Meganborough,NY,23680,US,2000-03-08,1906,75-100k,Bronze,462,2025-09-10 20:48:00.177278
+CUST_000813,Caitlin,Smith,tking@example.com,669.229.3283x7922,570 Rowe Bypass,,New Nicholas,PW,59288,US,1972-04-29,7754,50-75k,Platinum,769,2025-10-03 08:42:24.285031
+CUST_000814,Wendy,Jenkins,oanderson@example.org,+1-779-545-7936,9488 Burns Walk Apt. 987,,Watkinshaven,WA,15280,US,1949-12-24,4832,25-50k,Bronze,659,2024-04-13 14:27:43.975633
+CUST_000815,Patricia,Clark,andreacopeland@example.com,(947)804-1789,494 Christine Mews,Suite 277,Michellemouth,MD,58826,US,1963-02-20,2867,50-75k,Silver,345,2024-02-14 20:48:17.280296
+CUST_000816,Jeffrey,Hicks,jwilson@example.net,213.916.4944,47429 Daniel Curve Suite 653,,West Davidmouth,MD,09842,US,2002-04-12,0216,25-50k,Gold,751,2025-01-11 03:17:00.575596
+CUST_000817,Veronica,Green,davidschaefer@example.com,222-791-6984,840 Nicholson Passage Suite 431,,Shaffertown,VA,74525,US,1965-03-22,3732,25-50k,Platinum,710,2025-11-18 11:21:15.482361
+CUST_000818,Robin,Cooper,georgekaufman@example.org,994-834-5933x74563,454 Peter Village,Apt. 303,Jaychester,PR,18013,US,1964-02-27,7790,150k+,Platinum,695,2025-08-17 06:01:00.194992
+CUST_000819,Daniel,Reese,jamie03@example.com,221.669.9006x3924,5031 Brian Radial Apt. 848,,Port Carolborough,OH,93756,US,1952-01-05,5874,50-75k,Bronze,569,2024-04-23 09:12:17.269002
+CUST_000820,Lisa,Davis,jacobbarr@example.com,(258)243-3023x89341,315 Pugh Cliff Suite 974,,New Denniston,PW,49949,US,1981-11-04,4477,25-50k,Silver,825,2024-06-27 20:41:53.538758
+CUST_000821,Donald,Carroll,rita42@example.org,683-295-6071,50800 Valencia Courts Apt. 549,,Lindsayview,AS,40345,US,1990-04-06,7537,75-100k,Platinum,416,2024-12-15 07:45:50.913488
+CUST_000822,Deanna,Giles,fshields@example.net,+1-493-755-9831x22715,185 Campbell Causeway Apt. 272,,Bryantown,MP,81117,US,1976-03-07,2428,50-75k,Platinum,355,2024-06-16 10:54:14.246612
+CUST_000823,Michelle,Neal,jcunningham@example.org,875-831-2804,330 Kyle Fall,,Lloydton,MH,02780,US,1955-02-16,3534,75-100k,Bronze,692,2024-11-01 12:07:12.214362
+CUST_000824,Christine,Krause,vwalton@example.net,870-698-4378,6930 Jeffrey Plaza Suite 272,,Mercertown,OH,65913,US,1967-08-06,4993,50-75k,Silver,656,2024-03-14 04:20:51.655415
+CUST_000825,Sydney,Summers,sanchezpatricia@example.com,632.252.4303,0184 Brian Skyway,,Michaelberg,HI,97570,US,1970-05-12,6781,75-100k,Gold,416,2024-05-21 10:09:57.961540
+CUST_000826,Diane,Miller,calderonbrandon@example.org,(408)326-6122x665,76318 Blake Neck,,Port Michellestad,IN,36632,US,1974-05-14,4174,150k+,Bronze,583,2025-01-01 03:33:43.003157
+CUST_000827,Nicole,Jackson,pachecomaureen@example.com,304.443.7073x2841,9341 Richard Ranch Apt. 105,,Lake Christopher,VA,37274,US,1981-05-29,9171,150k+,Platinum,537,2025-06-14 21:15:33.374582
+CUST_000828,Kyle,Torres,austinallen@example.com,813.572.7953,9984 Rowe Light,,Port Jerrybury,TX,30953,US,1991-03-17,4366,150k+,Silver,579,2025-04-01 14:26:29.902998
+CUST_000829,Walter,Mcmillan,amandasaunders@example.com,247-346-0984x3756,46176 Rebecca Track,Suite 169,East Morganville,IA,61032,US,1985-05-11,7050,75-100k,Platinum,810,2025-07-18 03:34:56.019075
+CUST_000830,Marisa,Kim,georgejesus@example.net,2172169402,0404 Wood Turnpike,,Howardfurt,AL,62158,US,1995-11-18,8063,75-100k,Bronze,588,2025-02-13 06:14:22.003410
+CUST_000831,Bradley,Mathis,rnavarro@example.net,354-720-2888x776,669 Rodgers Road Apt. 114,,Port Brian,WI,06011,US,1964-02-10,6510,25-50k,Platinum,541,2025-09-12 01:06:48.909103
+CUST_000832,David,English,phillipsbryce@example.com,4138157565,1491 Poole Field,,Lake Louis,MN,60859,US,2005-07-10,1093,150k+,Platinum,737,2024-10-29 15:01:01.794605
+CUST_000833,Ashlee,Edwards,skinnerjennifer@example.org,884-557-8011x1339,8522 Diana Trail,,Virginiaside,VI,83423,US,1948-03-14,6603,50-75k,Gold,357,2025-12-23 09:14:14.766043
+CUST_000834,Justin,Avery,susandean@example.net,9724979387,2302 Merritt Loop Apt. 853,Suite 509,Ortizbury,PR,52737,US,1989-08-30,8512,100-150k,Silver,803,2025-01-22 20:40:04.300699
+CUST_000835,Paige,Rivera,darrellperez@example.net,+1-780-591-6287x3811,7333 Rojas Way,,Brandiburgh,VT,02809,US,1993-07-29,7111,75-100k,Gold,549,2025-05-02 05:08:50.721420
+CUST_000836,Jeffrey,Decker,andrew66@example.com,468-426-7432x2467,0354 Nicholas Ville Apt. 225,,West Daniel,NY,35074,US,1975-02-05,7869,50-75k,Platinum,600,2024-11-04 10:25:09.254394
+CUST_000837,Theresa,Cunningham,bryan32@example.com,(714)325-6852,189 Joe Corner Suite 148,,New Rhonda,NY,74499,US,1985-03-17,3661,150k+,Platinum,633,2025-12-17 08:15:27.118646
+CUST_000838,John,Sherman,rjacobson@example.net,001-609-791-6721x22770,3210 Mendoza Passage Apt. 899,Suite 086,East Andrewton,VT,75440,US,1984-11-09,6470,50-75k,Platinum,527,2024-07-01 16:33:49.774270
+CUST_000839,Samuel,Johnson,todddavis@example.org,915.342.1057x01239,07754 Copeland Land,Apt. 489,New Jennifer,WV,73170,US,1976-04-20,1243,<25k,Silver,409,2024-06-25 19:56:29.094968
+CUST_000840,Jessica,Moss,edwardfischer@example.com,001-937-396-2722x7704,23624 Linda Hills Apt. 378,,South Lauraberg,UT,52735,US,1997-05-13,9504,<25k,Gold,752,2025-04-26 06:47:55.158422
+CUST_000841,David,Palmer,lisawiley@example.org,+1-900-668-2332,55050 Young Branch Apt. 676,,East Lukeshire,KY,71496,US,1957-05-30,3719,75-100k,Gold,800,2024-11-24 19:37:08.603277
+CUST_000842,Tyler,Brown,zray@example.net,(667)604-7636x810,312 Coffey Lodge,Apt. 377,Allenview,ND,15767,US,1987-08-20,2201,50-75k,Gold,746,2026-02-24 16:21:17.438665
+CUST_000843,Kara,Soto,janderson@example.org,001-907-902-8717x66146,63813 Castillo Stravenue Suite 696,,Mckenziechester,NM,99465,US,1950-03-10,8060,50-75k,Bronze,478,2025-12-13 23:48:44.208568
+CUST_000844,Victoria,Summers,james81@example.net,+1-327-399-5476x37356,4753 Allison Crescent Suite 506,Suite 311,Seanshire,NE,84237,US,1996-03-30,8333,25-50k,Silver,631,2025-01-23 13:28:30.906842
+CUST_000845,Timothy,Contreras,joshua44@example.net,360.313.6420x8356,78616 Kenneth Fields,,Wilsonview,NH,14679,US,1999-11-28,1329,<25k,Bronze,401,2024-02-29 13:13:47.945817
+CUST_000846,Colleen,Abbott,deborahprice@example.com,(481)340-7722,93474 Michael Bypass Apt. 945,Apt. 964,Dixonborough,MH,27395,US,1994-10-11,3737,75-100k,Gold,568,2025-05-30 08:17:37.128879
+CUST_000847,Danny,Rhodes,jonesglen@example.net,(469)638-4206x7888,0470 Richmond Light,,Rebeccaberg,MI,17305,US,1976-01-24,3326,150k+,Platinum,509,2025-12-26 19:44:02.917464
+CUST_000848,Matthew,Robinson,kristenshea@example.net,(843)776-8652,35906 Wood Lake Apt. 163,,East Dana,WV,87867,US,1981-06-23,4841,75-100k,Bronze,598,2025-09-21 04:12:58.471115
+CUST_000849,Hannah,Griffith,ochoakyle@example.com,747.218.3158x7321,05581 Fleming Land Suite 703,,New Susanborough,IA,15298,US,1989-01-30,1557,<25k,Bronze,475,2026-01-17 20:33:53.135553
+CUST_000850,Michael,Johnson,marksanchez@example.net,775-730-7276x838,006 Mitchell Harbor,Apt. 122,Watsonport,TX,72995,US,2003-12-05,7424,<25k,Silver,425,2024-05-05 21:38:21.160324
+CUST_000851,Kelly,Scott,gordonlauren@example.com,599-585-9669x9227,7131 Nancy Fall,,Seanshire,MA,87620,US,1957-09-11,8219,25-50k,Bronze,651,2025-10-19 01:49:53.055193
+CUST_000852,Tamara,Johnson,mcclaincharles@example.net,(421)200-7147x796,43839 Justin Underpass,Apt. 933,Karenview,TX,05429,US,1987-10-20,8141,100-150k,Gold,367,2024-08-04 03:39:16.134296
+CUST_000853,Juan,Daniels,fkirk@example.com,933-756-1163x29634,242 Melanie Valleys,,New Brandonmouth,KY,15817,US,1957-11-07,6424,<25k,Bronze,386,2024-04-20 07:11:41.303496
+CUST_000854,Derrick,Hines,briancruz@example.org,(372)827-6880,38572 Smith Port Suite 784,,Williamsshire,TX,41641,US,1980-02-16,8507,75-100k,Platinum,731,2026-01-04 08:12:27.799683
+CUST_000855,Jennifer,Ortiz,cunninghamjennifer@example.com,288.239.3530x31585,795 Alvarez Plains Suite 786,,Vincentville,NE,76096,US,1986-05-24,8377,25-50k,Silver,386,2024-02-15 16:36:16.571421
+CUST_000856,Dana,Jones,rebecca13@example.net,949.653.6076,5601 Denise Estate Suite 131,Apt. 019,Leeside,UT,81441,US,1994-03-13,3092,50-75k,Gold,628,2024-05-11 04:36:19.181468
+CUST_000857,Dwayne,Tyler,williamsdylan@example.net,375.336.5868x992,34233 Taylor Ramp Suite 677,Suite 563,North Annetown,CA,38497,US,1981-10-24,0521,50-75k,Platinum,727,2025-05-02 05:08:50.636317
+CUST_000858,Lisa,Rodriguez,jacob99@example.com,+1-207-897-7504x27512,076 Crystal Crest Apt. 325,Suite 045,Perezmouth,SC,93868,US,1957-12-18,8473,100-150k,Silver,564,2025-09-15 15:21:59.049672
+CUST_000859,Brian,Riley,billolson@example.org,(803)836-2095,72325 Wagner Place Apt. 008,,Annborough,CA,93099,US,1978-09-03,9540,150k+,Gold,579,2024-04-29 04:46:12.733684
+CUST_000860,Lisa,Bautista,qkane@example.net,001-684-536-3587x466,822 Jessica Ramp,Apt. 808,West Antonio,PR,42592,US,1958-11-29,5678,75-100k,Silver,585,2025-02-19 18:31:15.844238
+CUST_000861,Heather,Lee,smithgregory@example.net,412-963-3690,02500 Connie Parks,,Lake Brittany,NV,35675,US,1952-10-07,9807,<25k,Bronze,374,2026-01-04 10:49:40.495456
+CUST_000862,Angela,Daniel,amy73@example.net,001-764-502-3496x49330,9385 Fitzpatrick Road Suite 637,Suite 690,Heatherville,FM,12903,US,1980-01-02,6004,50-75k,Gold,708,2025-04-22 14:00:33.319038
+CUST_000863,William,Bowman,austinjohnson@example.org,(352)925-4048x191,02198 Michelle Landing,,Lake Troy,NC,67623,US,1976-11-10,8496,<25k,Platinum,603,2025-04-30 11:17:57.176107
+CUST_000864,Roger,Patrick,jmitchell@example.net,370-234-9955x421,2830 Andrea Orchard Suite 650,,East Shawn,AZ,52448,US,1983-08-26,1445,50-75k,Gold,691,2024-01-06 16:31:38.048247
+CUST_000865,Judy,Case,kingjohn@example.net,+1-953-481-3170x297,58965 Davis Flats Apt. 880,Apt. 652,Laurastad,MS,79482,US,1961-10-19,8549,<25k,Platinum,746,2024-01-10 22:22:31.839027
+CUST_000866,Stephanie,Hall,danielnorman@example.net,504.846.3485x0426,753 Peter Mall Apt. 123,Suite 408,Jasonchester,OR,85684,US,1957-05-26,7512,150k+,Gold,315,2024-07-05 19:01:08.925015
+CUST_000867,Douglas,Cook,leslie53@example.org,+1-559-621-6971x49533,735 Campbell Common,,Tylerville,WV,35636,US,1980-08-09,0108,25-50k,Silver,664,2026-02-17 10:20:41.388126
+CUST_000868,Christopher,Mcguire,haroldbaldwin@example.org,352-915-4428,813 Kiara Alley Suite 704,,Bowenview,IL,46659,US,1964-03-14,7200,150k+,Silver,447,2024-10-19 12:05:51.606538
+CUST_000869,Patrick,Johnson,alexis90@example.org,322-619-7661x0644,549 Rebecca Trace Apt. 064,,Jeffreychester,AL,84506,US,1972-10-20,9921,150k+,Silver,641,2024-11-14 06:39:52.947241
+CUST_000870,Jennifer,Fisher,brenda95@example.com,(775)498-1199,647 Anthony Lock Apt. 071,,South Davidport,NC,34144,US,1948-05-17,6274,100-150k,Platinum,642,2025-07-30 19:17:00.948596
+CUST_000871,Edward,Hayes,moraleslori@example.com,(224)837-3198x94013,81996 Sandoval Rapids,Suite 610,West Andre,RI,99826,US,1992-11-05,8853,<25k,Platinum,637,2024-02-02 03:41:44.088864
+CUST_000872,Jacob,Matthews,williestephens@example.org,319.483.4531x720,05605 Cannon Falls,Suite 234,Michelleside,GU,69293,US,1985-12-03,2749,50-75k,Gold,438,2025-12-27 17:26:40.418976
+CUST_000873,Manuel,Reed,katherine63@example.net,(655)682-7696,020 Megan Row,,Osbornefort,MS,21009,US,1950-01-16,3050,100-150k,Platinum,707,2025-05-25 16:44:01.413254
+CUST_000874,Melissa,Smith,paularellano@example.net,314.415.6667x606,250 Smith Via,Suite 308,South Maurice,CT,90306,US,1993-12-19,1885,50-75k,Bronze,603,2025-09-17 23:29:07.272467
+CUST_000875,Kristina,Reed,gonzalezjillian@example.org,413-928-0458x21685,6924 Linda Plains,,South Lauraton,MP,20385,US,1969-05-16,8976,100-150k,Bronze,553,2025-11-21 14:52:38.915613
+CUST_000876,Alexa,Oneill,james41@example.org,497-202-6101,5673 Sullivan Mission,,Christinatown,MD,54720,US,1953-05-31,5489,25-50k,Platinum,713,2025-02-25 09:03:31.105855
+CUST_000877,Samantha,Robinson,jessica14@example.com,4548402090,3215 Laura Wells Suite 217,,Johnside,ID,74186,US,1992-02-19,7479,150k+,Platinum,325,2026-02-11 01:19:07.594661
+CUST_000878,Adam,Scott,garciaaaron@example.org,375-355-5513x250,7614 Lawrence Field,,Port Bradley,TX,38006,US,2007-05-04,3531,50-75k,Bronze,436,2024-03-06 02:16:12.178722
+CUST_000879,Dakota,Davis,nathan00@example.net,451-969-4576,985 Julie Wells Apt. 887,Suite 860,Murphyland,RI,74611,US,1950-06-17,6541,50-75k,Gold,570,2025-11-07 20:31:00.546611
+CUST_000880,Jeffrey,Hooper,joseph56@example.org,001-649-240-8153,4739 Williams Stream,,North Tammyton,MS,30273,US,1972-07-02,6397,50-75k,Silver,324,2025-04-09 03:17:20.195940
+CUST_000881,Debra,Mitchell,vhouston@example.org,+1-427-896-3701x557,16709 Gibbs Shore Apt. 131,Apt. 397,Lake Williamport,NY,48689,US,1965-02-07,2128,75-100k,Silver,405,2024-12-06 14:24:23.099070
+CUST_000882,Carmen,Davis,jwiley@example.net,300.680.5451x432,19345 Costa Crossroad,Apt. 169,Port Timothyview,VA,68767,US,1973-05-08,5871,25-50k,Silver,402,2024-10-17 04:40:13.302863
+CUST_000883,Joel,Sims,thompsonjeffrey@example.net,897.592.3952,995 Ronnie Plain,,Yvonnefort,AS,77360,US,1953-07-31,8585,50-75k,Gold,441,2024-12-20 12:46:50.408376
+CUST_000884,Carrie,Campos,kathrynwilliams@example.org,540-911-1684x27008,7525 Christopher Plain Apt. 696,,Thompsonmouth,NV,86277,US,1977-11-26,0924,<25k,Silver,334,2025-03-19 11:36:20.227078
+CUST_000885,Amber,Compton,lowerymichael@example.org,(651)787-8154x547,3246 Brandon Valleys Apt. 291,Suite 583,Arnoldside,MN,78812,US,1980-08-09,9643,100-150k,Bronze,587,2025-07-01 18:12:22.378736
+CUST_000886,Kristen,Rodriguez,gwhite@example.com,(562)441-1195,222 Jones Knolls,,Lloydtown,DC,94989,US,1996-10-21,3114,25-50k,Gold,829,2025-05-03 16:04:49.696017
+CUST_000887,Lori,Weeks,mcconnelllaura@example.com,(384)847-5973,97278 Baker Mission Apt. 656,,Moonton,MD,38604,US,1968-07-22,1245,25-50k,Gold,533,2025-03-18 17:17:02.632617
+CUST_000888,Jeffrey,Smith,john33@example.net,274.553.8045,564 David Forks Suite 870,,Martinezborough,IN,73296,US,1954-04-26,2821,100-150k,Gold,534,2024-10-20 01:44:53.528591
+CUST_000889,William,Wu,jennifer16@example.com,810-784-3553,937 Mitchell Corner,Suite 399,Port Matthew,WV,20891,US,1963-10-10,4888,100-150k,Gold,400,2025-12-18 17:51:36.329986
+CUST_000890,Rebecca,King,donald96@example.org,678-514-2134,709 Hammond Stream Suite 036,,Raymondburgh,HI,60024,US,1964-06-08,1471,50-75k,Bronze,839,2024-02-24 12:36:07.930139
+CUST_000891,David,Scott,pcox@example.com,9395740495,23456 William Villages,,New Prestontown,ND,84584,US,1979-02-14,6171,50-75k,Gold,452,2024-01-17 12:19:25.501468
+CUST_000892,Justin,Lewis,travishernandez@example.org,747.304.5429x39867,98824 Julia Hollow,,Lake James,WY,94192,US,1975-02-11,0423,100-150k,Silver,458,2024-02-16 09:18:06.125711
+CUST_000893,Roger,Sims,davenportpatrick@example.com,8033217025,1508 Meyers Rapids,Suite 697,East Michael,TN,37507,US,1998-01-31,7049,<25k,Bronze,583,2024-06-04 01:06:26.986914
+CUST_000894,Zachary,Williams,vernon40@example.net,752-354-2301x12351,71670 Wilson Turnpike,,Lake Adam,NY,64386,US,1960-08-13,7432,50-75k,Bronze,508,2025-08-13 10:05:23.475434
+CUST_000895,Joshua,Sanchez,craigleblanc@example.com,378-441-6717,06966 Hayes Parks,Apt. 674,Nolanmouth,NV,68639,US,1999-01-14,4367,75-100k,Silver,384,2024-03-19 19:37:34.385430
+CUST_000896,Jennifer,Sullivan,drewlane@example.net,601.646.0044x492,35548 Combs Cliff Apt. 464,Suite 805,Lake Amy,MO,62917,US,1959-09-29,7806,75-100k,Platinum,561,2025-10-04 08:39:22.556402
+CUST_000897,Desiree,Perez,carrilloadam@example.com,9573434716,33272 Joseph Lane,,East Elizabethport,WY,16881,US,2003-01-18,3164,50-75k,Bronze,751,2024-03-09 14:48:02.039854
+CUST_000898,Nathaniel,Burgess,bradley51@example.com,001-980-942-2359x3418,14648 Robin Lake,,Hillburgh,CA,19801,US,1971-03-31,7617,100-150k,Platinum,723,2025-08-06 04:47:43.346384
+CUST_000899,Terry,Jackson,derricksilva@example.net,001-804-884-1822x0041,785 Melendez Squares Apt. 547,,Port Carlosland,MT,03368,US,1991-02-03,5789,25-50k,Bronze,724,2024-06-12 20:29:21.277603
+CUST_000900,Tammy,Horne,stephaniehoward@example.org,(903)838-4405x5959,12038 David Court,,Parksland,NH,97949,US,1961-01-14,3090,75-100k,Bronze,476,2024-09-16 12:43:50.041584
+CUST_000901,Daniel,Chapman,janetsalinas@example.net,483.338.6826x72947,146 Perkins Vista,Suite 578,Perryview,PR,33341,US,2006-08-17,9527,<25k,Gold,752,2024-11-20 19:20:47.016497
+CUST_000902,James,Doyle,xpeterson@example.net,413-532-7849,965 Christina Keys Suite 700,,Aprilmouth,FL,13004,US,1960-05-09,7272,50-75k,Platinum,350,2024-01-14 05:42:38.645749
+CUST_000903,Oscar,Clark,rlee@example.org,284-277-2037x60647,90038 Hardin Isle Apt. 526,Apt. 741,Lake Jessica,AK,00716,US,1953-02-09,3752,75-100k,Platinum,707,2025-10-20 00:17:51.332791
+CUST_000904,Andrew,Smith,rachelgriffith@example.com,392-216-5744,42680 Smith Burgs,Apt. 603,New Joseburgh,UT,99563,US,1953-11-03,7593,<25k,Silver,621,2024-07-20 06:36:49.008317
+CUST_000905,Alexandra,Lynn,walterronald@example.org,761-718-9694x428,1363 Davis Manors,,South Troyshire,AR,45761,US,1999-03-20,4528,150k+,Platinum,638,2024-11-11 01:00:11.911713
+CUST_000906,Matthew,Mathis,qgarcia@example.com,228.988.4747,8451 Nielsen Bypass Apt. 146,,Guerrerotown,OH,70319,US,1991-01-01,2909,100-150k,Platinum,582,2025-01-20 05:15:44.143824
+CUST_000907,Brian,Charles,cookdavid@example.net,(366)660-8262,43629 Carol Inlet,,Amandachester,MN,83753,US,1946-11-23,9629,100-150k,Bronze,353,2024-11-25 18:04:07.926463
+CUST_000908,Lisa,Ward,brandon17@example.org,+1-317-833-6340x77764,87795 John Cliff Apt. 400,,Sheilabury,TN,05331,US,2006-07-12,6570,150k+,Silver,633,2025-10-16 12:18:12.126085
+CUST_000909,Jonathan,Miles,wilsonnancy@example.net,288.783.6148,79129 William Expressway,,Lake Teresaburgh,CO,93037,US,1971-05-17,1205,50-75k,Gold,409,2025-06-23 06:34:01.064658
+CUST_000910,Courtney,Washington,john65@example.com,(628)843-8733,07387 John Expressway Apt. 600,,Josephburgh,MN,52758,US,1990-04-23,0435,75-100k,Gold,754,2025-02-25 08:37:58.468800
+CUST_000911,Thomas,Powers,matthewosborne@example.com,975-668-5149,287 Shelton Road Apt. 147,Suite 239,South Brandon,MP,25960,US,1996-04-03,0126,100-150k,Silver,521,2025-12-07 21:03:17.744691
+CUST_000912,Christopher,Brown,iadams@example.com,830-919-9616x484,04199 Matthew Rest,,Port Derekchester,FL,32609,US,1954-01-09,1543,75-100k,Gold,539,2025-05-21 15:07:07.610073
+CUST_000913,Julia,Perry,aryan@example.org,+1-688-524-7159x6171,247 Jessica Street Suite 336,,West Maureen,AS,16957,US,1968-09-28,0077,50-75k,Bronze,687,2025-01-02 02:00:57.988797
+CUST_000914,Joanna,Erickson,joel68@example.net,(564)865-3529x8157,06018 Maldonado Fork,Apt. 961,Taylorside,OH,48333,US,1946-07-17,2432,50-75k,Gold,518,2025-09-04 13:55:23.048340
+CUST_000915,Melody,Dudley,emma92@example.net,888.682.0254,651 Lewis Street Suite 614,Apt. 280,Michelemouth,VA,01192,US,1946-10-25,1592,50-75k,Platinum,517,2026-01-25 21:28:16.910571
+CUST_000916,Shawn,Cameron,evansjessica@example.net,619-959-7426,21797 Jacob Junction Apt. 527,Apt. 449,Michaelton,NE,16300,US,1962-09-06,9850,150k+,Silver,824,2025-04-01 11:11:59.493531
+CUST_000917,Eric,Lloyd,schultzerica@example.com,766-561-6283x0216,15782 Leslie Divide Suite 612,,Lake Douglasshire,MI,42781,US,2006-03-04,4792,<25k,Gold,676,2024-08-10 03:42:54.927517
+CUST_000918,Virginia,Terrell,sbates@example.com,810-412-3134,335 Alan Landing,Apt. 042,Reidbury,OH,42601,US,1961-10-24,9650,100-150k,Platinum,722,2024-03-01 02:47:40.159719
+CUST_000919,Keith,Walker,jonathankemp@example.org,(394)415-8579x23938,231 Johnson Centers Suite 403,Apt. 568,Davidfort,RI,93424,US,1964-11-25,2985,75-100k,Gold,847,2024-04-16 22:23:23.212786
+CUST_000920,William,Booth,natashasmith@example.net,917-977-9982x698,47345 Parker Ports,,Port Darlene,TN,78303,US,1993-12-14,9269,150k+,Gold,437,2025-11-02 04:15:40.073616
+CUST_000921,Samantha,Ashley,jamesowen@example.com,944-543-7401x645,25104 Natalie Roads,Suite 330,Port Sarahshire,CT,45287,US,2006-02-20,3411,75-100k,Platinum,718,2024-01-11 10:34:10.838317
+CUST_000922,Amber,Butler,deborah13@example.com,(474)398-5677x76807,089 Carter Street Apt. 992,Suite 570,Patriciaton,NH,41488,US,2003-04-21,6904,50-75k,Bronze,623,2024-09-29 20:02:32.711292
+CUST_000923,Gina,Davidson,stephanie78@example.net,(927)733-1439x38549,6661 Jenkins Lakes,,Lake Annette,KY,92787,US,1989-12-14,7364,75-100k,Gold,479,2025-09-13 19:49:49.805705
+CUST_000924,Samuel,Ellison,davisandrea@example.com,776-385-5432x5715,36762 Knight Isle,Apt. 646,North Donald,MN,27919,US,1950-03-12,5278,<25k,Gold,604,2025-10-08 00:11:54.824221
+CUST_000925,Charlotte,Johnson,wboyd@example.com,001-766-335-6410x912,813 Tim Crossing Suite 782,,Lake Sharon,TX,80847,US,1986-02-12,6083,75-100k,Gold,393,2025-01-28 18:16:15.446949
+CUST_000926,William,Ramos,jasonhardin@example.net,803-627-3141,14037 Mann Circle Apt. 771,Apt. 341,Wayneton,AR,96854,US,1951-09-08,5546,75-100k,Bronze,742,2025-07-15 15:51:51.098949
+CUST_000927,Lisa,Sullivan,suarezbenjamin@example.org,(482)562-8145,7823 Olson Union Suite 469,Suite 313,South Samuel,AS,11508,US,1986-02-28,9006,100-150k,Bronze,784,2024-05-31 23:35:32.282229
+CUST_000928,John,Hart,coxpatrick@example.net,(710)933-5590x16324,95012 Vang Stravenue Apt. 135,,Millerville,MT,01447,US,1989-10-29,7206,<25k,Silver,605,2024-08-16 04:03:59.102795
+CUST_000929,Stanley,Pierce,wadekatherine@example.com,001-213-228-4422x9763,349 Tucker Walk,,Morrisonburgh,OK,64406,US,1976-11-21,7452,100-150k,Silver,712,2025-08-28 21:46:48.271535
+CUST_000930,James,Stanton,bergtamara@example.net,001-336-272-4249,5980 Diana Village,,East Jonathan,OK,56455,US,1979-04-01,8452,75-100k,Platinum,335,2024-06-01 15:01:25.936953
+CUST_000931,Madeline,Delgado,kim54@example.org,001-627-775-0547x356,3562 Figueroa Rest,,North Cheryl,CA,47556,US,1952-10-30,5706,25-50k,Silver,715,2025-04-12 20:33:49.852640
+CUST_000932,Emily,Gregory,warenicholas@example.org,001-416-963-8461x9718,7953 Cabrera Expressway Suite 002,,North Kylebury,RI,22567,US,1993-08-17,8277,<25k,Silver,777,2025-07-17 23:27:11.957119
+CUST_000933,Jeffrey,Herrera,cynthia96@example.org,+1-521-848-0524,4655 Lauren Walk Suite 870,,Port Steven,VT,47908,US,1997-12-15,5528,50-75k,Bronze,707,2025-07-17 08:48:13.462513
+CUST_000934,Michael,Gould,tricia83@example.net,001-680-908-8769x083,38504 Lindsey Pine,Suite 563,Port Jonathan,FL,04755,US,2002-12-24,4384,<25k,Bronze,755,2024-11-13 15:09:30.263815
+CUST_000935,Isabella,Olson,christopher54@example.org,268-757-9458,8433 Aguirre Well,,Williamsview,CO,18740,US,2004-11-12,7299,25-50k,Gold,824,2025-08-16 15:30:11.452753
+CUST_000936,April,Franklin,fullerchristian@example.com,(203)389-4044x023,797 Jackson Village Suite 614,,New Ashley,VA,22965,US,1982-08-02,3668,25-50k,Silver,621,2024-05-04 02:58:04.625514
+CUST_000937,Brooke,Robertson,amy18@example.com,001-758-696-2462,30130 Middleton Springs Apt. 500,,Port Patricia,ID,20189,US,1989-10-08,2090,75-100k,Platinum,314,2024-05-06 04:44:32.867183
+CUST_000938,Danny,Osborne,michelle81@example.org,(389)975-4629x2324,454 Zavala Common Apt. 093,,Scottmouth,CT,82359,US,1969-12-17,9467,<25k,Silver,736,2024-05-21 01:02:00.505901
+CUST_000939,Christopher,Dickerson,pacosta@example.net,995-991-5295x90158,351 Miguel Bridge,Apt. 237,Melanieton,MT,13194,US,1972-06-27,9040,75-100k,Silver,793,2025-04-18 04:30:30.482951
+CUST_000940,Nathaniel,Hunter,ewagner@example.org,+1-351-423-4237x9208,04248 Jill Crescent,,South Samanthaland,WI,24345,US,1971-05-09,7314,<25k,Gold,587,2025-09-04 23:09:26.493496
+CUST_000941,Marcus,Walker,cwilson@example.net,273-395-8552,61111 Stephanie Port,,Collinsburgh,AZ,38224,US,1994-11-07,4228,<25k,Silver,399,2024-12-02 12:29:06.548446
+CUST_000942,Gary,Calderon,omoore@example.com,001-889-641-2106x170,42425 Yvonne Village,Suite 174,Brooksborough,MA,52722,US,1973-11-25,5403,100-150k,Gold,403,2025-06-08 19:23:26.584244
+CUST_000943,Joy,Willis,wellslaura@example.com,(962)534-8011,6496 Dennis Parks,,Petersonville,CA,53183,US,1946-05-26,6804,100-150k,Silver,592,2025-09-14 14:48:56.108670
+CUST_000944,Martin,Wall,jasonfields@example.com,395-661-9020x569,271 Jerry Views Apt. 772,Apt. 504,South Lindashire,OH,44457,US,1971-04-23,9188,25-50k,Gold,576,2024-01-23 01:33:04.434414
+CUST_000945,Sheryl,Johnson,sabrinamartinez@example.net,+1-449-955-1539x67331,422 Jackson Point,,Cynthiahaven,VT,77009,US,2002-10-04,3433,75-100k,Silver,659,2025-06-20 16:32:43.829065
+CUST_000946,Keith,Baker,dhernandez@example.com,+1-798-992-5498x169,564 Morgan Lakes,,Brownmouth,UT,16846,US,1971-08-19,8761,<25k,Platinum,731,2024-12-21 22:47:00.757608
+CUST_000947,Anna,Rodriguez,diane30@example.net,820.571.1872x0189,474 Michelle Mountain,,New Thomas,OH,77639,US,1946-10-06,9413,100-150k,Bronze,374,2025-08-02 05:04:06.743901
+CUST_000948,Eileen,Johnson,kmorrison@example.net,982.689.9712x619,45925 Kirk Plain,,South Angela,CO,73594,US,2004-11-10,1132,75-100k,Platinum,455,2024-07-24 05:50:09.136574
+CUST_000949,Brian,Coleman,imartinez@example.net,+1-584-841-7498,941 Tommy Circle,,New Kristina,NY,31025,US,1990-09-03,5937,100-150k,Silver,821,2024-10-06 16:28:28.154008
+CUST_000950,Anthony,Reid,ydavis@example.org,001-233-781-5663x369,47003 Mindy Courts,Suite 056,Castilloville,ND,38840,US,2004-09-30,4270,100-150k,Silver,412,2024-08-20 21:24:41.112209
+CUST_000951,Sara,Weber,ericmaldonado@example.org,858-875-9095x12176,843 Gray Ville Suite 783,Apt. 652,New Kennethhaven,AK,59762,US,2004-12-31,6857,<25k,Silver,495,2025-08-01 08:35:42.412596
+CUST_000952,Brittany,Garcia,iwilliams@example.com,(782)496-3243x01199,254 Shannon Divide,,Jamesport,CT,49198,US,1951-11-12,2687,150k+,Platinum,654,2025-12-08 13:08:07.992699
+CUST_000953,Bradley,Dawson,riveraalexis@example.org,767.631.0004,9241 Villa Loaf Suite 090,Suite 274,Lake Philipborough,NM,73580,US,1973-02-16,8138,25-50k,Bronze,577,2024-08-07 10:52:20.746130
+CUST_000954,Cynthia,Morris,josephjones@example.com,610-359-3114,376 Rebecca Fields Suite 983,Apt. 049,South James,NY,27176,US,1989-09-11,7858,50-75k,Silver,737,2025-10-19 12:36:20.218926
+CUST_000955,Stephanie,Stewart,theresa64@example.net,001-776-320-0213x81927,8943 Williams Meadows,,West David,SC,46135,US,2006-08-23,0736,100-150k,Silver,306,2024-03-31 11:55:28.566070
+CUST_000956,Zachary,Brown,mjenkins@example.com,8437426445,8623 Thomas Green Apt. 999,,Whiteside,AR,33240,US,1962-12-23,2270,25-50k,Platinum,688,2025-09-18 19:56:43.774846
+CUST_000957,Lindsey,Wright,martinezsally@example.org,+1-232-509-0331x63630,27699 Ellis Manor,Suite 055,Perezstad,TN,05632,US,1956-08-20,3939,50-75k,Platinum,314,2024-03-04 22:23:15.064662
+CUST_000958,James,Miranda,karla29@example.org,001-637-611-4670x698,84420 Miranda Ranch,,Kimbury,OH,43082,US,1992-10-07,7974,150k+,Silver,575,2025-05-11 18:07:18.132134
+CUST_000959,Donald,Bennett,daviesthomas@example.org,4994865079,13311 Hebert Passage Apt. 558,Apt. 677,Andreschester,AL,39161,US,1959-07-10,6592,150k+,Platinum,423,2024-07-10 08:53:52.010745
+CUST_000960,Courtney,Rowe,christinathomas@example.net,623-672-1030x5218,89887 Booth Plaza,Suite 045,Lake Tony,VA,42679,US,1973-11-11,5887,50-75k,Silver,502,2025-12-03 09:47:18.051330
+CUST_000961,Matthew,Ramirez,sullivanwesley@example.net,(673)472-0443x330,8733 Nicholas Courts,,Kathychester,WA,05504,US,1961-12-13,9931,150k+,Silver,819,2024-06-02 22:24:34.637593
+CUST_000962,Richard,Nguyen,elizabethharris@example.com,280-985-7176x92325,3213 Thomas Light Apt. 416,,East Lauriestad,TN,25423,US,1977-09-02,1763,100-150k,Bronze,452,2024-12-21 03:20:34.256625
+CUST_000963,Kelly,Dyer,theresahobbs@example.com,+1-358-417-4463x92146,83084 Natalie Shoals,,South Thomas,MS,53197,US,1980-04-13,9426,150k+,Silver,617,2026-01-30 09:38:47.651001
+CUST_000964,Steven,Adams,davisanthony@example.net,337.537.1682x292,87851 Jason Cliffs,,Osbornehaven,ID,42529,US,1985-02-16,5468,75-100k,Bronze,536,2025-04-15 21:55:10.860651
+CUST_000965,Theresa,Patterson,rachel21@example.net,001-958-509-1034x113,7597 Williams Courts,,Stanleybury,GA,58903,US,1950-08-06,1152,50-75k,Gold,730,2025-08-09 12:04:30.368264
+CUST_000966,Philip,Francis,cynthiapope@example.net,314-305-7227x3016,74812 Audrey Camp Suite 775,,Foxside,OH,02357,US,1972-07-25,8350,50-75k,Gold,331,2025-06-21 00:22:35.922113
+CUST_000967,Ronald,Walker,kimdeborah@example.com,(766)322-0085,3524 Ruiz Plains Apt. 006,,Diazhaven,WY,74580,US,1990-10-06,2681,50-75k,Platinum,620,2025-03-05 19:32:40.690220
+CUST_000968,Ian,Jones,christopher11@example.org,645-900-6546x92736,1895 Murray Row Apt. 117,,Mathewstad,KY,21955,US,1969-06-06,8424,50-75k,Silver,606,2024-02-10 23:04:51.128059
+CUST_000969,Nicholas,Solomon,thomastodd@example.com,941.585.1602x9005,48778 Angela Mount Suite 576,,Harveyfort,NC,02935,US,1954-09-24,9759,<25k,Silver,405,2025-05-09 02:27:18.727563
+CUST_000970,Eric,Mclaughlin,lawrence80@example.net,(324)635-8914x934,3100 Robert Drive Apt. 950,,Kimberlymouth,AK,04391,US,1951-09-12,6246,25-50k,Gold,714,2025-03-20 10:13:51.475984
+CUST_000971,Tracy,Murphy,wilsonjoseph@example.org,(425)474-2978x37977,57832 James Stream Suite 986,,Lake Melissabury,MI,53052,US,1998-03-03,9970,100-150k,Bronze,760,2024-04-16 17:05:59.272179
+CUST_000972,Bill,Smith,gilbertlaura@example.org,223.526.1235x4534,2691 Wayne Mission,,Kurtville,WI,75700,US,2000-11-16,2698,100-150k,Platinum,300,2025-08-12 12:54:12.124652
+CUST_000973,James,Mack,nweaver@example.net,776-526-5773,18500 Lindsey Street Apt. 784,Suite 255,South Wanda,NY,21399,US,1993-02-22,0985,100-150k,Bronze,733,2025-10-12 15:03:13.280757
+CUST_000974,Craig,Hess,averynichole@example.net,405-885-7724,004 Jennifer Hollow Apt. 571,,Huertaton,VT,95241,US,1997-10-26,1192,25-50k,Silver,788,2025-03-07 06:09:54.389426
+CUST_000975,Paula,Fitzpatrick,jeffwright@example.net,810.203.2993x371,5089 Stephanie Trail Apt. 004,Suite 849,Michaelville,ID,51846,US,1979-07-30,7298,75-100k,Silver,779,2024-10-18 02:24:09.443833
+CUST_000976,Anna,Vargas,davidmiller@example.net,(645)676-7376,9819 Riggs Loop,Suite 331,Vanessafurt,SC,05107,US,1962-07-22,6484,<25k,Silver,640,2025-10-15 18:52:50.524000
+CUST_000977,Shannon,Stafford,ashley99@example.org,(795)358-8359x599,01437 David Court Apt. 622,,Jenniferbury,PA,43620,US,2003-01-03,4875,150k+,Silver,447,2025-05-13 12:10:48.061976
+CUST_000978,Michelle,Holland,brooke80@example.com,001-202-724-2994x2970,3626 James Cliff,,South Nicole,CA,93124,US,1973-12-07,7135,25-50k,Bronze,570,2026-02-19 21:51:03.253497
+CUST_000979,Jose,Cook,mayoearl@example.com,(874)576-2844,2212 Danielle Flat Suite 336,,South Danielleside,GA,08489,US,1966-01-28,3403,100-150k,Silver,670,2024-09-13 08:47:21.337372
+CUST_000980,Claudia,Stewart,deborah18@example.org,976-434-2305x967,9294 Leonard Hills,Suite 940,Christopherborough,IN,82093,US,1968-01-16,1875,100-150k,Gold,301,2024-03-07 06:39:12.876535
+CUST_000981,Robert,Johnston,scott87@example.org,001-277-331-4500x3174,436 Collier Unions Apt. 253,Apt. 316,Lisashire,CA,11676,US,1954-11-19,0823,50-75k,Bronze,327,2026-01-26 17:19:27.898890
+CUST_000982,Tina,Beard,james11@example.net,5946931546,4999 Brittany River Suite 945,,Santanaberg,OK,08375,US,1959-10-01,8776,<25k,Gold,820,2025-12-17 01:09:28.422882
+CUST_000983,Briana,Lopez,ylopez@example.net,404-455-0504x04643,7170 Eric Ridge Apt. 120,,Lake Jamesshire,OK,18048,US,1960-11-12,5153,25-50k,Bronze,465,2024-03-08 16:08:05.603019
+CUST_000984,Edward,Carroll,gabrielanelson@example.net,996-512-1973,38191 Jacob Stream,,East Gary,CA,04591,US,2000-09-07,5143,50-75k,Silver,711,2025-11-22 18:51:41.386023
+CUST_000985,Carol,Norman,qzuniga@example.com,001-827-880-0209x4614,582 Williams Isle Apt. 822,,Kurtstad,KY,68571,US,1964-07-11,8423,150k+,Bronze,810,2024-07-21 00:03:03.622531
+CUST_000986,Richard,Holloway,bbonilla@example.net,939-809-0013,86753 Joseph Isle,,North Timothy,WY,51354,US,1972-11-06,0870,75-100k,Platinum,437,2025-11-05 11:53:20.348281
+CUST_000987,Kristine,Cortez,ncochran@example.net,001-599-787-3909x52738,3465 Cohen Junction Apt. 675,,Wendychester,MS,92951,US,1975-01-11,7937,75-100k,Gold,809,2024-06-12 10:35:30.303655
+CUST_000988,James,Allen,oroberts@example.com,+1-773-679-6849,5961 Mendoza Park,,New Jeffreytown,WA,97220,US,1984-10-17,7121,<25k,Platinum,787,2025-09-15 04:15:21.083357
+CUST_000989,Tyler,Jones,cheryljohnson@example.org,(621)846-1585x85100,01921 Michael Radial Apt. 764,,Vanessastad,AK,97357,US,1986-09-29,6348,25-50k,Silver,357,2024-07-20 03:44:45.312438
+CUST_000990,Margaret,Wells,jeffrey24@example.org,775.328.6315,73220 Joseph Underpass Apt. 137,,Millerland,AS,36517,US,1952-10-02,1326,<25k,Platinum,483,2024-04-04 17:04:11.782280
+CUST_000991,Amanda,Jackson,shane41@example.org,298.573.7774x2690,80574 Brittany Island Apt. 613,,Amyhaven,ND,15425,US,1946-04-27,4228,<25k,Gold,581,2024-03-24 16:54:03.620390
+CUST_000992,Jessica,Hernandez,john10@example.net,(988)552-2026x0616,88677 John Court Apt. 525,,South Robertton,NY,18637,US,1954-10-21,0593,<25k,Bronze,457,2024-08-26 13:00:47.509746
+CUST_000993,Lori,Miller,hector22@example.org,449.278.2859x17566,791 Danielle Views Apt. 804,,Whitneyborough,AZ,26674,US,1950-06-01,0816,100-150k,Platinum,794,2025-05-31 09:20:22.283713
+CUST_000994,Amanda,Alvarado,mirandabishop@example.net,001-284-226-6281x46080,097 Zachary Forest Apt. 564,Apt. 194,East Elizabethtown,AK,07542,US,1950-05-23,0343,50-75k,Silver,651,2025-06-19 21:55:19.785834
+CUST_000995,Carlos,Roth,amanda27@example.org,5778407188,25464 Anderson Dam Suite 760,,New Jeffreyburgh,CT,35027,US,1962-02-22,4648,75-100k,Platinum,387,2024-01-02 21:05:06.226850
+CUST_000996,Bryan,Obrien,werneradam@example.org,(237)236-2388x485,82679 Erika Track,Apt. 445,Marymouth,TX,12970,US,1950-05-25,7476,75-100k,Silver,690,2024-09-28 09:40:21.718700
+CUST_000997,Alexis,Schneider,rfuentes@example.com,3909314829,333 Robert Street Apt. 731,Suite 447,Harrisonchester,MO,03803,US,1968-06-15,9754,<25k,Gold,513,2025-02-26 13:50:32.595124
+CUST_000998,Brian,Williams,kristyphillips@example.net,(975)824-2799x5879,38426 Carlson Creek,Apt. 947,Port Ralphshire,ND,28125,US,1947-08-31,8817,25-50k,Gold,365,2026-01-07 01:36:26.122249
+CUST_000999,Spencer,Sanchez,colemanjessica@example.net,(348)523-1168,0177 Beck Ferry Apt. 220,,Edwardport,NM,37263,US,1952-03-25,0026,100-150k,Silver,534,2024-01-01 08:05:38.034701

@@ -14,3 +14,10 @@ class ChartConfig(BaseModel):
     title: str
     description: str
     data: List[Dict[str, Any]]
+
+
+class ChartRecommendation(BaseModel):
+    id: str
+    label: str
+    reason: str
+    chart_config: ChartConfig

@@ -1,7 +1,9 @@
 services:
-  postgres:
+  # ── Postgres: app operational data (sessions, reports, alembic) ─────────────
+  dataprismai-postgres:
     image: postgres:16
     container_name: dataprismai-postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: dataprismai
       POSTGRES_PASSWORD: dataprismai
@@ -9,13 +11,129 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dataprismai"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-  redis:
+  # ── StarRocks allin1: ALL analytical + semantic + audit data ────────────────
+  dataprismai-starrocks:
+    image: starrocks/allin1-ubuntu:latest
+    container_name: dataprismai-starrocks
+    restart: unless-stopped
+    ports:
+      - "9030:9030"   # MySQL / JDBC query port
+      - "8030:8030"   # FE HTTP / Web UI
+      - "8040:8040"   # BE HTTP
+    volumes:
+      - starrocks_data:/opt/starrocks
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/localhost/9030' 2>/dev/null || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 24
+      start_period: 120s
+
+  # ── Loader: runs once to create DDL + bulk-load CSV + seed metadata ─────────
+  dataprismai-loader:
+    image: python:3.12-slim
+    container_name: dataprismai-loader
+    depends_on:
+      dataprismai-starrocks:
+        condition: service_healthy
+    volumes:
+      - ../data:/workspace/data:ro
+    working_dir: /workspace
+    environment:
+      - STARROCKS_HOST=dataprismai-starrocks
+      - STARROCKS_PORT=9030
+    command: >
+      sh -c "pip install -q mysql-connector-python &&
+             python /workspace/data/scripts/bootstrap_and_load.py"
+    restart: "no"
+
+  # ── Redis: caching / pub-sub ────────────────────────────────────────────────
+  dataprismai-redis:
     image: redis:7
     container_name: dataprismai-redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--save", "60", "1", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+
+  # ── Ollama: local LLM inference ─────────────────────────────────────────────
+  dataprismai-ollama:
+    image: ollama/ollama:latest
+    container_name: dataprismai-ollama
+    restart: unless-stopped
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # ── API: FastAPI LangGraph backend ──────────────────────────────────────────
+  dataprismai-api:
+    build:
+      context: ../apps/api
+    container_name: dataprismai-api
+    restart: unless-stopped
+    depends_on:
+      dataprismai-postgres:
+        condition: service_healthy
+      dataprismai-starrocks:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - STARROCKS_HOST=dataprismai-starrocks
+      - STARROCKS_PORT=9030
+      - STARROCKS_USER=root
+      - STARROCKS_PASSWORD=
+      - STARROCKS_DATABASE=cc_analytics
+      - POSTGRES_HOST=dataprismai-postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=dataprismai
+      - POSTGRES_PASSWORD=dataprismai
+      - POSTGRES_DB=dataprismai
+      - OLLAMA_HOST=http://dataprismai-ollama:11434
+      - OLLAMA_MODEL=qwen2.5:7b
+      - APP_NAME=DataPrismAI API
+      - USE_VANNA=true
+
+  # ── Web: Next.js frontend ───────────────────────────────────────────────────
+  dataprismai-web:
+    build:
+      context: ../apps/web
+    container_name: dataprismai-web
+    restart: unless-stopped
+    depends_on:
+      - dataprismai-api
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - API_BASE_URL=http://dataprismai-api:8000
+    command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3001"]
 
 volumes:
   postgres_data:
+  starrocks_data:
+  ollama_models:
+  redis_data:
+

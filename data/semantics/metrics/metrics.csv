@@ -1,0 +1,24 @@
+metric_name,business_name,definition,grain,owner,default_engine,sql_expression,status
+total_spend,Total Spend,Sum of settled transaction amount,daily,finance,StarRocks,SUM(amount) WHERE settlement_status = 'settled',active
+gross_spend,Gross Spend,Sum of all transaction amounts,daily,finance,StarRocks,SUM(amount),active
+txn_count,Transaction Count,Count of transactions,daily,finance,StarRocks,COUNT(*),active
+avg_ticket,Average Ticket,Average transaction amount,daily,finance,StarRocks,AVG(amount),active
+fraud_flagged_amount,Fraud Flagged Amount,Sum of amounts flagged as fraud,daily,finance,StarRocks,SUM(amount) WHERE fraud_score > 0.8,active
+dispute_amount,Dispute Amount,Sum of disputed transaction amounts,daily,finance,StarRocks,SUM(amount) WHERE dispute_flag = true,active
+ending_balance,Ending Balance,Account balance at statement end,monthly,finance,StarRocks,ending_balance,active
+utilization_rate,Utilization Rate,Credit utilization percentage,monthly,finance,StarRocks,utilization_rate,active
+payment_rate,Payment Rate,Payment amount as percentage of minimum due,monthly,finance,StarRocks,payment_rate,active
+min_due_ratio,Minimum Due Ratio,Minimum due as percentage of balance,monthly,finance,StarRocks,min_due_ratio,active
+delinquency_rate,Delinquency Rate,Percentage of accounts delinquent,monthly,finance,StarRocks,delinquency_rate,active
+flagged_txn_count,Flagged Transaction Count,Count of fraud-flagged transactions,hourly,fraud,StarRocks,COUNT(*) WHERE fraud_score > 0.7,active
+confirmed_fraud_count,Confirmed Fraud Count,Count of confirmed fraud cases,hourly,fraud,StarRocks,COUNT(*) WHERE confirmed_fraud = true,active
+avg_fraud_score,Average Fraud Score,Average fraud score,hourly,fraud,StarRocks,AVG(fraud_score),active
+total_spend,Total Spend,Sum of settled transaction amount,monthly,rewards,StarRocks,SUM(amount),active
+interchange_revenue,Interchange Revenue,Sum of interchange fees collected,monthly,rewards,StarRocks,SUM(interchange_fee),active
+annual_fee_revenue,Annual Fee Revenue,Sum of annual fees collected,monthly,rewards,StarRocks,SUM(annual_fee),active
+rewards_cost,Rewards Cost,Cost of rewards program,monthly,rewards,StarRocks,SUM(rewards_cost),active
+net_profitability,Net Profitability,Net profitability from card program,monthly,rewards,StarRocks,interchange_revenue + annual_fee_revenue - rewards_cost,active
+active_accounts,Active Accounts,Count of active accounts,cohort,analytics,StarRocks,COUNT(DISTINCT account_id),active
+retained_accounts,Retained Accounts,Count of retained accounts,cohort,analytics,StarRocks,COUNT(DISTINCT account_id) WHERE retained = true,active
+avg_spend,Average Spend,Average spend per account,cohort,analytics,StarRocks,AVG(total_spend),active
+avg_balance,Average Balance,Average account balance,cohort,analytics,StarRocks,AVG(ending_balance),active

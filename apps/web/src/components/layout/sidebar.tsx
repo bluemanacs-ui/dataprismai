@@ -1,105 +1,152 @@
+"use client";
+
+import { useState } from "react";
+
+type ActiveView = "chat" | "explorer" | "reports" | "audit" | "settings" | "help";
+
 type SidebarProps = {
-  activeView: "chat" | "explorer" | "reports";
-  onChangeView: (view: "chat" | "explorer" | "reports") => void;
+  activeView: ActiveView;
+  onChangeView: (view: ActiveView) => void;
+  isOpen: boolean;
+  onToggle: () => void;
+  onNewChat: () => void;
+  queryHistory?: { query: string; metric: string; rowCount: number; ts: number }[];
+  onHistoryQuery?: (q: string) => void;
+  workspaceName?: string;
+  persona?: string;
 };
 
-const chats = [
-  "Revenue trend by region",
-  "Margin analysis Q2",
-  "Top churn drivers",
+const navItems: { label: string; view: ActiveView; icon: string }[] = [
+  { label: "Chat",          view: "chat",     icon: "💬" },
+  { label: "Data Explorer", view: "explorer", icon: "🔍" },
+  { label: "Reports",       view: "reports",  icon: "📊" },
+  { label: "Audit",         view: "audit",    icon: "📋" },
+  { label: "Settings",      view: "settings", icon: "⚙" },
+  { label: "Help",          view: "help",     icon: "❓" },
 ];
 
-const navItems = [
-  "Saved Reports",
-  "Metrics",
-  "Datasets",
-  "Skills",
-  "Admin",
-];
+export function Sidebar({
+  activeView, onChangeView, isOpen, onToggle,
+  onNewChat, queryHistory = [], onHistoryQuery,
+  workspaceName, persona,
+}: SidebarProps) {
+  const [historyExpanded, setHistoryExpanded] = useState(false);
 
-export function Sidebar({ activeView, onChangeView }: SidebarProps) {
   return (
-    <aside className="hidden w-72 border-r border-zinc-800 bg-zinc-950 lg:flex lg:flex-col">
-      <div className="p-4">
+    <aside
+      className={`flex flex-col shrink-0 transition-all duration-200 ${isOpen ? "w-56" : "w-12"}`}
+      style={{ borderRight: "1px solid var(--card-border)", backgroundColor: "var(--panel-bg)", color: "var(--foreground)" }}
+    >
+      {/* Header */}
+      <div
+        className={`flex h-13 shrink-0 items-center border-b ${isOpen ? "justify-between px-3" : "justify-center"}`}
+        style={{ borderColor: "var(--card-border)" }}
+      >
+        {isOpen && (
+          <div className="min-w-0 overflow-hidden">
+            <div className="text-[10px] font-bold uppercase tracking-widest truncate" style={{ color: "var(--accent-1)", fontFamily: "var(--font-display)" }}>
+              {workspaceName ?? "Workspace"}
+            </div>
+            {persona && (
+              <div className="text-[9px] truncate capitalize" style={{ color: "var(--muted)" }}>{persona}</div>
+            )}
+          </div>
+        )}
         <button
-          onClick={() => onChangeView("chat")}
-          className="w-full rounded-xl bg-blue-600 px-4 py-3 text-left text-sm font-medium text-white hover:bg-blue-500"
+          onClick={onToggle}
+          className="rounded p-1 text-xs shrink-0"
+          style={{ color: "var(--muted)" }}
+          title={isOpen ? "Collapse" : "Expand"}
         >
-          + New Chat
+          {isOpen ? "◀" : "▶"}
         </button>
       </div>
 
-      <div className="px-4">
-        <input
-          placeholder="Search chats, metrics, skills..."
-          className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 outline-none placeholder:text-zinc-500"
-        />
-      </div>
-
-      <div className="mt-4 px-4">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-          Workspace
-        </div>
-        <div className="space-y-2">
-          <button
-            onClick={() => onChangeView("chat")}
-            className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "chat"
-              ? "bg-zinc-900 text-zinc-100"
-              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-              }`}
-          >
-            Chat
+      {/* Collapsed: icon-only */}
+      {!isOpen && (
+        <div className="mt-2 flex flex-col items-center gap-1 px-1">
+          <button onClick={onNewChat} title="New Chat"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-sm"
+            style={{ color: "var(--accent-1)" }}>
+            ✏️
           </button>
-          <button
-            onClick={() => onChangeView("explorer")}
-            className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "explorer"
-              ? "bg-zinc-900 text-zinc-100"
-              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-              }`}
-          >
-            Data Explorer
-          </button>
-          <button
-            onClick={() => onChangeView("reports")}
-            className={`w-full rounded-xl px-3 py-2 text-left text-sm ${activeView === "reports"
-              ? "bg-zinc-900 text-zinc-100"
-              : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-              }`}
-          >
-            Reports
-          </button>
-        </div>
-      </div>
-
-      <div className="mt-6 px-4">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-          Recent Chats
-        </div>
-        <div className="space-y-2">
-          {chats.map((chat) => (
-            <button
-              key={chat}
-              onClick={() => onChangeView("chat")}
-              className="w-full rounded-xl px-3 py-2 text-left text-sm text-zinc-300 hover:bg-zinc-900"
-            >
-              {chat}
+          {navItems.map(({ label, view, icon }) => (
+            <button key={view} onClick={() => onChangeView(view)} title={label}
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-sm transition-colors"
+              style={activeView === view
+                ? { backgroundColor: "var(--accent-1)", color: "white" }
+                : { color: "var(--muted)" }}>
+              {icon}
             </button>
           ))}
         </div>
-      </div>
+      )}
 
-      <div className="mt-6 border-t border-zinc-800 px-4 pt-4">
-        <div className="space-y-2">
-          {navItems.map((item) => (
-            <button
-              key={item}
-              className="w-full rounded-xl px-3 py-2 text-left text-sm text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-            >
-              {item}
-            </button>
-          ))}
+      {/* Expanded */}
+      {isOpen && (
+        <div className="flex flex-1 flex-col overflow-y-auto py-3 px-2.5 gap-3">
+          {/* New Chat */}
+          <button onClick={onNewChat}
+            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
+            style={{ backgroundColor: "var(--accent-1)", color: "white" }}>
+            ✏ New Chat
+          </button>
+
+          {/* ── Navigation ─────────────────────────────── */}
+          <div>
+            <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+              Navigation
+            </div>
+            <div className="space-y-0.5">
+              {navItems.map(({ label, view, icon }) => {
+                const active = activeView === view;
+                return (
+                  <button key={view} onClick={() => onChangeView(view)}
+                    className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all"
+                    style={active
+                      ? { backgroundColor: "var(--nav-active-bg)", color: "var(--accent-1)", fontWeight: 600, borderLeft: "3px solid var(--accent-1)" }
+                      : { color: "var(--foreground)", borderLeft: "3px solid transparent" }}>
+                    <span>{icon}</span> {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ── Query History ───────────────────────────── */}
+          {queryHistory.length > 0 && (
+            <div style={{ borderTop: "1px solid var(--card-border)" }} className="pt-3">
+              <button
+                onClick={() => setHistoryExpanded(v => !v)}
+                className="flex w-full items-center justify-between px-1 mb-1.5"
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+                  Recent Queries
+                </span>
+                <span className="text-[10px]" style={{ color: "var(--muted)" }}>{historyExpanded ? "▲" : "▼"}</span>
+              </button>
+              {historyExpanded && (
+                <div className="space-y-1">
+                  {queryHistory.slice(0, 10).map((h, i) => (
+                    <button
+                      key={i}
+                      onClick={() => onHistoryQuery?.(h.query)}
+                      title={h.query}
+                      className="flex w-full items-start gap-2 rounded-lg px-2.5 py-2 text-left text-[11px] transition-colors hover:opacity-80"
+                      style={{ color: "var(--foreground)", backgroundColor: "var(--tag-bg)", border: "1px solid var(--card-border)" }}
+                    >
+                      <span style={{ color: "var(--muted)" }} className="shrink-0">↺</span>
+                      <span className="truncate leading-snug">{h.query}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </aside>
   );
 }
+
+export type { ActiveView };

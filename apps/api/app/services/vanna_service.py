@@ -1,3 +1,18 @@
+# =============================================================================
+# DataPrismAI — Vanna SQL Service
+# =============================================================================
+# Wraps the Vanna library to produce SQL from natural-language questions using
+# a locally-running Ollama LLM.
+#
+# HOW TO CONFIGURE:
+#   USE_VANNA=true in .env to enable this path
+#   VANNA_MODEL=<ollama-model-tag> to change the model
+#
+# HOW TO RETRAIN / ADD TRAINING CONTEXT:
+#   Edit apps/api/app/services/vanna_training_context.py
+#   Training context is derived from the live SchemaRegistry; no manual SQL
+#   files are required.
+# =============================================================================
 from __future__ import annotations
 
 from app.core.config import settings

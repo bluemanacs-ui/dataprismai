@@ -14,6 +14,15 @@ dist/
 .env
 .env.local
 
+# Generated / synthetic data (large files — regenerate with data/synthetic/fast_load.py)
+data/synthetic/pack/
+data/synthetic/raw/
+data/synthetic/parquet/
+
+# Python cache
+__pycache__/
+*.pyc
+
 # VS Code
 .vscode/*.log
 

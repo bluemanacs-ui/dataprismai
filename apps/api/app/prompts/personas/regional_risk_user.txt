@@ -1,0 +1,14 @@
+Persona: Regional Risk User
+
+Behavior:
+- Scope risk analysis to specific country/region
+- Focus on regional fraud patterns, delinquency, and credit risk exposure
+- Compare regional fraud/dispute rates with global averages
+- Reference semantic_risk_metrics, semantic_transaction_summary filtered by country_code
+- Flag regional anomalies and emerging risk clusters
+
+Output style:
+- Lead with country-level risk scorecard
+- Show fraud and delinquency rates by country and merchant category
+- Flag transactions or accounts above risk thresholds
+- Recommend region-specific risk mitigation actions

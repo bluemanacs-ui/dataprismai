@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DataPrismAI — Reference Architecture</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2230;
+    --border: #2a3349;
+    --accent: #00e5a0;
+    --accent2: #4f8ef7;
+    --accent3: #f7824f;
+    --accent4: #c084fc;
+    --text: #e6edf3;
+    --muted: #7d8fa8;
+    --node-bg: #1a2236;
+    --node-border: #2e3f5c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ───────────────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 22px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 span { color: var(--accent); }
+  header .meta { font-size: 12px; color: var(--muted); text-align: right; }
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+  }
+  .badge-green { background: rgba(0,229,160,.15); color: var(--accent); border: 1px solid rgba(0,229,160,.3); }
+  .badge-blue  { background: rgba(79,142,247,.15); color: var(--accent2); border: 1px solid rgba(79,142,247,.3); }
+  .badge-orange{ background: rgba(247,130,79,.15);  color: var(--accent3); border: 1px solid rgba(247,130,79,.3); }
+  .badge-purple{ background: rgba(192,132,252,.15); color: var(--accent4); border: 1px solid rgba(192,132,252,.3); }
+
+  /* ── Nav tabs ─────────────────────────────────────── */
+  nav {
+    display: flex; gap: 4px; padding: 16px 40px 0;
+    border-bottom: 1px solid var(--border); background: var(--surface);
+  }
+  nav button {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    padding: 8px 18px; font-size: 13px; font-weight: 500;
+    border-bottom: 2px solid transparent; transition: all .2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── Layout ───────────────────────────────────────── */
+  main { padding: 32px 40px; max-width: 1400px; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  section { margin-bottom: 40px; }
+  section h2 {
+    font-size: 16px; font-weight: 700; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  section h2::before { content: ''; display: block; width: 3px; height: 18px; background: var(--accent); border-radius: 2px; }
+
+  /* ── Grid layouts ─────────────────────────────────── */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  /* ── Cards ────────────────────────────────────────── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+  }
+  .card h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .card ul { list-style: none; }
+  .card ul li {
+    padding: 5px 0; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 13px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before { content: '›'; color: var(--accent); font-weight: 700; }
+  .card .label { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .8px; }
+  .card .value { font-size: 22px; font-weight: 700; color: var(--text); }
+
+  /* ── Pipeline diagram ─────────────────────────────── */
+  .pipeline {
+    display: flex; align-items: center; flex-wrap: nowrap; gap: 0;
+    overflow-x: auto; padding: 24px 0; position: relative;
+  }
+  .pipe-node {
+    flex-shrink: 0; background: var(--node-bg); border: 1px solid var(--node-border);
+    border-radius: 8px; padding: 12px 14px; min-width: 110px; text-align: center;
+    cursor: pointer; transition: all .2s; position: relative;
+  }
+  .pipe-node:hover, .pipe-node.active {
+    border-color: var(--accent); background: rgba(0,229,160,.06);
+    transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,229,160,.15);
+  }
+  .pipe-node .node-icon { font-size: 20px; margin-bottom: 4px; }
+  .pipe-node .node-name { font-size: 11px; font-weight: 600; color: var(--text); }
+  .pipe-node .node-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .pipe-node.conditional { border-style: dashed; }
+
+  .pipe-arrow {
+    flex-shrink: 0; width: 28px; text-align: center; color: var(--muted); font-size: 16px;
+    position: relative;
+  }
+  .pipe-arrow.branch { color: var(--accent3); }
+
+  /* Node detail panel */
+  .node-detail {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; margin-top: 16px; display: none; animation: fadeIn .2s;
+  }
+  .node-detail.visible { display: block; }
+  .node-detail h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+  .node-detail .detail-grid { display: grid; grid-template-columns: 140px 1fr; gap: 6px 16px; font-size: 13px; }
+  .node-detail .detail-grid .key { color: var(--muted); }
+  .node-detail .detail-grid .val { color: var(--text); }
+  .code-chip {
+    display: inline-block; background: rgba(0,0,0,.4); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 7px; font-family: monospace; font-size: 12px; color: var(--accent2);
+  }
+
+  /* ── Layer diagram ────────────────────────────────── */
+  .layer-stack { display: flex; flex-direction: column; gap: 6px; }
+  .layer {
+    border-radius: 8px; padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; transition: all .2s;
+  }
+  .layer:hover { filter: brightness(1.15); }
+  .layer .layer-label { font-size: 13px; font-weight: 700; }
+  .layer .layer-tech { display: flex; gap: 8px; flex-wrap: wrap; }
+  .layer-1 { background: linear-gradient(90deg, rgba(0,229,160,.12), rgba(0,229,160,.04)); border: 1px solid rgba(0,229,160,.25); }
+  .layer-2 { background: linear-gradient(90deg, rgba(79,142,247,.12), rgba(79,142,247,.04)); border: 1px solid rgba(79,142,247,.25); }
+  .layer-3 { background: linear-gradient(90deg, rgba(192,132,252,.12), rgba(192,132,252,.04)); border: 1px solid rgba(192,132,252,.25); }
+  .layer-4 { background: linear-gradient(90deg, rgba(247,130,79,.12), rgba(247,130,79,.04)); border: 1px solid rgba(247,130,79,.3); }
+  .layer-5 { background: linear-gradient(90deg, rgba(255,220,50,.1), rgba(255,220,50,.03)); border: 1px solid rgba(255,220,50,.2); }
+
+  /* ── Data flow ─────────────────────────────────────── */
+  .flow-row {
+    display: flex; align-items: stretch; gap: 0; margin-bottom: 8px;
+  }
+  .flow-box {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px; font-size: 13px;
+  }
+  .flow-box h4 { font-size: 12px; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+  .flow-connector {
+    display: flex; align-items: center; padding: 0 10px; color: var(--muted); font-size: 18px;
+  }
+  .flow-connector.down {
+    flex-direction: column; justify-content: space-between; padding: 4px 0;
+    width: 24px; font-size: 14px; align-items: center;
+  }
+
+  /* ── Table ─────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--surface2); color: var(--muted); text-align: left;
+    padding: 10px 14px; border-bottom: 2px solid var(--border);
+    font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .5px;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: var(--surface2); }
+  .status-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px;
+  }
+  .dot-green { background: var(--accent); }
+  .dot-blue  { background: var(--accent2); }
+  .dot-orange{ background: var(--accent3); }
+  .dot-grey  { background: var(--muted); }
+
+  /* ── Print ─────────────────────────────────────────── */
+  @media print {
+    nav, .pipe-node { cursor: default; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-child { page-break-before: avoid; }
+    body { background: #fff; color: #000; }
+    .card, .pipe-node, .layer, .flow-box { border-color: #ccc; }
+    header { border-color: #ccc; }
+    nav { display: none; }
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* ── Tooltip ─────────────────────────────────────────── */
+  [data-tip] { position: relative; }
+  [data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+    background: #0a0e17; border: 1px solid var(--border); color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; white-space: nowrap;
+    z-index: 100; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Data<span>Prism</span>AI</h1>
+    <div style="margin-top:4px;font-size:13px;color:var(--muted);">Reference Architecture · GenBI Analytics Platform</div>
+  </div>
+  <div class="meta">
+    <div>Version 1.0 · April 2026</div>
+    <div style="margin-top:4px;">
+      <span class="badge badge-green">Production</span>
+      &nbsp;<span class="badge badge-blue">LangGraph 1.1</span>
+      &nbsp;<span class="badge badge-orange">StarRocks</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('overview',this)">Overview</button>
+  <button onclick="showTab('pipeline',this)">AI Pipeline</button>
+  <button onclick="showTab('layers',this)">Layer Stack</button>
+  <button onclick="showTab('dataflow',this)">Data Flow</button>
+  <button onclick="showTab('services',this)">Services</button>
+  <button onclick="showTab('schema',this)">Data Schema</button>
+  <button onclick="showTab('help',this)">Help &amp; Usage</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 1: OVERVIEW
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab-overview">
+
+  <section>
+    <h2>Platform Summary</h2>
+    <div class="grid-4">
+      <div class="card" style="border-color:rgba(0,229,160,.3)">
+        <div class="label">Query Engine</div>
+        <div class="value">StarRocks</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--muted)">OLAP · cc_analytics schema · 10 raw tables · 6 semantic views</div>
+      </div>
+      <div class="card" style="border-color:rgba(79,142,247,.3)">
+        <div class="label">AI Pipeline Nodes</div>
+        <div class="value">14</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--muted)">LangGraph StateGraph · guardrail → persist</div>
+      </div>
+      <div class="card" style="border-color:rgba(192,132,252,.3)">
+        <div class="label">LLM Runtime</div>
+        <div class="value">Ollama</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--muted)">qwen2.5:7b · GPU · ~8s inference · local-first</div>
+      </div>
+      <div class="card" style="border-color:rgba(247,130,79,.3)">
+        <div class="label">Frontend</div>
+        <div class="value">Next.js 16</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--muted)">React 19 · TypeScript · ECharts · Tailwind 4</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Core Capabilities</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3><span>🗣️</span> Natural Language to SQL</h3>
+        <ul>
+          <li>Semantic context resolution</li>
+          <li>Canonical SQL catalog (pre-built, no LLM)</li>
+          <li>Pattern-matched cross-table JOINs</li>
+          <li>Vanna RAG fallback</li>
+          <li>Ollama LLM last resort</li>
+          <li>SQL validation &amp; retry loop</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span>📊</span> Insight Generation</h3>
+        <ul>
+          <li>Pure-Python statistical analysis</li>
+          <li>Direction-aware KPI cards (high/low)</li>
+          <li>Risk threshold alerts</li>
+          <li>Time-series trend detection</li>
+          <li>Concentration analysis</li>
+          <li>Rule-based recommended actions</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span>🔍</span> Query Intelligence</h3>
+        <ul>
+          <li>Persona-aware prompting (5 personas)</li>
+          <li>Guardrail safety layer</li>
+          <li>Free-form vs. metric query routing</li>
+          <li>Raw table direct access</li>
+          <li>Unknown table detection + fuzzy suggest</li>
+          <li>Result evaluator with retry</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Technology Inventory</h2>
+    <table>
+      <thead>
+        <tr><th>Layer</th><th>Technology</th><th>Version</th><th>Role</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frontend</td><td>Next.js / React</td><td>16.2 / 19.2</td><td>Chat UI, charts, data explorer</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Frontend</td><td>Apache ECharts</td><td>6.0</td><td>Bar, line, pie, heatmap, treemap charts</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Frontend</td><td>Tailwind CSS</td><td>4.0</td><td>Utility-first styling</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>API</td><td>FastAPI + Uvicorn</td><td>0.135 / 0.42</td><td>REST API, streaming responses</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Orchestration</td><td>LangGraph</td><td>1.1.5</td><td>14-node AI pipeline StateGraph</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>AI / LLM</td><td>Ollama + qwen2.5:7b</td><td>—</td><td>Local GPU inference, SQL + insight generation</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>AI / LLM</td><td>Vanna</td><td>2.0.2</td><td>RAG-based text-to-SQL with training context</td><td><span class="status-dot dot-blue"></span>Fallback</td></tr>
+        <tr><td>OLAP</td><td>StarRocks allin1</td><td>—</td><td>Primary analytical query engine</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Metadata</td><td>PostgreSQL</td><td>—</td><td>Semantic metadata, thread memory, reports</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Federation</td><td>Trino</td><td>—</td><td>Cross-source federated queries</td><td><span class="status-dot dot-grey"></span>Provisioned</td></tr>
+        <tr><td>Schema</td><td>SQLAlchemy + Alembic</td><td>2.0 / 1.18</td><td>ORM + migrations</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Infra</td><td>Docker Compose</td><td>—</td><td>All services containerised</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+        <tr><td>Delivery</td><td>BMAD</td><td>—</td><td>Brief → PRD → Architecture → Epics → Stories → Skills</td><td><span class="status-dot dot-green"></span>Active</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 2: AI PIPELINE
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-pipeline">
+
+  <section>
+    <h2>LangGraph Pipeline — 14 Nodes</h2>
+    <p style="color:var(--muted);margin-bottom:20px;font-size:13px">Click any node to see its role, inputs, outputs and key files.</p>
+
+    <div class="pipeline">
+      <div class="pipe-node" onclick="showNode('guardrail')" id="n-guardrail" data-tip="Safety gate">
+        <div class="node-icon">🛡️</div>
+        <div class="node-name">Guardrail</div>
+        <div class="node-sub">Safety</div>
+      </div>
+      <div class="pipe-arrow branch" title="Blocked → persist">⇢</div>
+      <div class="pipe-node" onclick="showNode('planner')" id="n-planner">
+        <div class="node-icon">🗺️</div>
+        <div class="node-name">Planner</div>
+        <div class="node-sub">Intent</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('persona')" id="n-persona">
+        <div class="node-icon">👤</div>
+        <div class="node-name">Persona</div>
+        <div class="node-sub">Prompting</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('semantic_resolver')" id="n-semantic_resolver">
+        <div class="node-icon">🔎</div>
+        <div class="node-name">Semantic</div>
+        <div class="node-sub">Resolver</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('vanna_sql')" id="n-vanna_sql">
+        <div class="node-icon">⚙️</div>
+        <div class="node-name">Vanna SQL</div>
+        <div class="node-sub">Generation</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('sql_validator')" id="n-sql_validator">
+        <div class="node-icon">✅</div>
+        <div class="node-name">SQL Validator</div>
+        <div class="node-sub">Validate</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('query_router')" id="n-query_router">
+        <div class="node-icon">🔀</div>
+        <div class="node-name">Query Router</div>
+        <div class="node-sub">Engine</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('query_executor')" id="n-query_executor">
+        <div class="node-icon">▶️</div>
+        <div class="node-name">Executor</div>
+        <div class="node-sub">StarRocks</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node conditional" onclick="showNode('result_evaluator')" id="n-result_evaluator" data-tip="May retry">
+        <div class="node-icon">🔁</div>
+        <div class="node-name">Evaluator</div>
+        <div class="node-sub">Retry?</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('visualization')" id="n-visualization">
+        <div class="node-icon">📈</div>
+        <div class="node-name">Viz</div>
+        <div class="node-sub">Charts</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('insight')" id="n-insight">
+        <div class="node-icon">💡</div>
+        <div class="node-name">Insight</div>
+        <div class="node-sub">Statistics</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('recommendation')" id="n-recommendation">
+        <div class="node-icon">🎯</div>
+        <div class="node-name">Recommend</div>
+        <div class="node-sub">Actions</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('response')" id="n-response">
+        <div class="node-icon">💬</div>
+        <div class="node-name">Response</div>
+        <div class="node-sub">Answer</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node" onclick="showNode('persist')" id="n-persist">
+        <div class="node-icon">💾</div>
+        <div class="node-name">Persist</div>
+        <div class="node-sub">Store</div>
+      </div>
+    </div>
+
+    <div class="node-detail" id="node-detail-panel">
+      <h4 id="nd-title">Node Detail</h4>
+      <div class="detail-grid" id="nd-body"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>SQL Generation Priority Chain</h2>
+    <div class="grid-4">
+      <div class="card" style="border-color:rgba(0,229,160,.3)">
+        <h3 style="color:var(--accent)">① Raw Table Fast Path</h3>
+        <p style="color:var(--muted);font-size:12px">No LLM call. Detects raw_* table reference. Returns SELECT *, COUNT(*), or DISTINCT query instantly.</p>
+        <div style="margin-top:10px"><span class="code-chip">_raw_table_sql()</span></div>
+      </div>
+      <div class="card" style="border-color:rgba(0,229,160,.3)">
+        <h3 style="color:var(--accent)">② Analytical Pattern</h3>
+        <p style="color:var(--muted);font-size:12px">Pre-built JOIN queries for common cross-table rankings: customers by cards/spend/disputes, merchants by volume.</p>
+        <div style="margin-top:10px"><span class="code-chip">_analytical_pattern_sql()</span></div>
+      </div>
+      <div class="card" style="border-color:rgba(79,142,247,.3)">
+        <h3 style="color:var(--accent2)">③ Semantic Catalog</h3>
+        <p style="color:var(--muted);font-size:12px">Dimension-aware SQL lookup table. 6 metrics × N dimensions = canonical SQL. No hallucination possible.</p>
+        <div style="margin-top:10px"><span class="code-chip">catalog.py</span></div>
+      </div>
+      <div class="card" style="border-color:rgba(247,130,79,.3)">
+        <h3 style="color:var(--accent3)">④ Vanna / Ollama LLM</h3>
+        <p style="color:var(--muted);font-size:12px">RAG text-to-SQL (Vanna) or Ollama qwen2.5:7b as final fallback for unknown query patterns.</p>
+        <div style="margin-top:10px"><span class="code-chip">vanna_service.py</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 3: LAYER STACK
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-layers">
+
+  <section>
+    <h2>Architecture Layers</h2>
+    <div class="layer-stack">
+
+      <div class="layer layer-1">
+        <div class="layer-label" style="color:var(--accent)">① Presentation Layer</div>
+        <div class="layer-tech">
+          <span class="badge badge-green">Next.js 16</span>
+          <span class="badge badge-green">React 19</span>
+          <span class="badge badge-green">TypeScript</span>
+          <span class="badge badge-green">ECharts 6</span>
+          <span class="badge badge-green">Tailwind 4</span>
+          <span class="badge badge-green">@xyflow/react</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;color:var(--muted);padding:4px 0">↕ HTTP REST (localhost:8000)</div>
+
+      <div class="layer layer-2">
+        <div class="layer-label" style="color:var(--accent2)">② API Gateway Layer</div>
+        <div class="layer-tech">
+          <span class="badge badge-blue">FastAPI 0.135</span>
+          <span class="badge badge-blue">Uvicorn</span>
+          <span class="badge badge-blue">Pydantic v2</span>
+          <span class="badge badge-blue">SQLAlchemy 2</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;color:var(--muted);padding:4px 0">↕ In-process LangGraph invocation</div>
+
+      <div class="layer layer-3">
+        <div class="layer-label" style="color:var(--accent4)">③ AI Orchestration Layer</div>
+        <div class="layer-tech">
+          <span class="badge badge-purple">LangGraph 1.1</span>
+          <span class="badge badge-purple">LangChain Core</span>
+          <span class="badge badge-purple">14 Graph Nodes</span>
+          <span class="badge badge-purple">StateGraph</span>
+          <span class="badge badge-purple">Vanna 2.0</span>
+          <span class="badge badge-purple">Ollama</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;color:var(--muted);padding:4px 0">↕ Python service calls</div>
+
+      <div class="layer layer-1" style="border-color:rgba(0,229,160,.25)">
+        <div class="layer-label" style="color:var(--accent)">④ Semantic Layer</div>
+        <div class="layer-tech">
+          <span class="badge badge-green">Semantic Catalog</span>
+          <span class="badge badge-green">Metric Resolver</span>
+          <span class="badge badge-green">Dimension Extractor</span>
+          <span class="badge badge-green">6 Semantic Views</span>
+          <span class="badge badge-green">Pattern Matcher</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;color:var(--muted);padding:4px 0">↕ MySQL wire protocol (port 9030) + JDBC</div>
+
+      <div class="layer layer-4">
+        <div class="layer-label" style="color:var(--accent3)">⑤ Data Layer</div>
+        <div class="layer-tech">
+          <span class="badge badge-orange">StarRocks OLAP</span>
+          <span class="badge badge-orange">PostgreSQL</span>
+          <span class="badge badge-orange">Trino (federation)</span>
+          <span class="badge badge-orange">cc_analytics schema</span>
+          <span class="badge badge-orange">10 raw tables</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;color:var(--muted);padding:4px 0">↕ Docker Compose network</div>
+
+      <div class="layer layer-5">
+        <div class="layer-label" style="color:#ffd232">⑥ Infrastructure Layer</div>
+        <div class="layer-tech">
+          <span class="badge" style="background:rgba(255,210,50,.1);color:#ffd232;border:1px solid rgba(255,210,50,.3)">Docker Compose</span>
+          <span class="badge" style="background:rgba(255,210,50,.1);color:#ffd232;border:1px solid rgba(255,210,50,.3)">NVIDIA GPU</span>
+          <span class="badge" style="background:rgba(255,210,50,.1);color:#ffd232;border:1px solid rgba(255,210,50,.3)">Linux WSL2</span>
+          <span class="badge" style="background:rgba(255,210,50,.1);color:#ffd232;border:1px solid rgba(255,210,50,.3)">Alembic migrations</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>User Roles &amp; Personas</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:12px">Each role maps 1:1 to a backend persona that shapes SQL scope and LLM response style.</p>
+    <div class="grid-4" style="grid-template-columns:repeat(3, 1fr)">
+      <div class="card" style="border-color:rgba(0,229,160,.3)">
+        <h3>🔴 Fraud Analyst</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">fraud_analyst</span> · dept: Risk</div>
+        <p style="color:var(--muted);font-size:12px">Risk + transaction-level investigation and fraud detection. Broadest analytical access. Admin also uses this persona.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: risk, transactions, customer</div>
+      </div>
+      <div class="card">
+        <h3>🔵 CC Operations</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">retail_user</span> · dept: Operations</div>
+        <p style="color:var(--muted);font-size:12px">Spend, payment lifecycle, customer-level retail card operations and overdue tracking.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: spend, payments, customer</div>
+      </div>
+      <div class="card">
+        <h3>🟣 Finance Analyst</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">finance_user</span> · dept: Finance</div>
+        <p style="color:var(--muted);font-size:12px">Portfolio KPIs, spend roll-ups, executive P&amp;L view across all regions.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: portfolio, spend, payments</div>
+      </div>
+      <div class="card">
+        <h3>🟢 Regional Finance</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">regional_finance_user</span></div>
+        <p style="color:var(--muted);font-size:12px">Regional P&amp;L and portfolio KPIs scoped to specific country / legal entity.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: portfolio, spend</div>
+      </div>
+      <div class="card">
+        <h3>🟠 Regional Risk</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">regional_risk_user</span></div>
+        <p style="color:var(--muted);font-size:12px">Country-scoped risk metrics and transaction monitoring for assigned regions.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: risk, transactions</div>
+      </div>
+      <div class="card" style="border-color:rgba(247,130,79,.3)">
+        <h3>⚫ Administrator</h3>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">persona: <span class="code-chip">fraud_analyst</span> · dept: Platform</div>
+        <p style="color:var(--muted);font-size:12px">Full platform access across all domains and countries. Uses broadest analytical persona.</p>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Domains: all · Countries: SG, MY, IN</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 4: DATA FLOW
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-dataflow">
+
+  <section>
+    <h2>End-to-End Request Flow</h2>
+
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:rgba(0,229,160,.3)">
+        <h4>① User Input</h4>
+        User types natural language query in chat UI.<br/>
+        <span class="code-chip">POST /chat/query</span> · persona + message
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(79,142,247,.3)">
+        <h4>② Guardrail</h4>
+        Safety check. Blocks harmful/off-topic queries.<br/>
+        Short-circuits to <span class="code-chip">persist</span> if blocked.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(79,142,247,.3)">
+        <h4>③ Planner + Persona</h4>
+        Classifies intent. Loads persona prompt template from <span class="code-chip">personas/*.txt</span>.
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:6px 0;color:var(--muted)">↓</div>
+
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:rgba(192,132,252,.3)">
+        <h4>④ Semantic Resolver</h4>
+        Scores keywords → matches metric in SEMANTIC_CATALOG.<br/>
+        Extracts dimensions ("by country", "across segments").<br/>
+        Raw table ref → <span class="code-chip">free_form=True</span>
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(192,132,252,.3)">
+        <h4>⑤ Vanna SQL Node</h4>
+        Priority chain: raw table → pattern → catalog → Vanna → Ollama.<br/>
+        Unknown table names intercepted here → short-circuit with helpful error.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(192,132,252,.3)">
+        <h4>⑥ SQL Validator</h4>
+        Parses + normalises SQL with <span class="code-chip">sqlparse</span>.<br/>
+        Sets <span class="code-chip">error</span> state on failure.
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:6px 0;color:var(--muted)">↓</div>
+
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:rgba(247,130,79,.3)">
+        <h4>⑦ Query Router</h4>
+        Routes to StarRocks (primary) or Trino (federation).<br/>
+        Selects engine from <span class="code-chip">semantic_context.engine</span>.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(247,130,79,.3)">
+        <h4>⑧ Query Executor</h4>
+        Executes SQL via mysql-connector on StarRocks port 9030.<br/>
+        Returns <span class="code-chip">rows[]</span> + <span class="code-chip">columns[]</span>.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(247,130,79,.3)">
+        <h4>⑨ Result Evaluator</h4>
+        Checks row count, quality.<br/>
+        May set <span class="code-chip">_needs_retry=True</span> → loops back to Vanna SQL (max 1 retry).
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:6px 0;color:var(--muted)">↓</div>
+
+    <div class="flow-row">
+      <div class="flow-box" style="border-color:rgba(0,229,160,.3)">
+        <h4>⑩ Visualization</h4>
+        Recommends chart type (bar, line, pie, heatmap…) based on result shape.<br/>
+        Configures <span class="code-chip">visualization_config</span> for frontend ECharts renderer.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(0,229,160,.3)">
+        <h4>⑪ Insight Node</h4>
+        Pure-Python stats: top/bottom, avg, median, spread, trend, concentration.<br/>
+        Skipped for <span class="code-chip">free_form=True</span> queries.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(0,229,160,.3)">
+        <h4>⑫ Recommendation</h4>
+        Rule-based actions from statistical findings.<br/>
+        KPI cards, bottleneck flags, highlight actions.
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:6px 0;color:var(--muted)">↓</div>
+
+    <div class="flow-row">
+      <div class="flow-box" style="flex:2;border-color:rgba(79,142,247,.3)">
+        <h4>⑬ Response Node</h4>
+        Composes the final natural language answer.<br/>
+        Branches: COUNT result · identity records · ranking list · wide raw scan · metric comparison · time-series · single-row lookup.
+      </div>
+      <div class="flow-connector">→</div>
+      <div class="flow-box" style="border-color:rgba(79,142,247,.3)">
+        <h4>⑭ Persist Node</h4>
+        Stores report in PostgreSQL.<br/>
+        Returns full JSON state to API → frontend.
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 5: SERVICES
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-services">
+
+  <section>
+    <h2>Docker Services</h2>
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Image</th><th>Port(s)</th><th>Role</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>dataprismai-api</strong></td><td>FastAPI (custom build)</td><td>8000</td><td>AI pipeline gateway, REST API</td><td><span class="status-dot dot-green"></span>Running</td></tr>
+        <tr><td><strong>dataprismai-web</strong></td><td>Next.js (custom build)</td><td>3001</td><td>Chat UI frontend</td><td><span class="status-dot dot-green"></span>Running</td></tr>
+        <tr><td><strong>dataprismai-starrocks</strong></td><td>starrocks/allin1-ubuntu</td><td>8030, 9020, 9030</td><td>OLAP query engine (FE+BE combined)</td><td><span class="status-dot dot-green"></span>Running</td></tr>
+        <tr><td><strong>dataprismai-postgres</strong></td><td>postgres:15</td><td>5432</td><td>Semantic metadata, reports, thread memory</td><td><span class="status-dot dot-green"></span>Running</td></tr>
+        <tr><td><strong>ollama</strong></td><td>ollama/ollama</td><td>11434</td><td>Local LLM inference (qwen2.5:7b + GPU)</td><td><span class="status-dot dot-green"></span>Running</td></tr>
+        <tr><td><strong>trino</strong></td><td>trinodb/trino</td><td>8080</td><td>Federated SQL across sources</td><td><span class="status-dot dot-grey"></span>Provisioned</td></tr>
+        <tr><td><strong>minio</strong></td><td>minio/minio</td><td>9000, 9001</td><td>Object storage (Parquet, exports)</td><td><span class="status-dot dot-grey"></span>Provisioned</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Backend Service Modules</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>semantic_service.py</h3>
+        <ul>
+          <li>Keyword scoring vs SEMANTIC_CATALOG</li>
+          <li>Free-form vs metric routing</li>
+          <li>Raw table + row-level detection</li>
+          <li>Dimension extraction from message</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>sql_generation_service.py</h3>
+        <ul>
+          <li>4-tier SQL generation chain</li>
+          <li>Raw table SQL (_raw_table_sql)</li>
+          <li>Analytical JOIN patterns</li>
+          <li>Unknown table detection</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>query_executor_service.py</h3>
+        <ul>
+          <li>StarRocks mysql-connector connection</li>
+          <li>Trino JDBC routing</li>
+          <li>Row/column normalisation</li>
+          <li>Timeout + error handling</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>vanna_service.py</h3>
+        <ul>
+          <li>Vanna RAG text-to-SQL</li>
+          <li>Training context injection</li>
+          <li>Schema-aware prompting</li>
+          <li>Ollama backend adapter</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>llm_service.py</h3>
+        <ul>
+          <li>Ollama HTTP API wrapper</li>
+          <li>generate_with_ollama()</li>
+          <li>Structured JSON output parsing</li>
+          <li>Timeout + retry</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>chart_service.py</h3>
+        <ul>
+          <li>Auto chart type recommendation</li>
+          <li>ECharts config generation</li>
+          <li>Column type inference</li>
+          <li>Multi-series support</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 6: DATA SCHEMA
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-schema">
+
+  <section>
+    <h2>StarRocks — cc_analytics Schema</h2>
+    <div class="grid-2">
+
+      <div>
+        <h3 style="color:var(--accent2);margin-bottom:12px;font-size:13px;font-weight:700">Raw Tables (Source Layer)</h3>
+        <table>
+          <thead><tr><th>Table</th><th>Key Columns</th><th>Size</th></tr></thead>
+          <tbody>
+            <tr><td><span class="code-chip">raw_customer</span></td><td>customer_id, first_name, last_name, country_code, customer_segment</td><td>500</td></tr>
+            <tr><td><span class="code-chip">raw_card</span></td><td>card_id, customer_id, account_id, card_type, card_tier</td><td>607</td></tr>
+            <tr><td><span class="code-chip">raw_account</span></td><td>account_id, customer_id, credit_limit, current_balance</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_transaction</span></td><td>txn_id, customer_id, merchant_id, txn_amount, txn_date</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_merchant</span></td><td>merchant_id, merchant_name, merchant_category, country_code</td><td>95</td></tr>
+            <tr><td><span class="code-chip">raw_payment</span></td><td>payment_id, account_id, payment_amount, payment_date, payment_method</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_dispute</span></td><td>dispute_id, customer_id, txn_id, dispute_status</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_fraud_alert</span></td><td>alert_id, customer_id, txn_id, alert_type</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_statement</span></td><td>statement_id, account_id, statement_month</td><td>—</td></tr>
+            <tr><td><span class="code-chip">raw_card_account</span></td><td>card_id, account_id (bridge)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:13px;font-weight:700">Semantic Views (Analytics Layer)</h3>
+        <table>
+          <thead><tr><th>View</th><th>Metric</th><th>Dimensions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="code-chip">semantic_risk_metrics</span></td>
+              <td>Fraud Rate, Delinquency Rate, Dispute Rate, NPL</td>
+              <td>Geography, Segment, Merchant, Age Band, Overdue Bucket</td>
+            </tr>
+            <tr>
+              <td><span class="code-chip">semantic_spend_metrics</span></td>
+              <td>Total Spend, Avg Spend</td>
+              <td>Geography, Segment, Merchant, Channel, Month</td>
+            </tr>
+            <tr>
+              <td><span class="code-chip">semantic_portfolio_kpis</span></td>
+              <td>Total Customers, Cards, Utilization</td>
+              <td>Geography, Segment, Legal Entity</td>
+            </tr>
+            <tr>
+              <td><span class="code-chip">semantic_customer_360</span></td>
+              <td>Customer Profile, Credit Score, Balance</td>
+              <td>Geography, Segment, Age Band</td>
+            </tr>
+            <tr>
+              <td><span class="code-chip">semantic_payment_status</span></td>
+              <td>Payment Status, Overdue Rate</td>
+              <td>Geography, Segment, Status, Month</td>
+            </tr>
+            <tr>
+              <td><span class="code-chip">semantic_transaction_summary</span></td>
+              <td>Transaction Volume, Amounts</td>
+              <td>Geography, Merchant, Channel, Month</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Semantic Catalog — Metric Routing</h2>
+    <table>
+      <thead><tr><th>Metric Name</th><th>Direction</th><th>Unit</th><th>Keywords (sample)</th><th>View Source</th></tr></thead>
+      <tbody>
+        <tr><td>Fraud Rate</td><td><span style="color:var(--accent3)">Low (risk)</span></td><td>%</td><td>fraud, fraudulent, fake, compromised</td><td>semantic_risk_metrics</td></tr>
+        <tr><td>Delinquency Rate</td><td><span style="color:var(--accent3)">Low (risk)</span></td><td>%</td><td>delinquen, overdue, past due, default, dpd</td><td>semantic_risk_metrics</td></tr>
+        <tr><td>Dispute Rate</td><td><span style="color:var(--accent3)">Low (risk)</span></td><td>%</td><td>dispute, chargeback, contested</td><td>semantic_risk_metrics</td></tr>
+        <tr><td>Total Spend</td><td><span style="color:var(--accent)">High (perf)</span></td><td>$</td><td>spend, spending, transaction, purchase</td><td>semantic_spend_metrics</td></tr>
+        <tr><td>Portfolio KPIs</td><td><span style="color:var(--accent)">High (perf)</span></td><td>—</td><td>portfolio, kpi, utilization, balance</td><td>semantic_portfolio_kpis</td></tr>
+        <tr><td>Customer Profile</td><td><span style="color:var(--accent)">High (perf)</span></td><td>—</td><td>customer, segment, profile, credit score</td><td>semantic_customer_360</td></tr>
+        <tr><td>Payment Status</td><td><span style="color:var(--accent3)">Low (risk)</span></td><td>—</td><td>payment, overdue, on time, missed</td><td>semantic_payment_status</td></tr>
+        <tr><td>Account Utilization</td><td><span style="color:var(--accent)">High (perf)</span></td><td>%</td><td>utilization, utilisation, credit usage</td><td>semantic_customer_360</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 7: HELP & USAGE
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-help">
+
+  <section>
+    <h2>App Navigation — Views</h2>
+    <div class="grid-4">
+      <div class="card" style="border-color:rgba(0,229,160,.3)">
+        <h3>💬 Chat</h3>
+        <p style="color:var(--muted);font-size:12px">Main natural language query interface. Type a question, receive an answer + chart + insights + follow-up suggestions.</p>
+        <ul style="margin-top:10px">
+          <li>Rich markdown answers</li>
+          <li>Inline ECharts visualizations</li>
+          <li>KPI metric cards</li>
+          <li>Query history in sidebar</li>
+          <li>Voice input support</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔍 Data Explorer</h3>
+        <p style="color:var(--muted);font-size:12px">Browse raw StarRocks tables, preview column schemas, paginate live data rows.</p>
+        <ul style="margin-top:10px">
+          <li>All raw_* tables listed</li>
+          <li>Column types + nullability</li>
+          <li>Row count per table</li>
+          <li>Paginated sample data</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📊 Reports</h3>
+        <p style="color:var(--muted);font-size:12px">All saved query results with charts. Filter by metric, date, persona.</p>
+        <ul style="margin-top:10px">
+          <li>Persisted to PostgreSQL</li>
+          <li>Report ID per query</li>
+          <li>SQL + result replay</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📋 Audit</h3>
+        <p style="color:var(--muted);font-size:12px">Full audit log of user actions — login, logout, queries, data access. Stored in browser localStorage.</p>
+        <ul style="margin-top:10px">
+          <li>User + role logged</li>
+          <li>Timestamp + action type</li>
+          <li>Export / clear controls</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⚙ Settings</h3>
+        <p style="color:var(--muted);font-size:12px">Profile view, user directory, role-domain mappings, system information.</p>
+        <ul style="margin-top:10px">
+          <li>Profile tab — current user</li>
+          <li>Users tab — all demo users</li>
+          <li>Roles tab — role descriptions</li>
+          <li>System tab — tech info</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sample Queries — By Persona</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:#ef4444">🔴 Fraud Analyst</h3>
+        <ul>
+          <li>Show top 10 suspicious transactions this week</li>
+          <li>What is the fraud rate by merchant category this month?</li>
+          <li>Show accounts with active fraud alerts</li>
+          <li>Which country has the highest fraud score trend?</li>
+          <li>What is the fraud rate by country?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:#3b82f6">🔵 CC Operations</h3>
+        <ul>
+          <li>Show total spend by merchant category this month</li>
+          <li>Which customers are overdue on payments?</li>
+          <li>Show top 10 customers by MTD spend</li>
+          <li>Show payment status distribution across all accounts</li>
+          <li>Give me customers list with high number of cards</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:#8b5cf6">🟣 Finance Analyst</h3>
+        <ul>
+          <li>Show portfolio KPIs this quarter</li>
+          <li>What is the delinquency rate by country?</li>
+          <li>Show MTD spend vs prior month across all segments</li>
+          <li>Which legal entity has the highest revenue this month?</li>
+          <li>Compare portfolio performance across countries</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:#10b981">🟢 Regional Finance</h3>
+        <ul>
+          <li>Show portfolio KPIs for each country this month</li>
+          <li>Which country had the biggest MoM spend change?</li>
+          <li>Show payment volume by country this quarter</li>
+          <li>What is the regional delinquency rate compared to global average?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:#f59e0b">🟠 Regional Risk</h3>
+        <ul>
+          <li>Show fraud rate by country and merchant category</li>
+          <li>Which region has the highest delinquency rate?</li>
+          <li>Show suspicious transactions by country this week</li>
+          <li>What is the fraud trend by country over the last 3 months?</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:rgba(247,130,79,.3)">
+        <h3>🔎 Raw Table Queries (any persona)</h3>
+        <ul>
+          <li>Show sample data from raw_merchant</li>
+          <li>Get count of raw_customer</li>
+          <li>Show distinct values in raw_card</li>
+          <li>List all raw_fraud_alert records</li>
+          <li>Get count of raw_transaction</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Query Intelligence — How Queries Are Routed</h2>
+    <table>
+      <thead>
+        <tr><th>Query Pattern</th><th>Detection</th><th>Route</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Raw table access</td>
+          <td><span class="code-chip">raw_*</span> name in message</td>
+          <td>Direct StarRocks SELECT</td>
+          <td>"show sample data from raw_merchant"</td>
+        </tr>
+        <tr>
+          <td>Count query</td>
+          <td><span class="code-chip">count|how many</span> + table name</td>
+          <td>SELECT COUNT(*) — no LLM</td>
+          <td>"get count of raw_customer"</td>
+        </tr>
+        <tr>
+          <td>Analytical ranking</td>
+          <td><span class="code-chip">high|most|top</span> intent + cross-table</td>
+          <td>Pre-built JOIN SQL</td>
+          <td>"customers with high number of cards"</td>
+        </tr>
+        <tr>
+          <td>Metric query</td>
+          <td>Keyword score ≥ 1 in SEMANTIC_CATALOG</td>
+          <td>Canonical SQL from catalog</td>
+          <td>"fraud rate by country"</td>
+        </tr>
+        <tr>
+          <td>Complex/unknown</td>
+          <td>No pattern match</td>
+          <td>Vanna RAG → Ollama LLM</td>
+          <td>"show payment behaviour of high-value customers"</td>
+        </tr>
+        <tr>
+          <td>Unknown table name</td>
+          <td>snake_case noun not in known tables</td>
+          <td>Short-circuit: helpful error + fuzzy suggest</td>
+          <td>"show data for ddm_card" → "Did you mean raw_card?"</td>
+        </tr>
+        <tr>
+          <td>Blocked query</td>
+          <td>Guardrail LLM check</td>
+          <td>Blocked — no DB access</td>
+          <td>Harmful, off-topic, or injection attempts</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Keyboard Shortcuts &amp; UI Features</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>⌨️ Chat Input</h3>
+        <ul>
+          <li><strong>Enter</strong> — send message</li>
+          <li><strong>Shift+Enter</strong> — newline</li>
+          <li>🎤 Voice input button (Chrome/Edge)</li>
+          <li>Auto-resize textarea (max 140px)</li>
+          <li>Loading spinner during inference</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🖥️ Sidebar</h3>
+        <ul>
+          <li>▶/◀ toggle collapse/expand</li>
+          <li>✏ New Chat clears thread</li>
+          <li>Query history with metric + row count</li>
+          <li>Expand/collapse history list</li>
+          <li>Workspace name + persona shown</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🎨 Theme &amp; Display</h3>
+        <ul>
+          <li>Dark theme (default)</li>
+          <li>Dawn theme (light)</li>
+          <li>Toggle in Settings → Profile</li>
+          <li>CSS variables for theming</li>
+          <li>Fully responsive layout</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>API Reference</h2>
+    <table>
+      <thead>
+        <tr><th>Endpoint</th><th>Method</th><th>Purpose</th><th>Key Params</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="code-chip">POST /chat/query</span></td>
+          <td>POST</td>
+          <td>Main chat query — runs full 14-node pipeline</td>
+          <td>message, persona, workspace_id, thread_id, time_range</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /semantic/catalog</span></td>
+          <td>GET</td>
+          <td>Returns full SEMANTIC_CATALOG with metrics &amp; dimensions</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /semantic/tables</span></td>
+          <td>GET</td>
+          <td>Returns all StarRocks tables with schema + row count</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /semantic/sample/{table}</span></td>
+          <td>GET</td>
+          <td>Returns paginated sample rows from a raw table</td>
+          <td>limit, offset</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /skills</span></td>
+          <td>GET</td>
+          <td>Returns available skills catalog</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /store/reports</span></td>
+          <td>GET</td>
+          <td>Returns persisted reports from PostgreSQL</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="code-chip">GET /langgraph/state/{thread_id}</span></td>
+          <td>GET</td>
+          <td>Returns AgentState snapshot for a thread (debug)</td>
+          <td>thread_id</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Demo Login Credentials</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Role</th><th>Password</th><th>Access</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Acs Admin</strong></td><td>admin@dataprismai.io</td><td><span class="badge badge-orange">Administrator</span></td><td><span class="code-chip">admin123</span></td><td>All domains · SG, MY, IN</td></tr>
+        <tr><td><strong>Sarah Lee</strong></td><td>sarah@dataprismai.io</td><td><span class="badge badge-orange">Fraud Analyst</span></td><td><span class="code-chip">pass123</span></td><td>risk, transactions, customer</td></tr>
+        <tr><td>(more users)</td><td>*@dataprismai.io</td><td>CC Ops, Finance, Regional</td><td><span class="code-chip">pass123</span></td><td>Domain-scoped</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px;font-size:12px;color:var(--muted)">Auth is localStorage-backed. No backend auth server required for demo. Passwords are stored only in the frontend <span class="code-chip">auth.ts</span> demo user list.</p>
+  </section>
+
+</div>
+</main>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+const NODE_DATA = {
+  guardrail: {
+    name: '🛡️ Guardrail Node',
+    file: 'guardrail_node.py',
+    role: 'Safety gate — rejects harmful, off-topic, or prompt-injection queries before any data pipeline runs.',
+    input: 'user_message, persona',
+    output: 'guardrail_blocked (bool)',
+    note: 'If blocked → pipeline jumps directly to persist_node, skipping all data access.',
+  },
+  planner: {
+    name: '🗺️ Planner Node',
+    file: 'planner_node.py',
+    role: 'Classifies query intent (analytics, lookup, exploration, etc.) and sets up pipeline context.',
+    input: 'user_message',
+    output: 'intent',
+    note: 'Lightweight classification — does not call LLM.',
+  },
+  persona: {
+    name: '👤 Persona Node',
+    file: 'persona_node.py',
+    role: 'Loads the prompt template for the selected persona (analyst, cfo, manager, product, engineer) to shape LLM output style.',
+    input: 'persona',
+    output: 'persona_prompt injected into semantic_context',
+    note: 'Templates live in apps/api/app/prompts/personas/*.txt',
+  },
+  semantic_resolver: {
+    name: '🔎 Semantic Resolver Node',
+    file: 'semantic_resolver_node.py → semantic_service.py',
+    role: 'Scores keywords against SEMANTIC_CATALOG. Detects raw table refs, free-form vs. metric queries. Extracts dimension from message ("by country", "across segments").',
+    input: 'user_message',
+    output: 'semantic_context {metric, dimensions, engine, free_form}',
+    note: 'Single keyword match (score≥1) is sufficient to route to a metric.',
+  },
+  vanna_sql: {
+    name: '⚙️ Vanna SQL Node',
+    file: 'vanna_sql_node.py → sql_generation_service.py',
+    role: 'Runs the 4-tier SQL generation chain: (1) raw table fast path, (2) analytical JOIN patterns, (3) semantic catalog, (4) Vanna RAG / Ollama LLM.',
+    input: 'user_message, semantic_context',
+    output: 'generated_sql, sql_explanation, sql_assumptions',
+    note: 'Also intercepts unknown table names — short-circuits with friendly error + fuzzy suggestion.',
+  },
+  sql_validator: {
+    name: '✅ SQL Validator Node',
+    file: 'sql_validator_node.py → sql_validator_service.py',
+    role: 'Parses and normalises generated SQL using sqlparse. Catches syntax errors before execution.',
+    input: 'generated_sql',
+    output: 'normalised generated_sql, sql_validation_issues',
+    note: 'Sets error state on failure to prevent bad SQL reaching StarRocks.',
+  },
+  query_router: {
+    name: '🔀 Query Router Node',
+    file: 'query_router_node.py',
+    role: 'Selects target engine (StarRocks vs Trino) based on semantic_context.engine and query characteristics.',
+    input: 'semantic_context, generated_sql',
+    output: 'target_engine',
+    note: 'StarRocks is primary. Trino handles federated cross-source queries.',
+  },
+  query_executor: {
+    name: '▶️ Query Executor Node',
+    file: 'query_executor_node.py → query_executor_service.py',
+    role: 'Executes SQL against StarRocks via mysql-connector (port 9030). Returns rows + columns.',
+    input: 'generated_sql, target_engine',
+    output: 'query_result {rows, columns}',
+    note: 'Sets error state on DB exception. result_row_count derived here.',
+  },
+  result_evaluator: {
+    name: '🔁 Result Evaluator Node',
+    file: 'result_evaluator_node.py',
+    role: 'Evaluates result quality. If empty or suspect, flags _needs_retry=True to loop back to vanna_sql (max 1 retry).',
+    input: 'query_result',
+    output: '_needs_retry, _retry_count',
+    note: 'Conditional edge: retry → vanna_sql | continue → visualization',
+  },
+  visualization: {
+    name: '📈 Visualization Node',
+    file: 'visualization_node.py → chart_service.py',
+    role: 'Recommends chart type based on column count, data shape, and metric context. Generates ECharts config for frontend.',
+    input: 'query_result, semantic_context',
+    output: 'visualization_config, visualization_recommendations[]',
+    note: 'Supports bar, line, area, pie, donut, scatter, heatmap, treemap, sunburst, gauge.',
+  },
+  insight: {
+    name: '💡 Insight Node',
+    file: 'insight_node.py',
+    role: 'Pure-Python statistical analysis: top/bottom, avg, median, spread, concentration (top-3 share), time-series trend. Skipped for free_form queries.',
+    input: 'query_result, semantic_context',
+    output: 'insights[], bottlenecks[], kpi_metrics[]',
+    note: 'Direction-aware: risk metrics = highlight worst (highest); perf metrics = highlight best.',
+  },
+  recommendation: {
+    name: '🎯 Recommendation Node',
+    file: 'recommendation_node.py',
+    role: 'Generates rule-based recommended actions from statistical findings and bottlenecks. No LLM call.',
+    input: 'insights, bottlenecks, query_result',
+    output: 'highlight_actions[], follow_ups[]',
+    note: 'Actions tied to top segment, concentration risk, underperformers.',
+  },
+  response: {
+    name: '💬 Response Node',
+    file: 'response_node.py',
+    role: 'Composes final natural language answer. Branches on result type: COUNT, identity records, ranking list, wide raw scan, metric comparison, time-series.',
+    input: 'query_result, insights, semantic_context, answer (pre-set)',
+    output: 'answer (string)',
+    note: 'Returns immediately if answer already set upstream (short-circuit path).',
+  },
+  persist: {
+    name: '💾 Persist Node',
+    file: 'persist_node.py',
+    role: 'Saves the complete report (SQL, result, insights, answer) to PostgreSQL. Returns full state as API response.',
+    input: 'full AgentState',
+    output: 'report_id',
+    note: 'Final node — always runs, even on guardrail block.',
+  },
+};
+
+function showNode(name) {
+  document.querySelectorAll('.pipe-node').forEach(n => n.classList.remove('active'));
+  document.getElementById('n-' + name).classList.add('active');
+
+  const d = NODE_DATA[name];
+  const panel = document.getElementById('node-detail-panel');
+  document.getElementById('nd-title').textContent = d.name;
+  document.getElementById('nd-body').innerHTML = `
+    <div class="key">File</div><div class="val"><span class="code-chip">${d.file}</span></div>
+    <div class="key">Role</div><div class="val">${d.role}</div>
+    <div class="key">Inputs</div><div class="val"><span class="code-chip">${d.input}</span></div>
+    <div class="key">Outputs</div><div class="val"><span class="code-chip">${d.output}</span></div>
+    <div class="key">Note</div><div class="val" style="color:var(--muted)">${d.note}</div>
+  `;
+  panel.classList.add('visible');
+}
+</script>
+</body>
+</html>
