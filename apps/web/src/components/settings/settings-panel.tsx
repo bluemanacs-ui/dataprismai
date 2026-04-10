@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DEMO_USERS, ROLE_LABEL, ROLE_PERSONA_MAP, type AppUser, type UserRole } from "@/lib/auth";
+import { ConfigPanel } from "@/components/settings/config-panel";
 
 const ROLE_DESC: Record<string, string> = {
   admin:                  "Full platform access across all domains and countries",
@@ -12,7 +13,6 @@ const ROLE_DESC: Record<string, string> = {
   regional_risk_user:     "Country-scoped risk metrics and transaction monitoring",
 };
 
-// Domain pill colors (same as login panel)
 const DOMAIN_COLORS: Record<string, string> = {
   risk:        "#ef4444",
   transactions:"#f59e0b",
@@ -29,13 +29,14 @@ type SettingsPanelProps = {
 };
 
 export function SettingsPanel({ currentUser, onThemeChange, currentTheme = "dark" }: SettingsPanelProps) {
-  const [tab, setTab] = useState<"profile" | "users" | "roles" | "system">("profile");
+  const [tab, setTab] = useState<"profile" | "users" | "roles" | "config" | "system">("profile");
 
   const tabs = [
-    { id: "profile" as const, label: "Profile", icon: "👤" },
-    { id: "users" as const,   label: "Users",   icon: "🧑‍💼" },
-    { id: "roles" as const,   label: "Roles",   icon: "🔐" },
-    { id: "system" as const,  label: "System",  icon: "⚙" },
+    { id: "profile" as const, label: "Profile",  icon: "👤" },
+    { id: "users" as const,   label: "Users",    icon: "🧑‍💼" },
+    { id: "roles" as const,   label: "Roles",    icon: "🔐" },
+    { id: "config" as const,  label: "Config",   icon: "⚙" },
+    { id: "system" as const,  label: "System",   icon: "🖥" },
   ];
 
   return (
@@ -50,7 +51,7 @@ export function SettingsPanel({ currentUser, onThemeChange, currentTheme = "dark
       </div>
 
       {/* Tab bar */}
-      <div className="flex gap-1 rounded-xl p-1" style={{ backgroundColor: "var(--panel-bg)", border: "1px solid var(--card-border)" }}>
+      <div className="flex gap-1 rounded-xl p-1 flex-wrap" style={{ backgroundColor: "var(--panel-bg)", border: "1px solid var(--card-border)" }}>
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -180,30 +181,36 @@ export function SettingsPanel({ currentUser, onThemeChange, currentTheme = "dark
         </div>
       )}
 
+      {/* Config — full platform configuration */}
+      {tab === "config" && <ConfigPanel />}
+
       {/* System */}
       {tab === "system" && (
         <div className="space-y-3">
           <div className="rounded-2xl p-5" style={{ backgroundColor: "var(--card-bg)", border: "1px solid var(--card-border)" }}>
-            <div className="text-sm font-semibold mb-3" style={{ color: "var(--foreground)" }}>Platform Configuration</div>
-            <div className="space-y-3 text-xs">
+            <div className="text-sm font-semibold mb-3" style={{ color: "var(--foreground)" }}>Runtime Info</div>
+            <div className="space-y-2 text-xs">
               {[
-                ["API Base URL", process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api"],
-                ["LLM Model", "qwen2.5:7b (Ollama)"],
-                ["Query Engine", "StarRocks"],
-                ["Metadata Store", "PostgreSQL"],
-                ["Version", "DataPrismAI v1.0.0"],
+                ["API Base URL",     process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api"],
+                ["Query Engine",     "StarRocks (MySQL wire)"],
+                ["Metadata Store",   "PostgreSQL 16"],
+                ["Frontend",         "Next.js 16 + ECharts"],
+                ["AI Runtime",       "Ollama (local LLM)"],
+                ["Version",          "DataPrismAI v1.0.0"],
               ].map(([k, v]) => (
-                <div key={k} className="flex justify-between items-center py-2" style={{ borderBottom: "1px solid var(--card-border)" }}>
+                <div key={k} className="flex justify-between items-center py-2"
+                  style={{ borderBottom: "1px solid var(--card-border)" }}>
                   <span style={{ color: "var(--muted)" }}>{k}</span>
                   <span style={{ color: "var(--foreground)", fontFamily: "var(--font-mono)" }}>{v}</span>
                 </div>
               ))}
             </div>
+            <p className="text-[10px] mt-4" style={{ color: "var(--muted)" }}>
+              For detailed runtime configuration, see the <strong>Config</strong> tab.
+            </p>
           </div>
         </div>
       )}
     </div>
   );
 }
-
-

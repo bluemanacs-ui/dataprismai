@@ -15,13 +15,13 @@
 # =============================================================================
 from __future__ import annotations
 
-from app.core.config import settings
+from app.services.config_service import config_svc
 from app.services.vanna_training_context import build_training_context
 
 
 class VannaService:
     def __init__(self) -> None:
-        self.enabled = settings.use_vanna
+        self.enabled = config_svc.get_bool("vanna.enabled", False)
         self._client = None
 
         if self.enabled:

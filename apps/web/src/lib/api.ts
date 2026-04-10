@@ -196,3 +196,68 @@ export async function fetchSuggestions(
   if (!response.ok) return { insight_recommendations: [], follow_ups: [] };
   return response.json();
 }
+
+// ── Config API ───────────────────────────────────────────────────────────────
+
+export type ConfigEntry = {
+  key: string;
+  label: string;
+  description: string;
+  value: string;
+  default: string;
+  input_type: "text" | "password" | "number" | "boolean" | "select" | "textarea";
+  options: { value: string; label: string }[];
+  is_readonly: boolean;
+  is_sensitive: boolean;
+  restart_req: boolean;
+  overridden: boolean;
+};
+
+export type ConfigSection = {
+  id: string;
+  label: string;
+  icon: string;
+  description: string;
+  entries: ConfigEntry[];
+};
+
+export type ConfigResponse = {
+  sections: ConfigSection[];
+  total_keys: number;
+  overridden_keys: number;
+};
+
+export async function fetchConfig(): Promise<ConfigResponse> {
+  const res = await fetch(`${API_BASE_URL}/config`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to fetch config");
+  return res.json();
+}
+
+export async function patchConfig(updates: Record<string, string>): Promise<{ ok: boolean; saved: number }> {
+  const res = await fetch(`${API_BASE_URL}/config`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ updates }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.detail ?? "Failed to save config");
+  }
+  return res.json();
+}
+
+export async function resetConfigKey(key: string): Promise<{ ok: boolean; key: string; reverted_to: string }> {
+  const res = await fetch(`${API_BASE_URL}/config/reset`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ key }),
+  });
+  if (!res.ok) throw new Error("Failed to reset config key");
+  return res.json();
+}
+
+export async function refreshConfig(): Promise<{ ok: boolean }> {
+  const res = await fetch(`${API_BASE_URL}/config/refresh`, { method: "POST" });
+  if (!res.ok) throw new Error("Failed to refresh config");
+  return res.json();
+}

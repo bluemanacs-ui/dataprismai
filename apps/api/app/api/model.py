@@ -12,7 +12,7 @@ import httpx
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.core.config import settings
+from app.services.config_service import config_svc
 
 router = APIRouter(prefix="/model", tags=["model"])
 
@@ -24,7 +24,7 @@ class ModelSwitchRequest(BaseModel):
 def _ollama_loaded_models() -> list[str]:
     """Return model names currently loaded into Ollama memory."""
     try:
-        r = httpx.get(f"{settings.ollama_host}/api/ps", timeout=5)
+        r = httpx.get(f"{config_svc.get('llm.ollama_host')}/api/ps", timeout=5)
         return [m["name"] for m in r.json().get("models", [])]
     except Exception:
         return []
@@ -33,7 +33,7 @@ def _ollama_loaded_models() -> list[str]:
 def _ollama_available_tags() -> list[dict]:
     """Return all pulled models from Ollama."""
     try:
-        r = httpx.get(f"{settings.ollama_host}/api/tags", timeout=5)
+        r = httpx.get(f"{config_svc.get('llm.ollama_host')}/api/tags", timeout=5)
         return r.json().get("models", [])
     except Exception:
         return []
@@ -42,17 +42,18 @@ def _ollama_available_tags() -> list[dict]:
 @router.get("")
 def list_models() -> dict:
     """List configured models and which one is active."""
-    configured = [m.strip() for m in settings.ollama_available_models.split(",") if m.strip()]
+    configured = [m.strip() for m in config_svc.get("llm.available_models").split(",") if m.strip()]
     pulled = [m["name"] for m in _ollama_available_tags()]
     loaded = _ollama_loaded_models()
+    active = config_svc.get("llm.model")
     return {
-        "active_model": settings.ollama_model,
+        "active_model": active,
         "available_models": [
             {
                 "name": m,
                 "pulled": m in pulled,
                 "loaded": m in loaded,
-                "active": m == settings.ollama_model,
+                "active": m == active,
             }
             for m in configured
         ],
@@ -61,22 +62,12 @@ def list_models() -> dict:
 
 @router.post("/switch")
 def switch_model(payload: ModelSwitchRequest) -> dict:
-    """
-    Switch the active LLM model at runtime.
-
-    - Validates the requested model is in OLLAMA_AVAILABLE_MODELS.
-    - Evicts the current model from Ollama memory (keep_alive=0).
-    - Updates settings.ollama_model and settings.vanna_model in-process.
-    - The next request will load the new model automatically.
-
-    The switch persists until the process is restarted.
-    To make it permanent, update OLLAMA_MODEL in apps/api/.env.
-    """
-    configured = [m.strip() for m in settings.ollama_available_models.split(",") if m.strip()]
+    """Switch the active LLM model at runtime — persists to DB config."""
+    configured = [m.strip() for m in config_svc.get("llm.available_models").split(",") if m.strip()]
     if payload.model not in configured:
         raise HTTPException(
             status_code=400,
-            detail=f"Model '{payload.model}' is not in OLLAMA_AVAILABLE_MODELS. "
+            detail=f"Model '{payload.model}' is not in available models. "
                    f"Configured: {configured}",
         )
 
@@ -89,28 +80,29 @@ def switch_model(payload: ModelSwitchRequest) -> dict:
                    f"Run: docker exec dataprismai-ollama ollama pull {payload.model}",
         )
 
-    old_model = settings.ollama_model
+    old_model = config_svc.get("llm.model")
+    ollama_host = config_svc.get("llm.ollama_host")
 
     # Evict the old model from GPU/RAM
     if old_model != payload.model:
         try:
             httpx.post(
-                f"{settings.ollama_host}/api/generate",
+                f"{ollama_host}/api/generate",
                 json={"model": old_model, "prompt": "", "keep_alive": 0},
                 timeout=10,
             )
         except Exception:
-            pass  # non-fatal — model might already be unloaded
+            pass
 
-    # Update in-process (survives until restart)
-    settings.ollama_model = payload.model
-    settings.vanna_model = payload.model
+    # Persist to DB so switch survives reload
+    config_svc.set("llm.model", payload.model)
+    config_svc.set("vanna.model", payload.model)
 
     return {
         "switched": True,
         "from": old_model,
         "to": payload.model,
-        "note": "Switch is in-process only. Set OLLAMA_MODEL in .env to make permanent.",
+        "note": "Switch persisted to database config.",
     }
 
 

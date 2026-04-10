@@ -1,5 +1,6 @@
 """Guardrail node — rejects off-topic, greeting, or gibberish queries early."""
 import re
+from app.services.config_service import config_svc
 
 _GREETINGS = {
     "hi", "hello", "hey", "helo", "hii", "hiii", "yo", "sup", "howdy",
@@ -180,6 +181,26 @@ def guardrail_node(state: dict) -> dict:
     message = state.get("user_message", "")
     thread_id = state.get("thread_id", "")
 
+    # Check max message length from config
+    max_len = config_svc.get_int("guardrail.max_message_length", 2000)
+    if len(message) > max_len:
+        return {
+            **state,
+            "guardrail_blocked": True,
+            "answer": "Your message is too long. Please keep queries under 2,000 characters.",
+            "insights": [],
+            "follow_ups": [],
+            "reasoning_steps": [f"Guardrail: message length {len(message)} exceeds limit {max_len}."],
+        }
+
+    # Guardrail can be disabled entirely via config
+    if not config_svc.get_bool("guardrail.enabled", True):
+        return {
+            **state,
+            "guardrail_blocked": False,
+            "reasoning_steps": ["Guardrail: disabled via config — skipping classification."],
+        }
+
     # General mode bypasses all content filtering — pure LLM, any topic allowed.
     if state.get("chat_mode") == "general":
         return {
@@ -196,6 +217,19 @@ def guardrail_node(state: dict) -> dict:
         from app.services.thread_memory import get_context, get_last_entity  # avoid circular at top-level
         if get_context(thread_id) or get_last_entity(thread_id):
             classification = "valid"
+
+    # Respect allow_greetings config — respond warmly instead of blocking
+    allow_greetings = config_svc.get_bool("guardrail.allow_greetings", True)
+    if classification == "greeting" and allow_greetings:
+        response_text = _GUARDRAIL_RESPONSES["greeting"]
+        return {
+            **state,
+            "guardrail_blocked": True,
+            "answer": response_text,
+            "insights": [],
+            "follow_ups": ["Show total spend by merchant category", "What is the fraud rate?", "Show payment volume by month"],
+            "reasoning_steps": ["Guardrail: greeting — responding warmly."],
+        }
 
     if classification != "valid":
         response_text = _GUARDRAIL_RESPONSES[classification]

@@ -49,3 +49,16 @@ class AgentRun(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     __table_args__ = (Index("ix_agent_runs_thread_id", "thread_id"),)
+
+
+class AppConfig(Base):
+    """Runtime configuration overrides stored in Postgres.
+
+    Only entries explicitly saved via the Config UI are persisted here.
+    All other values fall through to environment variables / defaults defined
+    in config_schema.py.
+    """
+    __tablename__ = "app_config"
+    key = Column(String, primary_key=True)          # e.g.  "llm.model"
+    value = Column(Text, nullable=False)             # always stored as string
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

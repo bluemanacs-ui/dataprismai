@@ -2,11 +2,10 @@
 query_executor_service.py
 ─────────────────────────
 Single-engine execution layer: StarRocks via MySQL wire protocol.
-Uses a module-level connection pool (pool_size=8) for low-latency
-repeated queries.  Every executed query is written to the StarRocks
-query_audit_log table for observability.
+Uses a module-level connection pool for low-latency repeated queries.
+Every executed query is written to the StarRocks query_audit_log table
+for observability.
 """
-import os
 import time
 import random
 import logging
@@ -17,31 +16,37 @@ import mysql.connector
 import mysql.connector.pooling
 
 from app.schemas.execution import QueryExecutionResult
+from app.services.config_service import config_svc
 
 logger = logging.getLogger(__name__)
 
 _POOL: mysql.connector.pooling.MySQLConnectionPool | None = None
+_POOL_CONFIG_SNAPSHOT: dict = {}
 
-_SR_CONFIG = {
-    "host":     os.getenv("STARROCKS_HOST",     "localhost"),
-    "port":     int(os.getenv("STARROCKS_PORT", "9030")),
-    "user":     os.getenv("STARROCKS_USER",     "root"),
-    "password": os.getenv("STARROCKS_PASSWORD", ""),
-    "database": os.getenv("STARROCKS_DATABASE", "cc_analytics"),
-    "connection_timeout": 30,
-    "autocommit": True,
-}
+
+def _sr_config() -> dict:
+    return {
+        "host":               config_svc.get("starrocks.host",     "localhost"),
+        "port":               config_svc.get_int("starrocks.port", 9030),
+        "user":               config_svc.get("starrocks.user",     "root"),
+        "password":           config_svc.get("starrocks.password", ""),
+        "database":           config_svc.get("starrocks.database", "cc_analytics"),
+        "connection_timeout": config_svc.get_int("starrocks.query_timeout", 30),
+        "autocommit": True,
+    }
 
 
 def _get_pool() -> mysql.connector.pooling.MySQLConnectionPool:
-    global _POOL
-    if _POOL is None:
+    global _POOL, _POOL_CONFIG_SNAPSHOT
+    cfg = _sr_config()
+    if _POOL is None or cfg != _POOL_CONFIG_SNAPSHOT:
         _POOL = mysql.connector.pooling.MySQLConnectionPool(
             pool_name="sr_pool",
-            pool_size=20,
+            pool_size=config_svc.get_int("starrocks.pool_size", 20),
             pool_reset_session=True,
-            **_SR_CONFIG,
+            **cfg,
         )
+        _POOL_CONFIG_SNAPSHOT = cfg
     return _POOL
 
 

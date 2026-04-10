@@ -21,6 +21,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from app.db.models import Base
 target_metadata = Base.metadata
 
+# Override sqlalchemy.url with DATABASE_URL env var when running inside Docker
+_db_url = os.getenv("DATABASE_URL")
+if _db_url:
+    config.set_main_option("sqlalchemy.url", _db_url)
+
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
