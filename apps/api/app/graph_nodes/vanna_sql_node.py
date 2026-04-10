@@ -161,7 +161,8 @@ def vanna_sql_node(state: dict) -> dict:
 
     # ── Standard path: full SQL generation via LLM / Vanna ────────────────────
     try:
-        sql_result = generate_sql_from_question(message, persona, semantic_context, prior_context)
+        chat_mode = state.get("chat_mode") or "hybrid"
+        sql_result = generate_sql_from_question(message, persona, semantic_context, prior_context, chat_mode=chat_mode)
         metric = semantic_context.get("metric", "?")
         steps.append(
             f"SQL generation: built query for '{metric}' using engine '{semantic_context.get('engine', '?')}'. "

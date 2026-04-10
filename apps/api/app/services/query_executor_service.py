@@ -38,7 +38,7 @@ def _get_pool() -> mysql.connector.pooling.MySQLConnectionPool:
     if _POOL is None:
         _POOL = mysql.connector.pooling.MySQLConnectionPool(
             pool_name="sr_pool",
-            pool_size=8,
+            pool_size=20,
             pool_reset_session=True,
             **_SR_CONFIG,
         )
@@ -67,7 +67,17 @@ def execute_query(engine: str, sql: str, semantic_context: dict) -> QueryExecuti
     rows: list[dict] = []
 
     try:
-        conn   = _get_pool().get_connection()
+        # Retry up to 3 times on pool-exhausted errors with brief back-off
+        conn = None
+        for attempt in range(3):
+            try:
+                conn = _get_pool().get_connection()
+                break
+            except Exception as pool_exc:
+                if "pool exhausted" in str(pool_exc).lower() and attempt < 2:
+                    time.sleep(0.3 * (attempt + 1))
+                else:
+                    raise
         cursor = conn.cursor(dictionary=True)
         cursor.execute(sql)
         raw_rows = cursor.fetchall()

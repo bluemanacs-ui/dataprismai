@@ -31,18 +31,13 @@ sleep 60
 echo "Checking service health..."
 docker compose ps
 
-# Generate synthetic data
-echo "Generating synthetic data..."
-cd ../data/synthetic
-
 # Install Python dependencies if needed
+echo "Installing Python dependencies..."
 pip install faker pandas pyarrow psycopg2-binary mysql-connector-python || true
 
+cd ../data/synthetic
 
-# Generate data
-python generate_synthetic_data.py --output-dir ./raw --format csv
-
-# Wait for StarRocks FE to be healthy before loading data (Python-based check)
+# Wait for StarRocks FE to be healthy before loading data
 echo "Waiting for StarRocks FE to be healthy..."
 MAX_ATTEMPTS=30
 SLEEP_SECONDS=10
@@ -70,17 +65,57 @@ END
     fi
 done
 
-# Load synthetic data into StarRocks (business data)
-echo "Loading synthetic data into StarRocks..."
-python load_to_starrocks.py
+# Generate and load all synthetic data into StarRocks (all layers: raw, ddm, dp, semantic)
+# Skip if data already exists (idempotent — avoids reloading after laptop restart)
+echo "Checking if StarRocks data already exists..."
+ROW_COUNT=$(mysql -h 127.0.0.1 -P 9030 -u root --batch --skip-column-names \
+  -e "SELECT COUNT(*) FROM cc_analytics.raw_customer" 2>/dev/null || echo "0")
 
-# Load semantic metadata into Postgres (metadata only)
-echo "Loading semantic metadata into Postgres..."
-python ../semantics/load_semantic_data.py
+if [ "$ROW_COUNT" -gt "0" ] 2>/dev/null; then
+    echo "Data already loaded ($ROW_COUNT customers found). Skipping DDL and data load."
+else
+    echo "No data found. Creating schema and loading synthetic data..."
 
-# Bootstrap StarRocks
-echo "Bootstrapping StarRocks..."
-docker exec dataprismai-starrocks-fe /opt/starrocks/bootstrap.sh
+    # Create all StarRocks tables in order (DDL first, then data)
+    DDL_DIR="/home/acs1980/workspace/dataprismai/data/ddl/starrocks"
+
+    echo "Creating raw CC tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/00_raw_cc_tables.sql" 2>/dev/null || true
+
+    echo "Creating data product tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/01_data_products.sql" 2>/dev/null || true
+
+    echo "Creating metadata tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/03_metadata_tables.sql" 2>/dev/null || true
+
+    echo "Creating data dictionary tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/04_dictionary_tables.sql" 2>/dev/null || true
+
+    echo "Seeding data dictionary..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/05_dictionary_seed.sql" 2>/dev/null || true
+
+    echo "Creating banking raw and DDM tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/10_banking_raw_ddm.sql" 2>/dev/null || true
+
+    echo "Creating banking data product and semantic tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/11_banking_dp_semantic.sql" 2>/dev/null || true
+
+    echo "Creating banking mapping tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/12_banking_mapping.sql" 2>/dev/null || true
+
+    echo "Creating banking audit tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/13_banking_audit.sql" 2>/dev/null || true
+
+    echo "Creating banking deposits and loans tables..."
+    mysql -h 127.0.0.1 -P 9030 -u root cc_analytics < "$DDL_DIR/30_banking_deposits_loans.sql" 2>/dev/null || true
+
+    echo "Generating and loading synthetic data..."
+    python gen_load.py
+
+    # Load semantic metadata into Postgres (metadata only)
+    echo "Loading semantic metadata into Postgres..."
+    python ../semantics/load_semantic_data.py
+fi
 
 echo "=== Setup Complete! ==="
 echo ""

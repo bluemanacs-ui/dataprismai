@@ -16,6 +16,7 @@ export async function sendChatQuery(
   countryCodes?: string[],
   allowedDomains?: string[],
   timeRange: string = "ALL",
+  chatMode: string = "hybrid",
 ) {
   const response = await fetch(`${API_BASE_URL}/chat/query`, {
     method: "POST",
@@ -32,6 +33,7 @@ export async function sendChatQuery(
       country_codes: countryCodes ?? [],
       allowed_domains: allowedDomains ?? [],
       time_range: timeRange,
+      chat_mode: chatMode,
     }),
   });
 
@@ -81,6 +83,96 @@ export async function fetchTableSample(tableName: string, limit = 10, offset = 0
   });
   if (!response.ok) return { rows: [], table: tableName, offset, limit, error: "Request failed" };
   return response.json();
+}
+
+export type ColumnProfile = {
+  name: string;
+  type: string;
+  nullable: string;
+  null_count: number;
+  null_pct: number;
+  distinct_count: number;
+  fill_pct: number;
+  min_val?: string | null;
+  max_val?: string | null;
+  avg_val?: string | null;
+  top_values?: { value: string; count: number; pct: number }[];
+};
+
+export type TableProfile = {
+  table: string;
+  total_rows: number;
+  total_columns: number;
+  null_columns: number;
+  columns: ColumnProfile[];
+  error?: string;
+};
+
+export async function fetchTableProfile(tableName: string): Promise<TableProfile> {
+  const res = await fetch(`${API_BASE_URL}/semantic/profiling/${encodeURIComponent(tableName)}`, { cache: "no-store" });
+  if (!res.ok) return { table: tableName, total_rows: 0, total_columns: 0, null_columns: 0, columns: [], error: "Request failed" };
+  return res.json();
+}
+
+// ── Data Dictionary ──────────────────────────────────────────────────────────
+
+export type DicTable = {
+  table_id: number;
+  table_name: string;
+  display_name: string;
+  layer: string;
+  domain: string;
+  description: string;
+  row_count_approx: number;
+  owner: string;
+  refresh_cadence: string;
+};
+
+export type DicColumn = {
+  column_id: number;
+  table_name: string;
+  column_name: string;
+  display_name: string;
+  data_type: string;
+  description: string;
+  is_pii: number;
+  is_nullable: number;
+  is_primary_key: number;
+  enum_values: string | null;
+  business_rule: string | null;
+  example_values: string | null;
+};
+
+export type DicRelationship = {
+  rel_id: number;
+  from_table: string;
+  from_column: string;
+  to_table: string;
+  to_column: string;
+  relationship_type: string;
+  description: string;
+};
+
+export async function fetchDictionaryTables(layer?: string, domain?: string): Promise<{ tables: DicTable[]; error?: string }> {
+  const params = new URLSearchParams();
+  if (layer) params.set("layer", layer);
+  if (domain) params.set("domain", domain);
+  const qs = params.toString() ? `?${params}` : "";
+  const res = await fetch(`${API_BASE_URL}/dictionary/tables${qs}`, { cache: "no-store" });
+  if (!res.ok) return { tables: [], error: "Request failed" };
+  return res.json();
+}
+
+export async function fetchDictionaryTableDetail(tableName: string): Promise<{ table: DicTable; columns: DicColumn[]; relationships: DicRelationship[]; error?: string }> {
+  const res = await fetch(`${API_BASE_URL}/dictionary/tables/${encodeURIComponent(tableName)}`, { cache: "no-store" });
+  if (!res.ok) return { table: {} as DicTable, columns: [], relationships: [], error: "Request failed" };
+  return res.json();
+}
+
+export async function searchDictionary(q: string): Promise<{ query: string; tables: DicTable[]; columns: DicColumn[]; error?: string }> {
+  const res = await fetch(`${API_BASE_URL}/dictionary/search?q=${encodeURIComponent(q)}`, { cache: "no-store" });
+  if (!res.ok) return { query: q, tables: [], columns: [] };
+  return res.json();
 }
 
 export async function fetchSuggestions(

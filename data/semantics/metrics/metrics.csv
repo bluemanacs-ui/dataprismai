@@ -1,24 +1,50 @@
 metric_name,business_name,definition,grain,owner,default_engine,sql_expression,status
-total_spend,Total Spend,Sum of settled transaction amount,daily,finance,StarRocks,SUM(amount) WHERE settlement_status = 'settled',active
+total_spend,Total Spend,Sum of approved purchase transaction amount,daily,finance,StarRocks,SUM(amount) WHERE auth_status='APPROVED' AND transaction_type='PURCHASE',active
 gross_spend,Gross Spend,Sum of all transaction amounts,daily,finance,StarRocks,SUM(amount),active
-txn_count,Transaction Count,Count of transactions,daily,finance,StarRocks,COUNT(*),active
-avg_ticket,Average Ticket,Average transaction amount,daily,finance,StarRocks,AVG(amount),active
-fraud_flagged_amount,Fraud Flagged Amount,Sum of amounts flagged as fraud,daily,finance,StarRocks,SUM(amount) WHERE fraud_score > 0.8,active
-dispute_amount,Dispute Amount,Sum of disputed transaction amounts,daily,finance,StarRocks,SUM(amount) WHERE dispute_flag = true,active
-ending_balance,Ending Balance,Account balance at statement end,monthly,finance,StarRocks,ending_balance,active
-utilization_rate,Utilization Rate,Credit utilization percentage,monthly,finance,StarRocks,utilization_rate,active
-payment_rate,Payment Rate,Payment amount as percentage of minimum due,monthly,finance,StarRocks,payment_rate,active
-min_due_ratio,Minimum Due Ratio,Minimum due as percentage of balance,monthly,finance,StarRocks,min_due_ratio,active
-delinquency_rate,Delinquency Rate,Percentage of accounts delinquent,monthly,finance,StarRocks,delinquency_rate,active
-flagged_txn_count,Flagged Transaction Count,Count of fraud-flagged transactions,hourly,fraud,StarRocks,COUNT(*) WHERE fraud_score > 0.7,active
-confirmed_fraud_count,Confirmed Fraud Count,Count of confirmed fraud cases,hourly,fraud,StarRocks,COUNT(*) WHERE confirmed_fraud = true,active
-avg_fraud_score,Average Fraud Score,Average fraud score,hourly,fraud,StarRocks,AVG(fraud_score),active
-total_spend,Total Spend,Sum of settled transaction amount,monthly,rewards,StarRocks,SUM(amount),active
-interchange_revenue,Interchange Revenue,Sum of interchange fees collected,monthly,rewards,StarRocks,SUM(interchange_fee),active
-annual_fee_revenue,Annual Fee Revenue,Sum of annual fees collected,monthly,rewards,StarRocks,SUM(annual_fee),active
-rewards_cost,Rewards Cost,Cost of rewards program,monthly,rewards,StarRocks,SUM(rewards_cost),active
-net_profitability,Net Profitability,Net profitability from card program,monthly,rewards,StarRocks,interchange_revenue + annual_fee_revenue - rewards_cost,active
-active_accounts,Active Accounts,Count of active accounts,cohort,analytics,StarRocks,COUNT(DISTINCT account_id),active
-retained_accounts,Retained Accounts,Count of retained accounts,cohort,analytics,StarRocks,COUNT(DISTINCT account_id) WHERE retained = true,active
-avg_spend,Average Spend,Average spend per account,cohort,analytics,StarRocks,AVG(total_spend),active
-avg_balance,Average Balance,Average account balance,cohort,analytics,StarRocks,AVG(ending_balance),active
+txn_count,Transaction Count,Count of all transactions,daily,finance,StarRocks,COUNT(*),active
+approved_txn_count,Approved Transaction Count,Count of approved transactions,daily,finance,StarRocks,COUNT(*) WHERE auth_status='APPROVED',active
+declined_txn_count,Declined Transaction Count,Count of declined transactions,daily,finance,StarRocks,COUNT(*) WHERE auth_status='DECLINED',active
+avg_ticket,Average Ticket,Average transaction amount,daily,finance,StarRocks,AVG(amount) WHERE auth_status='APPROVED',active
+fraud_flagged_amount,Fraud Flagged Amount,Sum of amounts on fraud-flagged transactions,daily,fraud,StarRocks,SUM(amount) WHERE is_fraud=1,active
+fraud_count,Fraud Count,Count of confirmed fraud transactions,daily,fraud,StarRocks,COUNT(*) WHERE is_fraud=1,active
+fraud_rate,Fraud Rate,Fraud transactions as % of total,daily,fraud,StarRocks,COUNT(*) FILTER(WHERE is_fraud=1) / NULLIF(COUNT(*),0),active
+decline_rate,Decline Rate,Declined transactions as % of total,daily,fraud,StarRocks,COUNT(*) FILTER(WHERE auth_status='DECLINED') / NULLIF(COUNT(*),0),active
+avg_fraud_score,Average Fraud Score,Mean fraud score across transactions,daily,fraud,StarRocks,AVG(fraud_score),active
+high_risk_txn_count,High-Risk Transaction Count,Transactions with fraud_tier=HIGH_RISK,daily,fraud,StarRocks,COUNT(*) WHERE fraud_tier='HIGH_RISK',active
+ending_balance,Ending Balance,Credit card account balance at end of statement,monthly,finance,StarRocks,closing_balance,active
+utilization_rate,Utilization Rate,CC balance as % of credit limit,monthly,finance,StarRocks,current_balance / NULLIF(credit_limit,0),active
+payment_rate,Payment Rate,Payment amount / total due on CC bill,monthly,finance,StarRocks,payment_amount / NULLIF(total_due,0),active
+min_due_ratio,Minimum Due Ratio,Minimum due as % of closing balance,monthly,finance,StarRocks,minimum_due / NULLIF(closing_balance,0),active
+delinquency_rate,Delinquency Rate,Accounts overdue as % of total active,monthly,finance,StarRocks,COUNT(*) FILTER(WHERE overdue_days>0) / NULLIF(COUNT(*),0),active
+full_payment_rate,Full Payment Rate,Accounts paying full balance as % of total,monthly,finance,StarRocks,COUNT(*) FILTER(WHERE payment_amount>=total_due) / NULLIF(COUNT(*),0),active
+cycle_spend,Cycle Spend,Total spend in a billing cycle,monthly,finance,StarRocks,SUM(amount) WHERE transaction_type='PURCHASE',active
+cycle_interest,Cycle Interest Charged,Interest charged on revolving balance in cycle,monthly,finance,StarRocks,SUM(interest_charged),active
+est_interest_income,Estimated Interest Income,Balance × monthly rate estimate,monthly,finance,StarRocks,SUM(current_balance * 0.0150),active
+interchange_revenue,Interchange Revenue,Estimated interchange from spend at ~0.8%,monthly,finance,StarRocks,SUM(total_spend * 0.008),active
+savings_balance,Savings Account Balance,Current balance in savings accounts,daily,deposits,StarRocks,SUM(current_balance) WHERE deposit_category='SAVINGS',active
+current_account_balance,Current Account Balance,Current balance in current accounts,daily,deposits,StarRocks,SUM(current_balance) WHERE deposit_category='CURRENT',active
+fd_balance,Fixed Deposit Balance,Total balance in term/FD accounts,daily,deposits,StarRocks,SUM(current_balance) WHERE deposit_category='TERM_DEPOSIT',active
+total_deposit_balance,Total Deposit Balance,Sum of all deposit balances,daily,deposits,StarRocks,SUM(current_balance),active
+fd_count,FD Count,Number of active fixed deposit accounts,daily,deposits,StarRocks,COUNT(*) WHERE deposit_category='TERM_DEPOSIT' AND status='ACTIVE',active
+fd_maturing_30d,FD Maturing in 30 Days,FD balance maturing within next 30 days,daily,deposits,StarRocks,SUM(current_balance) WHERE is_term_maturing_30d=1,active
+interest_earned_ytd,Interest Earned YTD,Cumulative deposit interest earned this year,monthly,deposits,StarRocks,SUM(interest_earned_ytd),active
+avg_deposit_rate,Average Deposit Rate,Weighted average interest rate on deposits,monthly,deposits,StarRocks,AVG(interest_rate),active
+loan_outstanding,Gross Loan Outstanding,Total outstanding principal across all loans,daily,loans,StarRocks,SUM(outstanding_balance),active
+personal_loan_outstanding,Personal Loan Outstanding,Outstanding balance on personal loans,daily,loans,StarRocks,SUM(outstanding_balance) WHERE loan_type='PERSONAL',active
+home_loan_outstanding,Home Loan Outstanding,Outstanding balance on home loans,daily,loans,StarRocks,SUM(outstanding_balance) WHERE loan_type='HOME',active
+auto_loan_outstanding,Auto Loan Outstanding,Outstanding balance on auto loans,daily,loans,StarRocks,SUM(outstanding_balance) WHERE loan_type='AUTO',active
+total_monthly_emi,Total Monthly EMI,Sum of all scheduled EMI payments due,monthly,loans,StarRocks,SUM(emi_amount),active
+npa_amount,NPA Amount,Loan outstanding classified as Non-Performing Asset,monthly,loans,StarRocks,SUM(outstanding_balance) WHERE npa_flag=1,active
+npa_rate,NPA Rate,NPA balance as % of gross loan outstanding,monthly,loans,StarRocks,SUM(outstanding_balance) FILTER(WHERE npa_flag=1) / NULLIF(SUM(outstanding_balance),0),active
+overdue_loan_count,Overdue Loan Count,Count of loans with overdue_days > 0,monthly,loans,StarRocks,COUNT(*) WHERE overdue_days>0,active
+debt_to_income,Debt-to-Income Ratio,Total loan outstanding / annual income,monthly,loans,StarRocks,total_loan_outstanding / NULLIF(annual_income,0),active
+debt_service_ratio,Debt Service Ratio,Monthly EMI / (annual income / 12),monthly,loans,StarRocks,total_monthly_emi / NULLIF(annual_income/12,0),active
+product_count,Product Count,Number of banking products held by a customer,monthly,analytics,StarRocks,total_product_count,active
+wallet_share_score,Wallet Share Score,Proportion of product categories held (0-1),monthly,analytics,StarRocks,total_product_count / 8.0,active
+net_balance,Net Balance,Total deposits minus total liabilities,monthly,analytics,StarRocks,total_asset_balance - total_liability_balance,active
+avg_balance,Average Balance,Average account balance per customer,monthly,finance,StarRocks,AVG(current_balance),active
+deposit_mom_change,Deposit MoM Change %,Month-on-month change in deposit balance,monthly,deposits,StarRocks,deposit_balance_mom_pct,active
+spend_growth_pct,Spend Growth %,Month-on-month spend change,monthly,finance,StarRocks,spend_growth_pct,active
+total_customers,Total Customers,Count of registered customers,monthly,analytics,StarRocks,COUNT(DISTINCT customer_id),active
+active_customers,Active Customers,Customers with at least one transaction in period,monthly,analytics,StarRocks,COUNT(DISTINCT customer_id) WHERE txn_count>0,active
+churn_rate,Churn Rate,Customers lost as % of total,monthly,analytics,StarRocks,churned_customers / NULLIF(total_customers,0),active

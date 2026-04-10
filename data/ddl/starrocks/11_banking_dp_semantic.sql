@@ -65,7 +65,7 @@ CREATE TABLE dp_customer_spend_monthly (
     channel_online_pct      DECIMAL(5,4),            -- % of transactions online
     channel_intl_pct        DECIMAL(5,4),            -- % international
     dw_refreshed_at         DATETIME
-) DUPLICATE KEY(year_month, customer_id, country_code, merchant_category)
+) DUPLICATE KEY(year_month, customer_id, country_code, legal_entity)
 DISTRIBUTED BY HASH(customer_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -98,12 +98,12 @@ CREATE TABLE dp_transaction_enriched (
     decline_reason          VARCHAR(50),
     is_fraud                TINYINT,
     fraud_score             DECIMAL(5,4),
-    fraud_tier              VARCHAR(10),
+    fraud_tier          VARCHAR(15),
     is_international        TINYINT,
     is_contactless          TINYINT,
     is_recurring            TINYINT,
     dw_refreshed_at         DATETIME
-) DUPLICATE KEY(transaction_id, country_code)
+) DUPLICATE KEY(transaction_id, transaction_date)
 PARTITION BY RANGE(transaction_date)(
     PARTITION p2024q1 VALUES LESS THAN ("2024-04-01"),
     PARTITION p2024q2 VALUES LESS THAN ("2024-07-01"),
@@ -145,7 +145,7 @@ CREATE TABLE dp_payment_status (
     consecutive_late_months INT,
     customer_segment        VARCHAR(20),
     dw_refreshed_at         DATETIME
-) DUPLICATE KEY(as_of_date, account_id, country_code)
+) DUPLICATE KEY(as_of_date, account_id, customer_id)
 PARTITION BY RANGE(as_of_date)(
     PARTITION p2024 VALUES LESS THAN ("2025-01-01"),
     PARTITION p2025 VALUES LESS THAN ("2026-01-01"),
@@ -239,7 +239,7 @@ CREATE TABLE dp_portfolio_kpis (
     estimated_interest_income   DECIMAL(20,2),
     estimated_fee_income        DECIMAL(20,2),
     dw_refreshed_at             DATETIME
-) DUPLICATE KEY(kpi_year_month, country_code, customer_segment, account_type)
+) DUPLICATE KEY(kpi_year_month, country_code, legal_entity, customer_segment)
 DISTRIBUTED BY HASH(country_code) BUCKETS 4
 PROPERTIES ("replication_num" = "1");
 
@@ -287,7 +287,7 @@ CREATE TABLE semantic_customer_360 (
     is_overdue                  TINYINT,
     as_of_date                  DATE,
     dw_refreshed_at             DATETIME
-) UNIQUE KEY(customer_id, country_code)
+) DUPLICATE KEY(customer_id, country_code)
 DISTRIBUTED BY HASH(customer_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -317,7 +317,7 @@ CREATE TABLE semantic_transaction_summary (
     decline_reason          VARCHAR(50),
     is_fraud                TINYINT,
     fraud_score             DECIMAL(5,4),
-    fraud_tier              VARCHAR(10),
+    fraud_tier          VARCHAR(15),
     is_international        TINYINT,
     is_suspicious           TINYINT,        -- derived: fraud_score > 0.7 or high-risk merchant
     dw_refreshed_at         DATETIME
@@ -435,7 +435,7 @@ CREATE TABLE semantic_risk_metrics (
     top_fraud_merchant          VARCHAR(100),
     top_fraud_merchant_amount   DECIMAL(20,2),
     dw_refreshed_at             DATETIME
-) DUPLICATE KEY(metric_date, country_code, customer_segment, merchant_category, channel)
+) DUPLICATE KEY(metric_date, country_code, legal_entity, customer_segment, merchant_category)
 PARTITION BY RANGE(metric_date)(
     PARTITION p2024 VALUES LESS THAN ("2025-01-01"),
     PARTITION p2025 VALUES LESS THAN ("2026-01-01"),

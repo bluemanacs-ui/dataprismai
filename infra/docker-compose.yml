@@ -29,7 +29,8 @@ services:
       - "8030:8030"   # FE HTTP / Web UI
       - "8040:8040"   # BE HTTP
     volumes:
-      - starrocks_data:/opt/starrocks
+      - starrocks_fe_meta:/data/deploy/starrocks/fe/meta
+      - starrocks_be_storage:/data/deploy/starrocks/be/storage
     ulimits:
       nofile:
         soft: 65536
@@ -86,6 +87,32 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  # ── Ollama init: pull required models on first start ────────────────────────
+  dataprismai-ollama-init:
+    image: ollama/ollama:latest
+    container_name: dataprismai-ollama-init
+    depends_on:
+      dataprismai-ollama:
+        condition: service_healthy
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      - OLLAMA_HOST=http://dataprismai-ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        ollama pull qwen2.5:32b
+        ollama pull nomic-embed-text
+        ollama pull deepseek-r1:7b
+        ollama pull deepseek-r1:32b
+    restart: "no"
 
   # ── API: FastAPI LangGraph backend ──────────────────────────────────────────
   dataprismai-api:
@@ -98,8 +125,13 @@ services:
         condition: service_healthy
       dataprismai-starrocks:
         condition: service_healthy
+      dataprismai-ollama-init:
+        condition: service_completed_successfully
     ports:
       - "8000:8000"
+    volumes:
+      - ../apps/api:/app   # live source mount — always runs current code
+    command: ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
     environment:
       - STARROCKS_HOST=dataprismai-starrocks
       - STARROCKS_PORT=9030
@@ -125,15 +157,21 @@ services:
     depends_on:
       - dataprismai-api
     ports:
-      - "3001:3001"
+      - "3000:3000"
+    volumes:
+      - ../apps/web:/app          # live source mount — always runs current code
+      - /app/node_modules         # preserve node_modules from image build
+      - /app/.next                # preserve .next build cache from image build
+    command: ["npm", "run", "dev"]
     environment:
       - NODE_ENV=development
       - API_BASE_URL=http://dataprismai-api:8000
-    command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3001"]
+      - NEXT_PUBLIC_API_BASE_URL=/api
 
 volumes:
   postgres_data:
-  starrocks_data:
+  starrocks_fe_meta:
+  starrocks_be_storage:
   ollama_models:
   redis_data:
 

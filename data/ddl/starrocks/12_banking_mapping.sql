@@ -20,7 +20,7 @@ CREATE TABLE semantic_glossary_metrics (
     domain                  VARCHAR(30),                -- risk | spend | payments | customer | portfolio
     allowed_personas        VARCHAR(200),               -- comma-separated: analyst,cfo,fraud_analyst
     unit                    VARCHAR(20),                -- % | count | currency | ratio
-    is_kpi                  TINYINT         DEFAULT 0,  -- 1 = executive KPI
+    is_kpi                  TINYINT         DEFAULT NULL,  -- 1 = executive KPI
     example_question        VARCHAR(300),
     display_format          VARCHAR(50)                 -- PERCENT | CURRENCY | INTEGER | DECIMAL
 ) DUPLICATE KEY(metric_id)
@@ -187,9 +187,9 @@ CREATE TABLE semantic_access_control (
     -- Column restrictions (for future column-level enforcement)
     restricted_columns  VARCHAR(300),              -- comma-separated columns to mask
     -- Access metadata
-    can_export          TINYINT         DEFAULT 1,
-    can_drill_down      TINYINT         DEFAULT 1,
-    max_row_limit       INT             DEFAULT 10000,
+    can_export          TINYINT         DEFAULT NULL,
+    can_drill_down      TINYINT         DEFAULT NULL,
+    max_row_limit       INT             DEFAULT NULL,
     notes               VARCHAR(200)
 ) DUPLICATE KEY(persona, semantic_table)
 DISTRIBUTED BY HASH(persona) BUCKETS 2
@@ -279,7 +279,7 @@ CREATE TABLE user_domain_mapping (
     granted_at          DATETIME,
     granted_by          VARCHAR(50),
     expires_at          DATETIME                   -- NULL = no expiry
-) DUPLICATE KEY(user_id, country_code, domain)
+) DUPLICATE KEY(user_id, email, role)
 DISTRIBUTED BY HASH(user_id) BUCKETS 4
 PROPERTIES ("replication_num" = "1");
 

@@ -179,6 +179,15 @@ _GUARDRAIL_RESPONSES = {
 def guardrail_node(state: dict) -> dict:
     message = state.get("user_message", "")
     thread_id = state.get("thread_id", "")
+
+    # General mode bypasses all content filtering — pure LLM, any topic allowed.
+    if state.get("chat_mode") == "general":
+        return {
+            **state,
+            "guardrail_blocked": False,
+            "reasoning_steps": ["Guardrail: general mode — all topics allowed, skipping classification."],
+        }
+
     classification = _classify(message)
 
     # Pronoun follow-up (e.g. "what is his address") is only ambiguous when there's

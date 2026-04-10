@@ -1,11 +1,111 @@
 from app.schemas.sql import SQLGenerationResult
-from app.prompts.sql_prompt_builder import build_sql_prompt
+from app.prompts.sql_prompt_builder import build_sql_prompt, _STATIC_SCHEMA_CONTEXT
 from app.services.llm_service import generate_with_ollama
 from app.services.response_parser import parse_model_json
 from app.services.vanna_service import vanna_service
 from app.services.schema_registry import registry as _schema_registry
 from app.semantic.catalog import METRIC_CANONICAL_SQL, METRIC_SQL_BY_DIMENSION
+import logging
 import re
+
+logger = logging.getLogger(__name__)
+
+
+def _enrich_with_dictionary(semantic_context: dict) -> None:
+    """Fetch table + column definitions from dic_tables/dic_columns and inject
+    into semantic_context["dictionary_context"] for LLM-mode prompts.
+    Falls back to SchemaRegistry live DESCRIBE data (accurate column names) then
+    static schema context when StarRocks is unreachable.
+    No-ops if dictionary_context is already populated (avoids double-fetch)."""
+    if semantic_context.get("dictionary_context"):
+        return
+    try:
+        import os, mysql.connector
+        conn = mysql.connector.connect(
+            host=os.getenv("STARROCKS_HOST", "localhost"),
+            port=int(os.getenv("STARROCKS_PORT", "9030")),
+            user=os.getenv("STARROCKS_USER", "root"),
+            password=os.getenv("STARROCKS_PASSWORD", ""),
+            database=os.getenv("STARROCKS_DATABASE", "cc_analytics"),
+            connection_timeout=5,
+        )
+        cur = conn.cursor(dictionary=True)
+        # Use GROUP BY to deduplicate in case seed was run multiple times
+        cur.execute("""
+            SELECT table_name, MAX(display_name) display_name, MAX(description) description,
+                   MAX(layer) layer, MAX(domain) domain
+            FROM dic_tables WHERE is_active=1
+            GROUP BY table_name ORDER BY MAX(layer), table_name
+        """)
+        tables = cur.fetchall()
+        cur.execute("""
+            SELECT table_name, column_name, MAX(display_name) display_name,
+                   MAX(description) description, MAX(data_type) data_type,
+                   MAX(enum_values) enum_values, MAX(business_rule) business_rule
+            FROM dic_columns
+            GROUP BY table_name, column_name ORDER BY table_name, MIN(column_id)
+        """)
+        columns = cur.fetchall()
+        cur.execute("""
+            SELECT from_table, from_column, to_table, to_column,
+                   MAX(relationship_type) relationship_type, MAX(description) description
+            FROM dic_relationships
+            GROUP BY from_table, from_column, to_table, to_column ORDER BY from_table
+        """)
+        relationships = cur.fetchall()
+        conn.close()
+        if not tables:
+            raise Exception("dic_tables is empty — using live schema fallback")
+        # Build compact text representation
+        col_map: dict[str, list] = {}
+        for c in columns:
+            col_map.setdefault(c["table_name"], []).append(c)
+        lines = [
+            "Database: cc_analytics (StarRocks / MySQL-compatible)",
+            "Countries: SG (Singapore/SGD), MY (Malaysia/MYR), IN (India/INR)",
+            "Data covers 2025 full year (Jan–Dec 2025)",
+            "",
+        ]
+        for t in tables:
+            tname = t["table_name"]
+            lines.append(f"\n### {tname} ({t['layer']}/{t['domain']}) — {t['description']}")
+            for c in col_map.get(tname, []):
+                note = c.get("business_rule") or c.get("enum_values") or ""
+                lines.append(f"  - {c['column_name']} {c['data_type']}: {c['description']}" + (f"  [{note}]" if note else ""))
+        # Supplement with SchemaRegistry for any table not in dic but with live columns
+        try:
+            live_tables = _schema_registry.all_tables()
+            dic_names = {t["table_name"] for t in tables}
+            extra = {k: v for k, v in live_tables.items()
+                     if k not in dic_names and v["category"] in ("semantic", "dp", "ddm", "raw")
+                     and v["columns"]}
+            if extra:
+                lines.append("\n### Additional Tables (from live schema)")
+                for tname, meta in sorted(extra.items()):
+                    lines.append(f"\n{tname}: {', '.join(meta['columns'])}")
+        except Exception:
+            pass
+        # Append relationship / FK model
+        if relationships:
+            lines.append("\n### Data Model Relationships (use for JOINs)")
+            for r in relationships:
+                desc = f"  {r['description']}" if r.get("description") else ""
+                lines.append(f"  {r['from_table']}.{r['from_column']} → {r['to_table']}.{r['to_column']}  [{r['relationship_type']}]{desc}")
+        semantic_context["dictionary_context"] = "\n".join(lines)
+    except Exception as exc:
+        # Fallback 1: use SchemaRegistry's live DESCRIBE data (accurate exact column names)
+        try:
+            live_ctx = _schema_registry.build_schema_context()
+            if live_ctx and len(live_ctx) > 100:
+                logger.info("_enrich_with_dictionary: using SchemaRegistry live schema (%s)", exc)
+                semantic_context["dictionary_context"] = live_ctx
+                return
+        except Exception as reg_exc:
+            logger.warning("_enrich_with_dictionary: SchemaRegistry also failed: %s", reg_exc)
+        # Fallback 2: static compiled schema context (last resort)
+        logger.warning("_enrich_with_dictionary: injecting static schema context (%s)", exc)
+        semantic_context["dictionary_context"] = _STATIC_SCHEMA_CONTEXT
+
 
 
 def _known_tables() -> frozenset[str]:
@@ -127,6 +227,25 @@ def _has_grouping_intent(message: str) -> bool:
 _ANALYTICAL_PATTERNS: list[tuple] = [
     # ── Semantic table patterns (correct columns, always work) ───────────────
 
+    # Monthly transaction trend (use raw_deposit_transaction — most rows, best perf)
+    (
+        re.compile(
+            r"\b(monthly|month.?by.?month|trend)\b.{0,60}\b(transaction|txn|volume|count|spend)\b"
+            r"|\b(transaction|txn|volume|spend)\b.{0,60}\b(trend|monthly|by.?month|over.?time)\b"
+            r"|\b(how|show|what)\b.{0,30}\b(transaction|txn|volume)\b.{0,40}\b(over.?time|each.?month|per.?month|monthly|trend)\b",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT DATE_FORMAT(txn_date, '%Y-%m') AS txn_month, country_code,"
+            " COUNT(*) AS txn_count,"
+            " ROUND(SUM(amount), 0) AS total_amount,"
+            " ROUND(AVG(amount), 2) AS avg_txn_amount"
+            " FROM cc_analytics.raw_deposit_transaction"
+            " GROUP BY DATE_FORMAT(txn_date, '%Y-%m'), country_code"
+            " ORDER BY txn_month ASC"
+        ),
+    ),
+
     # Suspicious transactions by merchant category
     (
         re.compile(
@@ -228,14 +347,14 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             re.IGNORECASE,
         ),
         (
-            "SELECT full_name, country_code, customer_segment,"
+            "SELECT customer_name, country_code, customer_segment,"
             " payment_status, overdue_bucket, overdue_days,"
             " ROUND(total_due, 0) AS total_due,"
-            " ROUND(amount_outstanding, 0) AS amount_outstanding,"
-            " consecutive_late"
+            " ROUND(amount_still_owed, 0) AS amount_still_owed,"
+            " consecutive_late_months"
             " FROM cc_analytics.semantic_payment_status"
             " WHERE payment_status IN ('overdue', 'paid_minimum') OR overdue_days > 0"
-            " ORDER BY amount_outstanding DESC"
+            " ORDER BY amount_still_owed DESC"
             " LIMIT {limit}"
         ),
     ),
@@ -250,7 +369,7 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             "SELECT payment_status,"
             " COUNT(*) AS account_count,"
             " ROUND(SUM(total_due), 0) AS total_due,"
-            " ROUND(SUM(amount_outstanding), 0) AS amount_outstanding"
+            " ROUND(SUM(amount_still_owed), 0) AS amount_still_owed"
             " FROM cc_analytics.semantic_payment_status"
             " GROUP BY payment_status"
             " ORDER BY account_count DESC"
@@ -259,27 +378,27 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
     # Portfolio KPIs
     (
         re.compile(
-            r"\b(portfolio.?kpi|kpi|portfolio.?health|portfolio.?metric|portfolio.?performance)\b"
+            r"\b(portfolio.?kpis?\b|portfolio.?health|portfolio.?metric|portfolio.?performance)\b"
             r"|\b(utilization|delinquency.?rate|full.?payment.?rate|npl.?rate|churn.?rate)\b.{0,60}\b(country|month|quarter|trend|by)\b"
-            r"|\bportfolio\b.{0,30}\b(kpi|health|metric|performance|summary)\b",
+            r"|\bportfolio\b.{0,30}\b(kpis?|health|metric|performance|summary)\b",
             re.IGNORECASE,
         ),
         (
             "SELECT kpi_month, country_code,"
             " total_customers, active_customers,"
-            " ROUND(total_spend, 0) AS total_spend,"
+            " ROUND(total_spend_volume, 0) AS total_spend,"
             " ROUND(spend_growth_pct * 100, 2) AS spend_growth_pct,"
-            " ROUND(avg_utilization * 100, 2) AS avg_utilization_pct,"
+            " ROUND(avg_utilization_pct * 100, 2) AS avg_utilization_pct,"
             " ROUND(fraud_rate * 100, 3) AS fraud_rate_pct,"
             " ROUND(delinquency_rate * 100, 3) AS delinquency_rate_pct,"
             " ROUND(full_payment_rate * 100, 2) AS full_payment_rate_pct,"
-            " ROUND(est_interest_income, 0) AS est_interest_income"
+            " ROUND(estimated_interest_income, 0) AS est_interest_income"
             " FROM cc_analytics.semantic_portfolio_kpis"
             " ORDER BY kpi_month DESC, country_code"
             " LIMIT {limit}"
         ),
     ),
-    # Top spending customers (semantic_spend_metrics — aggregated, has full_name)
+    # Top spending customers (semantic_spend_metrics — aggregated by year_month)
     (
         re.compile(
             r"\b(top|highest|biggest|most)\b.{0,20}\b(spend|spending|spender|spent)\b.{0,20}\b(customer|customers)\b"
@@ -287,17 +406,17 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             re.IGNORECASE,
         ),
         (
-            "SELECT full_name, country_code, customer_segment,"
+            "SELECT customer_id, country_code, customer_segment,"
             " ROUND(SUM(total_spend), 0) AS total_spend,"
-            " SUM(transaction_count) AS txn_count,"
+            " SUM(total_transactions) AS txn_count,"
             " top_category"
             " FROM cc_analytics.semantic_spend_metrics"
-            " GROUP BY full_name, country_code, customer_segment, top_category"
+            " GROUP BY customer_id, country_code, customer_segment, top_category"
             " ORDER BY total_spend DESC"
             " LIMIT {limit}"
         ),
     ),
-    # Spend by merchant category
+    # Spend by category
     (
         re.compile(
             r"\b(spend|spending|spent|total.?spend)\b.{0,50}\b(merchant.?categor\w*|categor\w+)\b"
@@ -305,25 +424,23 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             re.IGNORECASE,
         ),
         (
-            "SELECT country_code,"
-            " ROUND(SUM(food_dining), 0) AS food_dining,"
-            " ROUND(SUM(retail_shopping), 0) AS retail_shopping,"
-            " ROUND(SUM(travel_transport), 0) AS travel_transport,"
-            " ROUND(SUM(grocery), 0) AS grocery,"
-            " ROUND(SUM(entertainment), 0) AS entertainment,"
-            " ROUND(SUM(utilities), 0) AS utilities,"
-            " ROUND(SUM(healthcare), 0) AS healthcare,"
-            " ROUND(SUM(hotel), 0) AS hotel,"
-            " ROUND(SUM(fuel), 0) AS fuel"
+            "SELECT country_code, customer_segment,"
+            " ROUND(SUM(food_dining_spend), 0) AS food_dining,"
+            " ROUND(SUM(shopping_retail_spend), 0) AS retail_shopping,"
+            " ROUND(SUM(travel_transport_spend), 0) AS travel_transport,"
+            " ROUND(SUM(entertainment_spend), 0) AS entertainment,"
+            " ROUND(SUM(utilities_spend), 0) AS utilities,"
+            " ROUND(SUM(healthcare_spend), 0) AS healthcare,"
+            " ROUND(SUM(other_spend), 0) AS other"
             " FROM cc_analytics.semantic_spend_metrics"
-            " GROUP BY country_code"
+            " GROUP BY country_code, customer_segment"
             " ORDER BY country_code"
         ),
     ),
 
     # ── Raw table patterns (fixed column names) — fallback for direct raw queries ─
 
-    # Customers by card count
+    # Customers by deposit account count (no card tables in deposit banking)
     (
         re.compile(
             r"\b(customer|customers|who|people|person)\b.{0,50}\b(card|cards|number of card|most card|high.*card|multi.*card)\b"
@@ -331,12 +448,10 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             re.IGNORECASE,
         ),
         (
-            "SELECT c.customer_id, CONCAT(c.first_name, ' ', c.last_name) AS full_name,"
-            " COUNT(k.card_id) AS card_count"
-            " FROM cc_analytics.raw_customer c"
-            " JOIN cc_analytics.raw_card k ON c.customer_id = k.customer_id"
-            " GROUP BY c.customer_id, c.first_name, c.last_name"
-            " ORDER BY card_count DESC"
+            "SELECT account_id, customer_id, deposit_type,"
+            " current_balance, currency_code, status"
+            " FROM cc_analytics.raw_deposit_account"
+            " ORDER BY current_balance DESC"
             " LIMIT {limit}"
         ),
     ),
@@ -355,6 +470,27 @@ _ANALYTICAL_PATTERNS: list[tuple] = [
             " GROUP BY full_name, customer_segment, country_code"
             " ORDER BY txn_count DESC"
             " LIMIT {limit}"
+        ),
+    ),
+    # Spend trends over time (monthly)
+    (
+        re.compile(
+            r"\b(spend.?trend|spending.?trend|trend.{0,20}spend|monthly.?spend|spend.{0,20}over.?time)"
+            r"|\b(analyse|analyze)\b.{0,40}\b(spend|spending|expenditure)\b"
+            r"|\b(spend|spending)\b.{0,40}\b(analys|pattern|summary|overview|recommend)",
+            re.IGNORECASE,
+        ),
+        (
+            "SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month,"
+            " COUNT(*) AS transaction_count,"
+            " ROUND(SUM(amount), 2) AS total_spend,"
+            " ROUND(AVG(amount), 2) AS avg_transaction_amount,"
+            " COUNT(DISTINCT customer_id) AS unique_customers"
+            " FROM cc_analytics.raw_deposit_transaction"
+            " WHERE txn_date IS NOT NULL"
+            " GROUP BY month"
+            " ORDER BY month DESC"
+            " LIMIT 24"
         ),
     ),
     # Merchants by transaction count (not by category — explicit merchant names)
@@ -394,21 +530,9 @@ def _analytical_pattern_sql(message: str) -> str | None:
 
     for pattern, sql_tpl in _ANALYTICAL_PATTERNS:
         if pattern.search(message):
-            if high_intent and not explicit_limit:
-                # User wants ALL customers matching the criteria — let HAVING filter,
-                # don't impose an arbitrary row cap. Cap at 500 to protect memory.
-                sql = sql_tpl.format(limit=500)
-                agg_m = re.search(r"ORDER BY (\w+) DESC", sql)
-                if agg_m:
-                    agg_col = agg_m.group(1)
-                    sql = sql.replace(
-                        f"ORDER BY {agg_col} DESC",
-                        f"HAVING {agg_col} > 1 ORDER BY {agg_col} DESC",
-                    )
-            else:
-                # Explicit limit or neutral query — honour it or default to 20
-                limit = explicit_limit or 20
-                sql = sql_tpl.format(limit=limit)
+            # Honour explicit limit or cap at 500 for high-intent "show all" queries
+            limit = explicit_limit or (500 if high_intent else 20)
+            sql = sql_tpl.format(limit=limit)
             return sql
     return None
 
@@ -477,12 +601,58 @@ def _pick_canonical_sql(semantic_context: dict, message: str) -> str | None:
 
 def _replace_semantic_model_table(sql: str, semantic_context: dict) -> str:
     if "semantic_model_table" in sql:
-        source = semantic_context.get("source_table") or "cc_analytics.semantic_transaction_summary"
+        source = semantic_context.get("source_table") or "cc_analytics.raw_deposit_transaction"
         return sql.replace("semantic_model_table", source)
     return sql
 
 
-def generate_sql_from_question(message: str, persona: str, semantic_context: dict, prior_context: list | None = None) -> SQLGenerationResult:
+def generate_sql_from_question(message: str, persona: str, semantic_context: dict, prior_context: list | None = None, chat_mode: str = "hybrid") -> SQLGenerationResult:
+    """Generate SQL for *message*.
+
+    chat_mode:
+      "pattern" — only use pre-built pattern matching; return empty if no match.
+      "llm"     — skip patterns, go straight to Vanna/Ollama with full data dict context.
+      "hybrid"  — pattern first, LLM fallback (default / legacy behaviour).
+    """
+    # ── PATTERN mode: only use deterministic patterns ─────────────────────────
+    if chat_mode == "pattern":
+        raw_sql = _direct_table_sql(message)
+        if raw_sql:
+            return SQLGenerationResult(sql=raw_sql, explanation="Direct table lookup (pattern mode).", assumptions=["Pattern mode — no LLM used."])
+        analytical_sql = _analytical_pattern_sql(message)
+        if analytical_sql:
+            return SQLGenerationResult(sql=analytical_sql, explanation="Matched analytical pattern (pattern mode).", assumptions=["Pattern mode — no LLM used."])
+        canonical = _pick_canonical_sql(semantic_context, message)
+        if canonical:
+            return SQLGenerationResult(sql=canonical, explanation="Canonical metric SQL (pattern mode).", assumptions=["Pattern mode — no LLM used."])
+        return SQLGenerationResult(sql="", explanation="No pattern matched this query in pattern mode.", assumptions=["Pattern mode — LLM disabled."])
+
+    # ── LLM mode: skip patterns, use full dict context + Ollama/Vanna ─────────
+    if chat_mode == "llm":
+        # Inject data dictionary context into semantic_context
+        _enrich_with_dictionary(semantic_context)
+        if vanna_service.is_ready():
+            try:
+                result = vanna_service.generate_sql(message, semantic_context)
+                sql = result.get("sql", "").strip()
+                if sql:
+                    sql = _replace_semantic_model_table(sql, semantic_context)
+                    return SQLGenerationResult(sql=sql, explanation=result.get("explanation", "LLM mode (Vanna)."), assumptions=result.get("assumptions", []), llm_was_used=True)
+            except Exception:
+                pass
+        prompt = build_sql_prompt(message, persona, semantic_context, prior_context)
+        raw_output = generate_with_ollama(prompt)
+        try:
+            parsed = parse_model_json(raw_output)
+            sql = parsed.get("sql", "").strip()
+            if not sql:
+                raise ValueError("empty sql")
+            sql = _replace_semantic_model_table(sql, semantic_context)
+            return SQLGenerationResult(sql=sql, explanation=parsed.get("explanation", "LLM mode."), assumptions=parsed.get("assumptions", []), llm_was_used=True)
+        except Exception:
+            return SQLGenerationResult(sql="", explanation="LLM failed to generate valid SQL.", assumptions=["LLM mode — parse error."], llm_was_used=True)
+
+    # ── HYBRID mode (default): pattern first, LLM fallback ────────────────────
     # Fast path 1: direct table reference (raw_*, ddm_*, dp_*, audit_*, etc.) — no LLM needed
     raw_sql = _direct_table_sql(message)
     if raw_sql:
@@ -522,6 +692,9 @@ def generate_sql_from_question(message: str, persona: str, semantic_context: dic
             explanation=f"Dimension-aware SQL for metric '{semantic_context.get('metric')}' via {routing_note}.",
             assumptions=["Semantic catalog path used.", "Real synthetic tables are queried directly."],
         )
+
+    # Enrich with data dictionary before any LLM call (balanced + auto paths)
+    _enrich_with_dictionary(semantic_context)
 
     if vanna_service.is_ready():
         try:
@@ -571,10 +744,10 @@ def generate_sql_from_question(message: str, persona: str, semantic_context: dic
             )
         return SQLGenerationResult(
             sql=(
-                "SELECT DATE_FORMAT(transaction_date, '%Y-%m') AS month, "
-                "COUNT(*) AS transaction_count, ROUND(SUM(amount), 2) AS total_spend "
-                "FROM cc_analytics.raw_transaction "
-                "WHERE transaction_date IS NOT NULL "
+                "SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month, "
+                "COUNT(*) AS transaction_count, ROUND(SUM(amount), 2) AS total_amount "
+                "FROM cc_analytics.raw_deposit_transaction "
+                "WHERE txn_date IS NOT NULL "
                 "GROUP BY month ORDER BY month DESC LIMIT 24"
             ),
             explanation="LLM parsing failed; returning monthly summary as fallback.",

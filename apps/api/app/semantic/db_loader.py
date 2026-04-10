@@ -103,9 +103,9 @@ def _get_connection():
 
 def _fetch_glossary_metrics(cursor) -> list[dict]:
     cursor.execute(
-        "SELECT metric_id, metric_name, display_name, definition, formula, "
-        "grain, source_table, source_columns, domain, category "
-        "FROM cc_analytics.semantic_glossary_metrics WHERE is_active = 1"
+        "SELECT metric_id, metric_name, metric_definition, metric_formula, "
+        "grain, source_table, domain, is_kpi "
+        "FROM cc_analytics.semantic_glossary_metrics"
     )
     rows = cursor.fetchall()
     result = []
@@ -114,16 +114,16 @@ def _fetch_glossary_metrics(cursor) -> list[dict]:
         if src and not src.startswith("cc_analytics."):
             src = f"cc_analytics.{src}"
         result.append({
-            "name": m["display_name"],
+            "name": m["metric_name"],
             "metric_key": m["metric_name"],
             "keywords": _build_metric_keywords(m),
             "dimensions": [],
             "engine": "starrocks",
             "domain": m["domain"] or "",
-            "definition": m["definition"] or "",
+            "definition": m["metric_definition"] or "",
             "source_table": src,
-            "formula": m["formula"] or "",
-            "category": m["category"] or "",
+            "formula": m["metric_formula"] or "",
+            "category": m["domain"] or "",
         })
     return result
 
@@ -152,8 +152,8 @@ def _fetch_dimension_mappings(cursor) -> list[dict]:
 
 def _fetch_domain_routing(cursor) -> dict[str, list[str]]:
     cursor.execute(
-        "SELECT domain, semantic_table, priority "
-        "FROM cc_analytics.domain_semantic_mapping ORDER BY domain, priority"
+        "SELECT domain, semantic_table "
+        "FROM cc_analytics.domain_semantic_mapping ORDER BY domain"
     )
     routing: dict[str, list[str]] = {}
     for row in cursor.fetchall():
@@ -162,26 +162,29 @@ def _fetch_domain_routing(cursor) -> dict[str, list[str]]:
 
 
 def _fetch_access_control(cursor) -> dict[str, list[dict]]:
-    cursor.execute(
-        "SELECT persona, semantic_table, can_access, country_filter, "
-        "restricted_columns, max_row_limit "
-        "FROM cc_analytics.semantic_access_control"
-    )
-    result: dict[str, list[dict]] = {}
-    for r in cursor.fetchall():
-        restricted = [
-            c.strip()
-            for c in (r["restricted_columns"] or "").split(",")
-            if c.strip() and c.strip().lower() not in ("none", "")
-        ]
-        result.setdefault(r["persona"], []).append({
-            "semantic_table": r["semantic_table"],
-            "can_access": bool(r["can_access"]),
-            "country_filter": r["country_filter"] or None,
-            "restricted_columns": restricted,
-            "max_row_limit": r["max_row_limit"] or 1000,
-        })
-    return result
+    try:
+        cursor.execute(
+            "SELECT persona, semantic_table, can_access, country_filter, "
+            "restricted_columns, max_row_limit "
+            "FROM cc_analytics.semantic_access_control"
+        )
+        result: dict[str, list[dict]] = {}
+        for r in cursor.fetchall():
+            restricted = [
+                c.strip()
+                for c in (r["restricted_columns"] or "").split(",")
+                if c.strip() and c.strip().lower() not in ("none", "")
+            ]
+            result.setdefault(r["persona"], []).append({
+                "semantic_table": r["semantic_table"],
+                "can_access": bool(r["can_access"]),
+                "country_filter": r["country_filter"] or None,
+                "restricted_columns": restricted,
+                "max_row_limit": r["max_row_limit"] or 1000,
+            })
+        return result
+    except Exception:
+        return {}
 
 
 # ---------------------------------------------------------------------------

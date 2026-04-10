@@ -24,6 +24,7 @@ from app.api.skills import router as skills_router
 from app.api.langgraph import router as langgraph_router
 from app.api.store import router as store_router
 from app.api.model import router as model_router
+from app.api.dictionary import router as dictionary_router
 from app.core.config import settings
 from app.services.schema_registry import registry as _schema_registry
 
@@ -45,6 +46,7 @@ app.include_router(semantic_router)
 app.include_router(skills_router)
 app.include_router(langgraph_router)
 app.include_router(model_router)
+app.include_router(dictionary_router)
 app.include_router(store_router, prefix="/api")
 
 

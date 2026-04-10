@@ -37,7 +37,7 @@ CREATE TABLE raw_customer (
     occupation          VARCHAR(50),
     acquisition_channel VARCHAR(30),              -- BRANCH | ONLINE | AGENT | REFERRAL
     source_system       VARCHAR(30),
-    is_deleted          TINYINT         DEFAULT 0,
+    is_deleted          TINYINT         DEFAULT NULL,
     created_at          DATETIME,
     updated_at          DATETIME
 ) DUPLICATE KEY(customer_id, country_code)
@@ -74,10 +74,10 @@ CREATE TABLE raw_account (
     close_date          DATE,
     last_activity_date  DATE,
     source_system       VARCHAR(30),
-    is_deleted          TINYINT         DEFAULT 0,
+    is_deleted          TINYINT         DEFAULT NULL,
     created_at          DATETIME,
     updated_at          DATETIME
-) DUPLICATE KEY(account_id, country_code)
+) DUPLICATE KEY(account_id, customer_id)
 DISTRIBUTED BY HASH(account_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -90,7 +90,7 @@ CREATE TABLE raw_card (
     country_code        VARCHAR(2)      NOT NULL,
     legal_entity        VARCHAR(10),
     card_type           VARCHAR(20),               -- VISA | MASTERCARD | AMEX | UNIONPAY
-    card_category       VARCHAR(20),               -- STANDARD | GOLD | PLATINUM | INFINITE | BUSINESS
+    card_category       VARCHAR(30),               -- STANDARD | GOLD | PLATINUM | INFINITE | BUSINESS
     card_number_masked  VARCHAR(20),              -- e.g. ****1234
     credit_limit        DECIMAL(20,2),
     available_credit    DECIMAL(20,2),
@@ -101,14 +101,14 @@ CREATE TABLE raw_card (
     block_reason        VARCHAR(50),
     is_primary          TINYINT,
     reward_points       BIGINT,
-    contactless_enabled TINYINT         DEFAULT 1,
-    online_enabled      TINYINT         DEFAULT 1,
-    intl_enabled        TINYINT         DEFAULT 0,
+    contactless_enabled TINYINT         DEFAULT NULL,
+    online_enabled      TINYINT         DEFAULT NULL,
+    intl_enabled        TINYINT         DEFAULT NULL,
     source_system       VARCHAR(30),
-    is_deleted          TINYINT         DEFAULT 0,
+    is_deleted          TINYINT         DEFAULT NULL,
     created_at          DATETIME,
     updated_at          DATETIME
-) DUPLICATE KEY(card_id, country_code)
+) DUPLICATE KEY(card_id, account_id)
 DISTRIBUTED BY HASH(card_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -133,17 +133,17 @@ CREATE TABLE raw_transaction (
     mcc_code            VARCHAR(6),               -- ISO 18245 merchant category code
     status              VARCHAR(20),               -- APPROVED | DECLINED | PENDING | REVERSED | CHARGEBACK
     decline_reason      VARCHAR(50),              -- INSUFFICIENT_FUNDS | CARD_BLOCKED | LIMIT_EXCEEDED | FRAUD_SUSPECT
-    is_fraud            TINYINT         DEFAULT 0,
+    is_fraud            TINYINT         DEFAULT NULL,
     fraud_score         DECIMAL(5,4),              -- 0.0000 to 1.0000
     fraud_rule_hit      VARCHAR(50),
-    is_international    TINYINT         DEFAULT 0,
-    is_contactless      TINYINT         DEFAULT 0,
-    is_recurring        TINYINT         DEFAULT 0,
+    is_international    TINYINT         DEFAULT NULL,
+    is_contactless      TINYINT         DEFAULT NULL,
+    is_recurring        TINYINT         DEFAULT NULL,
     reference_number    VARCHAR(30),
     description         VARCHAR(200),
     source_system       VARCHAR(30),
     created_at          DATETIME
-) DUPLICATE KEY(transaction_id, country_code)
+) DUPLICATE KEY(transaction_id, account_id)
 PARTITION BY RANGE(transaction_date)(
     PARTITION p2024q1 VALUES LESS THAN ("2024-04-01"),
     PARTITION p2024q2 VALUES LESS THAN ("2024-07-01"),
@@ -181,7 +181,7 @@ CREATE TABLE raw_payment (
     reference_number    VARCHAR(30),
     source_system       VARCHAR(30),
     created_at          DATETIME
-) DUPLICATE KEY(payment_id, country_code)
+) DUPLICATE KEY(payment_id, account_id)
 DISTRIBUTED BY HASH(account_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -208,7 +208,7 @@ CREATE TABLE raw_statement (
     transaction_count   INT,
     source_system       VARCHAR(30),
     created_at          DATETIME
-) DUPLICATE KEY(statement_id, country_code)
+) DUPLICATE KEY(statement_id, account_id)
 DISTRIBUTED BY HASH(account_id) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -223,9 +223,9 @@ CREATE TABLE raw_merchant (
     country_code        VARCHAR(2),
     city                VARCHAR(50),
     address             VARCHAR(255),
-    is_online           TINYINT         DEFAULT 0,
+    is_online           TINYINT         DEFAULT NULL,
     risk_tier           VARCHAR(10),               -- LOW | MEDIUM | HIGH | CRITICAL
-    is_blacklisted      TINYINT         DEFAULT 0,
+    is_blacklisted      TINYINT         DEFAULT NULL,
     blacklist_reason    VARCHAR(100),
     blacklist_date      DATE,
     source_system       VARCHAR(30),
@@ -267,14 +267,14 @@ CREATE TABLE ddm_customer (
     tenure_months       INT,
     acquisition_channel VARCHAR(30),
     relationship_manager VARCHAR(50),
-    is_active           TINYINT         DEFAULT 1,
+    is_active           TINYINT         DEFAULT NULL,
     -- SCD-2 fields
     effective_from      DATETIME,
     effective_to        DATETIME,                  -- NULL means current
-    is_current          TINYINT         DEFAULT 1,
+    is_current          TINYINT         DEFAULT NULL,
     dw_created_at       DATETIME,
     dw_updated_at       DATETIME
-) UNIQUE KEY(customer_key, country_code)
+) UNIQUE KEY(customer_key, customer_id)
 DISTRIBUTED BY HASH(customer_key) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -304,13 +304,13 @@ CREATE TABLE ddm_account (
     tenure_months       INT,
     last_activity_date  DATE,
     days_since_activity INT,
-    is_active           TINYINT         DEFAULT 1,
+    is_active           TINYINT         DEFAULT NULL,
     -- SCD-2
     effective_from      DATETIME,
     effective_to        DATETIME,
-    is_current          TINYINT         DEFAULT 1,
+    is_current          TINYINT         DEFAULT NULL,
     dw_created_at       DATETIME
-) UNIQUE KEY(account_key, country_code)
+) UNIQUE KEY(account_key, account_id)
 DISTRIBUTED BY HASH(account_key) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -323,7 +323,7 @@ CREATE TABLE ddm_card (
     customer_key        BIGINT,
     country_code        VARCHAR(2)      NOT NULL,
     card_type           VARCHAR(20),
-    card_category       VARCHAR(20),
+    card_category       VARCHAR(30),
     card_number_masked  VARCHAR(20),
     credit_limit        DECIMAL(20,2),
     available_credit    DECIMAL(20,2),
@@ -341,7 +341,7 @@ CREATE TABLE ddm_card (
     online_enabled      TINYINT,
     intl_enabled        TINYINT,
     dw_created_at       DATETIME
-) UNIQUE KEY(card_key, country_code)
+) UNIQUE KEY(card_key, card_id)
 DISTRIBUTED BY HASH(card_key) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -370,14 +370,14 @@ CREATE TABLE ddm_transaction (
     mcc_code            VARCHAR(6),
     status              VARCHAR(20),
     decline_reason      VARCHAR(50),
-    is_fraud            TINYINT         DEFAULT 0,
+    is_fraud            TINYINT         DEFAULT NULL,
     fraud_score         DECIMAL(5,4),
-    fraud_tier          VARCHAR(10),              -- LOW (<0.3) | MEDIUM (0.3-0.7) | HIGH (>0.7)
-    is_international    TINYINT         DEFAULT 0,
-    is_contactless      TINYINT         DEFAULT 0,
-    is_recurring        TINYINT         DEFAULT 0,
+    fraud_tier          VARCHAR(15),              -- LOW (<0.3) | MEDIUM (0.3-0.7) | HIGH (>0.7)
+    is_international    TINYINT         DEFAULT NULL,
+    is_contactless      TINYINT         DEFAULT NULL,
+    is_recurring        TINYINT         DEFAULT NULL,
     dw_created_at       DATETIME
-) DUPLICATE KEY(transaction_key, country_code)
+) DUPLICATE KEY(transaction_key, transaction_id)
 PARTITION BY RANGE(transaction_date)(
     PARTITION p2024q1 VALUES LESS THAN ("2024-04-01"),
     PARTITION p2024q2 VALUES LESS THAN ("2024-07-01"),
@@ -419,7 +419,7 @@ CREATE TABLE ddm_payment (
     overdue_days        INT,
     late_fee            DECIMAL(20,2),
     dw_created_at       DATETIME
-) DUPLICATE KEY(payment_key, country_code)
+) DUPLICATE KEY(payment_key, payment_id)
 DISTRIBUTED BY HASH(account_key) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 
@@ -451,7 +451,7 @@ CREATE TABLE ddm_statement (
     is_overdue              TINYINT,
     days_overdue            INT,
     dw_created_at           DATETIME
-) DUPLICATE KEY(statement_key, country_code)
+) DUPLICATE KEY(statement_key, statement_id)
 DISTRIBUTED BY HASH(account_key) BUCKETS 8
 PROPERTIES ("replication_num" = "1");
 

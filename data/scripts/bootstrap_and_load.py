@@ -88,6 +88,10 @@ def run_ddl_file(path: str) -> None:
             continue
         try:
             cur.execute(stmt)
+            # Consume any result set (e.g. from SELECT statements in DDL files)
+            # to prevent mysql.connector from raising "Unread result found".
+            if cur.with_rows:
+                cur.fetchall()
         except MySQLError as e:
             # 1050 = table already exists — safe to ignore
             if e.errno != 1050:

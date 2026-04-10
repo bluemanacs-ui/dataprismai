@@ -65,7 +65,7 @@ CREATE TABLE audit_data_profile (
     top_value_2_count   BIGINT,
     top_value_3         VARCHAR(100),
     top_value_3_count   BIGINT,
-    is_pii              TINYINT         DEFAULT 0,  -- 1 = contains PII (masked in reports)
+    is_pii              TINYINT         DEFAULT NULL,  -- 1 = contains PII (masked in reports)
     pipeline_run_id     VARCHAR(50)
 ) DUPLICATE KEY(profile_id, profile_date)
 PARTITION BY RANGE(profile_date)(
@@ -98,7 +98,7 @@ CREATE TABLE audit_pipeline_runs (
     rows_rejected       BIGINT,
     error_message       VARCHAR(500),
     error_code          VARCHAR(50),
-    retry_count         INT             DEFAULT 0,
+    retry_count         INT             DEFAULT NULL,
     triggered_by        VARCHAR(50),               -- SCHEDULER | MANUAL | API | EVENT
     dag_run_id          VARCHAR(100),              -- Airflow/Prefect run reference
     git_commit          VARCHAR(40)

@@ -2,7 +2,6 @@ FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 3001
-CMD ["npm", "run", "start", "--", "--port", "3001"]
+# Source code is mounted as a live volume at runtime (dev mode)
+EXPOSE 3000
+CMD ["npm", "run", "dev"]

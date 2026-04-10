@@ -35,6 +35,7 @@ from app.graph_nodes.insight_node import insight_node
 from app.graph_nodes.recommendation_node import recommendation_node
 from app.graph_nodes.response_node import response_node
 from app.graph_nodes.persist_node import persist_node
+from app.graph_nodes.general_node import general_node
 
 from typing import TypedDict, Optional
 
@@ -45,6 +46,7 @@ class AgentState(TypedDict, total=False):
     persona: str
     user_message: str
     time_range: str          # L7D | L1M | LQ | L1Y | ALL (default ALL)
+    chat_mode: str           # pattern | hybrid | llm | general (default hybrid)
     # intent classification (set by planner_node)
     intent: str              # legacy alias — same value as intent_type
     intent_type: str         # preview_data | schema_query | metric_query | insight_query | explanation | report
@@ -84,7 +86,9 @@ class AgentState(TypedDict, total=False):
 
 
 def _after_guardrail(state: AgentState) -> str:
-    """Skip data pipeline if guardrail blocked the query."""
+    """Skip data pipeline if guardrail blocked the query, or short-circuit to general LLM mode."""
+    if state.get("chat_mode") == "general":
+        return "general"
     if state.get("guardrail_blocked"):
         return "blocked"
     return "proceed"
@@ -106,6 +110,7 @@ def _should_retry(state: AgentState) -> str:
 
 graph = StateGraph(AgentState)
 graph.add_node("guardrail", guardrail_node)
+graph.add_node("general", general_node)
 graph.add_node("entity_resolver", entity_resolver_node)
 graph.add_node("planner", planner_node)
 graph.add_node("persona", persona_node)
@@ -122,7 +127,8 @@ graph.add_node("response", response_node)
 graph.add_node("persist", persist_node)
 
 graph.add_edge(START, "guardrail")
-graph.add_conditional_edges("guardrail", _after_guardrail, {"blocked": "persist", "proceed": "entity_resolver"})
+graph.add_conditional_edges("guardrail", _after_guardrail, {"general": "general", "blocked": "persist", "proceed": "entity_resolver"})
+graph.add_edge("general", "persist")
 graph.add_edge("entity_resolver", "planner")
 # preview_data / schema_query skip persona + semantic_resolver and go straight to SQL
 graph.add_conditional_edges("planner", _after_planner, {"fast_path": "vanna_sql", "full_path": "persona"})

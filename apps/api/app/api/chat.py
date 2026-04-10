@@ -42,6 +42,7 @@ def chat_query(payload: ChatQueryRequest) -> ChatQueryResponse:
         "persona": payload.persona,
         "user_message": payload.message,
         "time_range": payload.time_range,
+        "chat_mode": payload.chat_mode,
     }
 
     final_state = compiled_graph.invoke(initial_state)
@@ -95,6 +96,7 @@ def chat_query(payload: ChatQueryRequest) -> ChatQueryResponse:
         answer_llm_used=bool(final_state.get("answer_llm_used")),
         model_used=app_settings.ollama_model,
         raw_model_output=None,
+        chat_mode=final_state.get("chat_mode") or payload.chat_mode,
     )
 
 

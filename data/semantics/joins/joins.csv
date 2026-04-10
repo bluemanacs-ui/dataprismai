@@ -1,14 +1,35 @@
 left_entity,right_entity,join_sql,join_type,approved_flag
-fact_card_transaction,dim_customer,fct.account_key = dc.customer_key,inner,true
-fact_card_transaction,dim_card_account,fct.account_key = dca.account_key,inner,true
-fact_card_transaction,dim_card,fct.card_key = dc.card_key,inner,true
-fact_card_transaction,dim_merchant,fct.merchant_key = dm.merchant_key,inner,true
-fact_card_transaction,dim_date,fct.date_key = dd.date_key,inner,true
-fact_card_transaction,dim_channel,fct.channel_key = dch.channel_key,inner,true
-fact_card_transaction,dim_device,fct.device_key = dd.device_key,inner,true
-dim_card_account,dim_customer,dca.customer_key = dc.customer_key,inner,true
-dim_card_account,dim_product,dca.product_key = dp.product_key,inner,true
-dim_merchant,dim_geography,dm.geography_key = dg.geography_key,inner,true
-dim_merchant,dim_merchant_category,dm.merchant_category_key = dmc.merchant_category_key,inner,true
-dim_customer,dim_geography,dc.geography_key = dg.geography_key,inner,true
-dim_customer,dim_risk_segment,dc.risk_segment_id = drs.risk_segment_id,left,true
+semantic_transaction_summary,semantic_customer_360,t.customer_id = c.customer_id,inner,true
+semantic_transaction_summary,semantic_spend_metrics,t.customer_id = s.customer_id AND t.txn_year_month = s.spend_month,left,true
+semantic_transaction_summary,semantic_payment_status,t.account_id = p.account_id,left,true
+semantic_customer_360,semantic_payment_status,c.primary_account_id = p.account_id,left,true
+semantic_customer_360,semantic_deposit_portfolio,c.customer_id = d.customer_id,left,true
+semantic_customer_360,semantic_loan_portfolio,c.customer_id = l.customer_id,left,true
+semantic_customer_360,semantic_customer_product_mix,c.customer_id = m.customer_id AND c.as_of_date = m.snapshot_month,left,true
+semantic_spend_metrics,semantic_customer_360,s.customer_id = c.customer_id,inner,true
+semantic_payment_status,semantic_customer_360,p.customer_id = c.customer_id,inner,true
+semantic_risk_metrics,semantic_portfolio_kpis,r.country_code = k.country_code AND r.metric_date = k.kpi_month,left,true
+semantic_deposit_portfolio,semantic_customer_360,d.customer_id = c.customer_id,inner,true
+semantic_deposit_portfolio,semantic_loan_portfolio,d.customer_id = l.customer_id AND d.snapshot_month = l.snapshot_month,left,true
+semantic_loan_portfolio,semantic_customer_360,l.customer_id = c.customer_id,inner,true
+semantic_customer_product_mix,semantic_customer_360,m.customer_id = c.customer_id,inner,true
+semantic_customer_product_mix,semantic_deposit_portfolio,m.customer_id = d.customer_id AND m.snapshot_month = d.snapshot_month,left,true
+semantic_customer_product_mix,semantic_loan_portfolio,m.customer_id = l.customer_id AND m.snapshot_month = l.snapshot_month,left,true
+dp_customer_balance_snapshot,ddm_customer,b.customer_id = c.customer_id,inner,true
+dp_customer_spend_monthly,ddm_customer,s.customer_id = c.customer_id,inner,true
+dp_customer_spend_monthly,ddm_transaction,s.customer_id = t.customer_id AND s.spend_month = t.txn_year_month,left,true
+dp_transaction_enriched,ddm_transaction,e.transaction_id = t.transaction_id,inner,true
+dp_payment_status,ddm_payment,p.account_id = d.account_id AND p.statement_month = d.statement_month,inner,true
+dp_deposit_portfolio,ddm_deposit_account,dp.customer_id = da.customer_id,inner,true
+dp_loan_portfolio,ddm_loan,lp.customer_id = dl.customer_id,inner,true
+dp_portfolio_kpis,ddm_customer,k.country_code = c.country_code,left,true
+dp_risk_signals,ddm_transaction,r.country_code = t.country_code AND r.signal_date = DATE(t.transaction_date),left,true
+ddm_customer,ddm_account,c.customer_id = a.customer_id,left,true
+ddm_account,ddm_card,a.account_id = c.account_id,left,true
+ddm_account,ddm_statement,a.account_id = s.account_id,left,true
+ddm_statement,ddm_payment,s.account_id = p.account_id AND s.statement_month = p.statement_month,left,true
+ddm_transaction,ddm_account,t.account_id = a.account_id,inner,true
+ddm_transaction,ddm_merchant,t.merchant_id = m.merchant_id,left,true
+ddm_customer,ddm_deposit_account,c.customer_id = d.customer_id,left,true
+ddm_customer,ddm_loan,c.customer_id = l.customer_id,left,true
+ddm_loan,ddm_loan_repayment,l.loan_id = r.loan_id,left,true

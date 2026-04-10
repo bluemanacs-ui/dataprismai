@@ -28,6 +28,7 @@ class Settings:
     #   e.g.  OLLAMA_AVAILABLE_MODELS=qwen2.5:7b,qwen2.5:32b
     ollama_host:             str = os.getenv("OLLAMA_HOST",             "http://localhost:11434")
     ollama_model:            str = os.getenv("OLLAMA_MODEL",            "qwen2.5:32b")
+    ollama_general_model:    str = os.getenv("OLLAMA_GENERAL_MODEL",    "qwen2.5:7b")
     ollama_available_models: str = os.getenv("OLLAMA_AVAILABLE_MODELS", "qwen2.5:7b,qwen2.5:32b")
 
     # ── Vanna SQL ────────────────────────────────────────────────────────────

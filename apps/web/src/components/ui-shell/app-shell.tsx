@@ -59,6 +59,7 @@ const _WELCOME_FOLLOWS: Record<string, string[]> = {
   ],
 };
 
+// Mode-specific example questions surfaced when user switches mode on the welcome screen
 function makeWelcome(userName?: string, persona?: string): ChatMessage {
   const greeting = userName ? `Welcome back, **${userName}**!` : "Welcome to DataPrismAI";
   const key = (persona ?? "analyst").toLowerCase();
@@ -83,10 +84,12 @@ export function AppShell() {
   const [catalog, setCatalog] = useState<SemanticCatalogResponse | null>(null);
   const [tables, setTables] = useState<TableInfo[]>([]);
   const [tablesDb, setTablesDb] = useState("banking");
+  const [tablesLoading, setTablesLoading] = useState(false);
   const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [queryHistory, setQueryHistory] = useState<{ query: string; metric: string; rowCount: number; ts: number }[]>([]);
   const [timeRange, setTimeRange] = useState<string>("ALL");
+  const [chatMode, setChatMode] = useState<string>("hybrid");
   const lastSentRef = useRef<{ message: string; time: number }>({ message: "", time: 0 });
 
   // ── Hydrate from localStorage after mount (avoids SSR mismatch) ─────────
@@ -133,6 +136,8 @@ export function AppShell() {
     setTables={setTables}
     tablesDb={tablesDb}
     setTablesDb={setTablesDb}
+    tablesLoading={tablesLoading}
+    setTablesLoading={setTablesLoading}
     threadId={threadId}
     setThreadId={setThreadId}
     sidebarOpen={sidebarOpen}
@@ -141,6 +146,8 @@ export function AppShell() {
     setQueryHistory={setQueryHistory}
     timeRange={timeRange}
     setTimeRange={setTimeRange}
+    chatMode={chatMode}
+    setChatMode={setChatMode}
     lastSentRef={lastSentRef}
     onLogout={() => {
       logAudit("logout", `${user.name} logged out`, { userId: user.id, userName: user.name });
@@ -171,6 +178,8 @@ type InnerProps = {
   setTables: (t: TableInfo[]) => void;
   tablesDb: string;
   setTablesDb: (d: string) => void;
+  tablesLoading: boolean;
+  setTablesLoading: (l: boolean) => void;
   threadId: string | undefined;
   setThreadId: (t: string | undefined) => void;
   sidebarOpen: boolean;
@@ -179,6 +188,8 @@ type InnerProps = {
   setQueryHistory: React.Dispatch<React.SetStateAction<{ query: string; metric: string; rowCount: number; ts: number }[]>>;
   timeRange: string;
   setTimeRange: (t: string) => void;
+  chatMode: string;
+  setChatMode: (m: string) => void;
   lastSentRef: React.MutableRefObject<{ message: string; time: number }>;
   onLogout: () => void;
 };
@@ -187,10 +198,11 @@ function AppShellInner({
   user, persona, setPersona, theme, setTheme,
   messages, setMessages, reports, setReports,
   isLoading, setIsLoading, activeView, setActiveView,
-  catalog, setCatalog, tables, setTables, tablesDb, setTablesDb,
+  catalog, setCatalog, tables, setTables, tablesDb, setTablesDb, tablesLoading, setTablesLoading,
   threadId, setThreadId, sidebarOpen, setSidebarOpen,
   queryHistory, setQueryHistory,
   timeRange, setTimeRange,
+  chatMode, setChatMode,
   lastSentRef, onLogout,
 }: InnerProps) {
 
@@ -203,6 +215,15 @@ function AppShellInner({
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function handleRefreshTables() {
+    if (tablesLoading) return;
+    setTablesLoading(true);
+    fetchTables()
+      .then(r => { setTables(r.tables); setTablesDb(r.database); })
+      .catch(() => {})
+      .finally(() => setTablesLoading(false));
+  }
 
   // Listen for canned report run events from ReportsPanel
   useEffect(() => {
@@ -255,6 +276,7 @@ function AppShellInner({
         user.country_codes ?? [],
         user.allowed_domains ?? [],
         timeRange,
+        chatMode,
       );
       if (response.thread_id) setThreadId(response.thread_id);
 
@@ -333,6 +355,8 @@ function AppShellInner({
           userName={user.name}
           onLogout={onLogout}
           onHelpOpen={() => setActiveView("help")}
+          chatMode={chatMode}
+          onChatModeChange={setChatMode}
         />
         <div className="flex min-h-0 flex-1">
           <Sidebar
@@ -355,7 +379,8 @@ function AppShellInner({
                 persona={persona}
                 userName={user.name}
                 timeRange={timeRange}
-                onTimeRangeChange={setTimeRange}
+                chatMode={chatMode}
+                onChatModeChange={setChatMode}
               />
             ) : activeView === "explorer" ? (
               <div className="flex-1 overflow-y-auto px-6 py-6">
@@ -366,6 +391,8 @@ function AppShellInner({
                     database={tablesDb}
                     queryHistory={queryHistory}
                     onQuerySend={(q) => { setActiveView("chat"); handleSend(q); }}
+                    onRefreshTables={handleRefreshTables}
+                    tablesLoading={tablesLoading}
                   />
                 </div>
               </div>

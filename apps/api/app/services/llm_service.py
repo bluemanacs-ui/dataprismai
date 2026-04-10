@@ -5,10 +5,10 @@ from app.core.config import settings
 client = Client(host=settings.ollama_host)
 
 
-def generate_with_ollama(prompt: str, temperature: float = 0.2) -> str:
+def generate_with_ollama(prompt: str, temperature: float = 0.2, model: str | None = None) -> str:
     try:
         response = client.generate(
-            model=settings.ollama_model,
+            model=model or settings.ollama_model,
             prompt=prompt,
             stream=False,
             options={

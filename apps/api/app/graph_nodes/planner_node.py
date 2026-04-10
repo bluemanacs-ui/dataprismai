@@ -57,11 +57,11 @@ _TABLE_NAME_RE = re.compile(
 
 # Entity ID patterns — map structured IDs to raw tables and their PK columns
 _ENTITY_ID_TABLE_MAP: list[tuple[re.Pattern, str, str]] = [
-    (re.compile(r"\b(CUST_\w+)\b",  re.IGNORECASE), "raw_customer",     "customer_id"),
-    (re.compile(r"\b(ACC_\w+)\b",   re.IGNORECASE), "raw_account",      "account_id"),
-    (re.compile(r"\b(CARD_\w+)\b",  re.IGNORECASE), "raw_card",         "card_id"),
-    (re.compile(r"\b(TXN_\w+)\b",   re.IGNORECASE), "raw_transaction",  "transaction_id"),
-    (re.compile(r"\b(MERCH_\w+)\b", re.IGNORECASE), "raw_merchant",     "merchant_id"),
+    (re.compile(r"\b(CUST_\w+)\b",  re.IGNORECASE), "raw_customers",    "customer_id"),
+    (re.compile(r"\b(ACC_\w+)\b",   re.IGNORECASE), "raw_card_accounts", "account_id"),
+    (re.compile(r"\b(CARD_\w+)\b",  re.IGNORECASE), "raw_cards",         "card_id"),
+    (re.compile(r"\b(TXN_\w+)\b",   re.IGNORECASE), "raw_transactions",  "transaction_id"),
+    (re.compile(r"\b(MERCH_\w+)\b", re.IGNORECASE), "raw_merchants",     "merchant_id"),
 ]
 
 _RESPONSE_MODE: dict[str, str] = {

@@ -237,8 +237,10 @@ export function MessageCard({
 }: MessageCardProps) {
   const isUser = role === "user";
 
-  // Suppress analytics sections for raw table preview and schema responses
+  // Suppress analytics sections for raw table preview, schema, or general (open Q&A) responses
   const isDataPreview = responseMode === "table" || responseMode === "schema";
+  const isGeneral = responseMode === "general";
+  const suppressAnalytics = isDataPreview || isGeneral;
 
   const defaultChartConfig = chartConfig;
   const defaultChartId = "default";
@@ -552,8 +554,8 @@ export function MessageCard({
       style={{
         maxWidth: "88%",
         background: "var(--ai-bubble-bg)",
-        border: "1px solid var(--ai-bubble-border)",
-        borderLeft: "3px solid var(--ai-bubble-border-left)",
+        border: isGeneral ? "1px solid rgba(120,80,220,0.35)" : "1px solid var(--ai-bubble-border)",
+        borderLeft: isGeneral ? "3px solid #a78bfa" : "3px solid var(--ai-bubble-border-left)",
       }}
     >
       {/* Header */}
@@ -572,6 +574,12 @@ export function MessageCard({
           <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
             style={{ backgroundColor: "rgba(26,111,224,0.12)", color: "var(--accent-2)", border: "1px solid rgba(26,111,224,0.3)" }}>
             Schema
+          </span>
+        )}
+        {responseMode === "general" && (
+          <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+            style={{ backgroundColor: "rgba(120,80,220,0.12)", color: "#a78bfa", border: "1px solid rgba(120,80,220,0.3)" }}>
+            💬 General
           </span>
         )}
         {/* Spacer */}
@@ -607,7 +615,17 @@ export function MessageCard({
       {/* ── Model / generation path badge — always visible ─────── */}
       {!isUser && modelUsed && (
         <div className="mt-2 flex items-center gap-1.5 no-print">
-          {(answerLlmUsed || sqlLlmUsed) ? (
+          {isGeneral ? (
+            <>
+              <span className="text-[10px]" style={{ color: "var(--muted)" }}>via</span>
+              <span
+                className="rounded px-2 py-0.5 text-[10px] font-mono font-semibold"
+                style={{ backgroundColor: "rgba(120,80,220,0.1)", color: "#a78bfa", border: "1px solid rgba(120,80,220,0.3)" }}
+              >
+                💬 {modelUsed}
+              </span>
+            </>
+          ) : (answerLlmUsed || sqlLlmUsed) ? (
             <>
               <span className="text-[10px]" style={{ color: "var(--muted)" }}>
                 {sqlLlmUsed && answerLlmUsed ? "SQL + Answer by" : answerLlmUsed ? "Answer by" : "SQL by"}
@@ -641,7 +659,7 @@ export function MessageCard({
       )}
 
       {/* ── KPI Metric Cards (metric/insight mode only) ────────── */}
-      {!isDataPreview && kpiMetrics.length > 0 && (
+      {!suppressAnalytics && kpiMetrics.length > 0 && (
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {kpiMetrics.map((kpi) => (
             <div
@@ -664,7 +682,7 @@ export function MessageCard({
       )}
 
       {/* ── Key Insights (metric/insight mode only) ─────────────── */}
-      {!isDataPreview && insights.length > 0 && (
+      {!suppressAnalytics && insights.length > 0 && (
         <SectionBlock
           open={insightsOpen}
           onToggle={() => setInsightsOpen((v) => !v)}
@@ -718,7 +736,7 @@ export function MessageCard({
       )}
 
       {/* ── Bottlenecks / Critical Issues (metric/insight mode only) ── */}
-      {!isDataPreview && bottlenecks.length > 0 && (
+      {!suppressAnalytics && bottlenecks.length > 0 && (
         <SectionBlock
           open={bottlenecksOpen}
           onToggle={() => setBottlenecksOpen((v) => !v)}
@@ -766,7 +784,7 @@ export function MessageCard({
       )}
 
       {/* ── Recommended Actions (metric/insight mode only) ────────── */}
-      {!isDataPreview && highlightActions.length > 0 && (
+      {!suppressAnalytics && highlightActions.length > 0 && (
         <SectionBlock
           open={actionsOpen}
           onToggle={() => setActionsOpen((v) => !v)}
@@ -820,7 +838,7 @@ export function MessageCard({
       )}
 
       {/* ── Chart recommendations (metric/insight mode only) ────── */}
-      {!isDataPreview && chartRecommendations.length > 0 && (
+      {!suppressAnalytics && chartRecommendations.length > 0 && (
         <div className="mt-4">
           <div className="mb-2 flex items-center justify-between">
             <h3 className="text-xs font-semibold" style={{ color: "var(--accent-3)" }}>
@@ -863,15 +881,15 @@ export function MessageCard({
       )}
 
       {/* ── Chart (metric/insight mode only) ───────────────── */}
-      {!isDataPreview && (activeChart || visualizationConfig) && (
+      {!suppressAnalytics && (activeChart || visualizationConfig) && (
         <InlineChartCard chartConfig={activeChart} visualizationConfig={visualizationConfig} />
       )}
 
       {/* ── SQL / Semantic Context / Result Preview ───────────────── */}
-      <MessageDetails message={enrichedMessage} />
+      {!isGeneral && <MessageDetails message={enrichedMessage} />}
 
-      {/* ── Chain of Thought — collapsible, last ─────────────────── */}
-      {reasoningSteps.length > 0 && (
+      {/* ── Chain of Thought — collapsible, suppressed in general mode ─ */}
+      {!isGeneral && reasoningSteps.length > 0 && (
         <SectionBlock
           open={cotOpen}
           onToggle={() => setCotOpen((v) => !v)}
@@ -959,7 +977,7 @@ export function MessageCard({
       )}
 
       {/* ── Suggested Follow-ups (metric/insight mode only) ──────── */}
-      {!isDataPreview && (followUps.length > 0 || displayedFus.length > 0) && (
+      {!suppressAnalytics && (followUps.length > 0 || displayedFus.length > 0) && (
         <div className="mt-4 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(26,111,224,0.35)" }}>
           <div
             className="flex items-center gap-2 px-4 py-2.5 text-xs font-semibold"

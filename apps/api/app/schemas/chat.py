@@ -11,6 +11,8 @@ class ChatQueryRequest(BaseModel):
     user_id: str = Field(default="anonymous")
     # Time range filter: L7D, L1M, LQ, L1Y, ALL  (default ALL = no filter)
     time_range: str = Field(default="ALL")
+    # Chat mode: pattern | llm | hybrid (default hybrid)
+    chat_mode: str = Field(default="hybrid")
 
 
 class ChatQueryResponse(BaseModel):
@@ -49,3 +51,4 @@ class ChatQueryResponse(BaseModel):
     answer_llm_used: bool = False
     model_used: Optional[str] = None
     raw_model_output: Optional[str] = None
+    chat_mode: str = Field(default="hybrid")   # pattern | llm | hybrid
