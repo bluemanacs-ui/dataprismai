@@ -21,11 +21,14 @@ _METRIC_CONTEXT: dict[str, dict] = {
     "Customer Credit Score":{"unit": "",   "direction": "high", "domain": "credit quality"},
 }
 
-_RISK_THRESHOLDS: dict[str, float] = {
-    "Fraud Rate": 15.0,
-    "Dispute Rate": 5.0,
-    "Delinquency Rate": 10.0,
-}
+def _get_risk_thresholds() -> dict[str, float]:
+    """Return risk thresholds from config (live, so UI changes take effect immediately)."""
+    from app.services.config_service import config_svc
+    return {
+        "Fraud Rate":        config_svc.get_float("insight.risk_threshold_fraud_rate", 15.0),
+        "Dispute Rate":      config_svc.get_float("insight.risk_threshold_dispute_rate", 5.0),
+        "Delinquency Rate":  config_svc.get_float("insight.risk_threshold_delinquency_rate", 10.0),
+    }
 
 
 def _is_numeric(val) -> bool:
@@ -250,6 +253,7 @@ def _statistical_insights(rows, columns, metric, ctx) -> tuple[list, list, list]
         )
 
     # ── Risk threshold alerts ─────────────────────────────────────────────
+    _RISK_THRESHOLDS = _get_risk_thresholds()
     threshold = _RISK_THRESHOLDS.get(metric)
     if threshold and direction == "low":
         above_thresh = [r for r in rows if float(r.get(val_key, 0) or 0) > threshold]
@@ -449,6 +453,13 @@ def insight_node(state: dict) -> dict:
     # Fallback actions from statistical bottlenecks if rule engine returned nothing
     if not actions and bottlenecks:
         actions = [f"Investigate: {b}" for b in bottlenecks[:3]]
+
+    # Apply config-driven caps
+    from app.services.config_service import config_svc as _cs
+    max_kpi = _cs.get_int("insight.max_kpi_cards", 8)
+    max_alerts = _cs.get_int("insight.max_bottleneck_alerts", 3)
+    kpis = kpis[:max_kpi]
+    bottlenecks = bottlenecks[:max_alerts]
 
     steps.append(
         f"Insight: generated {len(insights)} insight(s), {len(bottlenecks)} bottleneck(s), "

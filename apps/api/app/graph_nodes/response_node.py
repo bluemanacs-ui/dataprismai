@@ -16,14 +16,17 @@ def _build_narrative_prompt(
     insights: list,
 ) -> str:
     """Build a concise LLM prompt to narrate query results."""
+    from app.services.config_service import config_svc
+    sample_rows = config_svc.get_int("prompt.narrative_sample_rows", 8)
+    max_insights = config_svc.get_int("prompt.narrative_max_insights", 4)
     n = len(rows)
-    top_rows = rows[:8]
+    top_rows = rows[:sample_rows]
     data_lines = []
     for i, row in enumerate(top_rows):
         vals = ", ".join(f"{c}: {row.get(c, 'N/A')}" for c in columns[:7])
         data_lines.append(f"  {i+1}. {vals}")
     data_str = "\n".join(data_lines) or "  (no rows)"
-    insights_str = "\n".join(f"- {s}" for s in insights[:4]) if insights else "- none"
+    insights_str = "\n".join(f"- {s}" for s in insights[:max_insights]) if insights else "- none"
 
     return (
         f"You are a {persona} analytics assistant for a credit card portfolio.\n\n"

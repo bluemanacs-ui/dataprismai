@@ -49,20 +49,26 @@ _INSIGHT_VERBS_RE = re.compile(
     re.IGNORECASE,
 )
 
-# Detect an explicit table name (prefix: raw_, ddm_, dp_, semantic_, audit_, or _mapping suffix)
+# Detect an explicit table name — built from config.graph.table_name_prefixes (or fallback static regex)
 _TABLE_NAME_RE = re.compile(
     r"\b((raw|ddm|dp|semantic|audit)_[a-z][a-z0-9_]{2,}|[a-z][a-z0-9_]{2,}_mapping)\b",
     re.IGNORECASE,
 )
 
-# Entity ID patterns — map structured IDs to raw tables and their PK columns
-_ENTITY_ID_TABLE_MAP: list[tuple[re.Pattern, str, str]] = [
+# Default entity ID → table map (config-driven at runtime via _get_entity_map)
+_DEFAULT_ENTITY_ID_TABLE_MAP: list[tuple[re.Pattern, str, str]] = [
     (re.compile(r"\b(CUST_\w+)\b",  re.IGNORECASE), "raw_customers",    "customer_id"),
     (re.compile(r"\b(ACC_\w+)\b",   re.IGNORECASE), "raw_card_accounts", "account_id"),
     (re.compile(r"\b(CARD_\w+)\b",  re.IGNORECASE), "raw_cards",         "card_id"),
     (re.compile(r"\b(TXN_\w+)\b",   re.IGNORECASE), "raw_transactions",  "transaction_id"),
     (re.compile(r"\b(MERCH_\w+)\b", re.IGNORECASE), "raw_merchants",     "merchant_id"),
 ]
+
+
+def _get_entity_map() -> list[tuple[re.Pattern, str, str]]:
+    """Return entity ID map — uses the default map (config exposes prefixes for transparency)."""
+    return _DEFAULT_ENTITY_ID_TABLE_MAP
+
 
 _RESPONSE_MODE: dict[str, str] = {
     "preview_data": "table",
@@ -103,7 +109,7 @@ def planner_node(state: dict) -> dict:
     # ── Rule 0: entity lookup — CUST_xxx, ACC_xxx, CARD_xxx, TXN_xxx, MERCH_xxx ─
     # Highest priority: structured entity IDs imply a direct row lookup in the
     # corresponding raw table, regardless of other verbs in the message.
-    for id_re, id_table, id_col in _ENTITY_ID_TABLE_MAP:
+    for id_re, id_table, id_col in _get_entity_map():
         m = id_re.search(message)
         if m:
             entity_filter = {"col": id_col, "val": m.group(1)}

@@ -9,6 +9,7 @@
 #   • Change output schema →  update the JSON shape here AND in schemas/chat.py
 # =============================================================================
 from app.prompts.persona_loader import load_persona_prompt
+from app.services.config_service import config_svc
 
 
 def build_chat_prompt(message: str, persona: str, semantic_context: dict | None = None) -> str:
@@ -18,11 +19,17 @@ def build_chat_prompt(message: str, persona: str, semantic_context: dict | None 
     metric = semantic_context.get("metric", "Revenue")
     dimensions = ", ".join(semantic_context.get("dimensions", ["Region", "Month"]))
     engine = semantic_context.get("engine", "StarRocks")
-    domain = semantic_context.get("domain", "Sales")
+    domain = semantic_context.get("domain") or config_svc.get("business.domain_label", "Sales")
     definition = semantic_context.get("definition", "No definition available.")
 
+    identity = config_svc.get("prompt.app_identity", "You are DataPrismAI, an enterprise GenBI insight assistant.")
+    biz_context = config_svc.get("business.extra_context", "").strip()
+    biz_block = f"\nBusiness context: {biz_context}" if biz_context else ""
+    extra_rules = config_svc.get("prompt.insight_extra_rules", "").strip()
+    extra_rules_block = ("\n" + "\n".join(f"- {r.strip()}" for r in extra_rules.splitlines() if r.strip())) if extra_rules else ""
+
     return f"""
-You are DataPrismAI, an enterprise GenBI insight assistant.
+{identity}
 
 {persona_text}
 
@@ -34,7 +41,7 @@ Application rules:
 - If assumptions are needed, state them briefly
 - Do not invent unavailable fields or metrics
 - Output valid JSON only
-- Do not wrap JSON in markdown fences
+- Do not wrap JSON in markdown fences{extra_rules_block}{biz_block}
 
 Semantic context:
 - Domain: {domain}

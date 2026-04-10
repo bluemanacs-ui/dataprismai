@@ -100,6 +100,9 @@ def entity_resolver_node(state: dict) -> dict:
     Mutates ``user_message`` in state (keeping original in ``original_message``)
     when a pronoun is resolved.  Otherwise returns state unchanged.
     """
+    from app.services.config_service import config_svc
+    if not config_svc.get_bool("graph.enable_entity_resolver", True):
+        return state
     message   = state.get("user_message", "")
     thread_id = state.get("thread_id", "")
     steps     = list(state.get("reasoning_steps") or [])

@@ -299,12 +299,32 @@ def _get_schema_context() -> str:
     return _STATIC_SCHEMA_CONTEXT
 
 
+def _get_db_name() -> str:
+    try:
+        from app.services.config_service import config_svc
+        return config_svc.get("semantic.database_name", "cc_analytics")
+    except Exception:
+        return "cc_analytics"
+
+
 def build_sql_prompt(message: str, persona: str, semantic_context: dict, prior_context: list | None = None) -> str:
+    from app.services.config_service import config_svc
     metric = semantic_context.get("metric", "")
     dimensions = ", ".join(semantic_context.get("dimensions", []))
-    domain = semantic_context.get("domain", "Credit Card Analytics")
+    domain = semantic_context.get("domain") or config_svc.get("business.domain_label", "Credit Card Analytics")
     definition = semantic_context.get("definition", "")
     time_range = semantic_context.get("time_range", "ALL")
+
+    # Extra SQL rules from config
+    sql_extra = config_svc.get("prompt.sql_extra_rules", "").strip()
+    extra_rules_block = ("\n" + "\n".join(f"- {r.strip()}" for r in sql_extra.splitlines() if r.strip())) if sql_extra else ""
+
+    # Forbidden statements from config
+    forbidden = config_svc.get("prompt.forbidden_sql_statements", "INSERT,UPDATE,DELETE,DROP,ALTER,CREATE,TRUNCATE")
+
+    # Business context addendum
+    biz_context = config_svc.get("business.extra_context", "").strip()
+    biz_block = (f"\nAdditional business context: {biz_context}") if biz_context else ""
 
     # Build time range instruction
     time_block = ""
@@ -329,10 +349,11 @@ def build_sql_prompt(message: str, persona: str, semantic_context: dict, prior_c
         )
 
     # Build prior conversation context block
+    prior_turns = config_svc.get_int("prompt.prior_turns", 3)
     prior_block = ""
     if prior_context:
         lines = []
-        for turn in prior_context[-3:]:  # last 3 turns
+        for turn in prior_context[-prior_turns:]:  # configurable prior turns
             lines.append(f"User asked: {turn.get('user_message', '')}")
             if turn.get("sql"):
                 lines.append(f"SQL used: {turn['sql'][:400]}")
@@ -354,17 +375,25 @@ def build_sql_prompt(message: str, persona: str, semantic_context: dict, prior_c
                 "4. Only change the SELECT columns to match what the new question is asking for."
             )
 
+    table_strategy = config_svc.get("semantic.preferred_table_strategy", "semantic_first")
+    if table_strategy == "semantic_first":
+        table_pref_rule = "- ALWAYS prefer semantic_* tables over raw_* tables for analytics queries"
+    elif table_strategy == "raw_first":
+        table_pref_rule = "- PREFER raw_* tables for full detail; use semantic_* tables only for aggregate KPIs"
+    else:
+        table_pref_rule = "- Choose the most appropriate table based on the query (semantic_* for aggregates, raw_* for detail)"
+
     return f"""You are DataPrismAI, a SQL generation assistant for credit-card analytics.
 
 Rules:
 - Generate valid MySQL/StarRocks-compatible SELECT SQL only
 - Use ONLY the tables and columns listed in the schema below — do NOT invent table or column names
-- ALWAYS prefer semantic_* tables over raw_* tables for analytics queries
+{table_pref_rule}
 - For single-table queries prefer a simple SELECT with no JOINs unless the question clearly requires data from multiple tables
 - When using JOINs, always qualify every column with the table alias (e.g. t.amount, c.customer_id)
 - Do not use date_trunc — use DATE_FORMAT(col, '%Y-%m') for monthly grouping
 - Output valid JSON only, no markdown fences
-- Never generate INSERT, UPDATE, DELETE, DROP, ALTER, CREATE, TRUNCATE{time_block}
+- Never generate {forbidden}{extra_rules_block}{time_block}
 
 Schema:
 {_get_schema_context()}
@@ -374,7 +403,7 @@ Semantic context:
 - Metric: {metric}
 - Definition: {definition}
 - Dimensions: {dimensions}
-- Time range: {time_range}{prior_block}
+- Time range: {time_range}{biz_block}{prior_block}
 
 User question:
 {message}

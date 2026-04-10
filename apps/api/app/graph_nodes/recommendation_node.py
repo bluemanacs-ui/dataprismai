@@ -214,6 +214,9 @@ _DEFAULT_PERSONA = "analyst"
 
 
 def recommendation_node(state: dict) -> dict:
+    from app.services.config_service import config_svc
+    if not config_svc.get_bool("graph.enable_chart_recommendation", True):
+        return {**state, "insight_recommendations": [], "follow_ups": [], "assumptions": []}
     # preview_data and schema_query should not generate follow-up recommendations
     response_mode = state.get("response_mode", "metric")
     if response_mode in ("table", "schema"):
