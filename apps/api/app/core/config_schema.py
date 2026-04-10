@@ -328,6 +328,74 @@ CONFIG_ENTRIES: list[ConfigEntry] = [
         default="6",
         input_type="number",
     ),
+    ConfigEntry(
+        key="guardrail.greetings_list",
+        section="guardrail",
+        label="Greeting Phrases (comma-separated)",
+        description="Messages matching any of these phrases exactly are classified as greetings. Comma-separated, case-insensitive.",
+        default=(
+            "hi,hello,hey,helo,hii,hiii,yo,sup,howdy,"
+            "good morning,good afternoon,good evening,good night,"
+            "how are you,how are u,whats up,what's up,how do you do,"
+            "nice to meet you,thanks,thank you,cheers,bye,goodbye,"
+            "ok,okay,yes,no,sure,really,cool,great,nice,"
+            "hello world,test,testing,"
+            "who are you,who are u,what are you,what are u,"
+            "who r u,who r you,what r u,what r you,"
+            "what is your name,what's your name,whats ur name,"
+            "tell me about yourself,introduce yourself,"
+            "are you a bot,are you an ai,are you real,"
+            "you give me nothing,not helpful,useless,stop it,fix yourself"
+        ),
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="guardrail.off_topic_patterns",
+        section="guardrail",
+        label="Off-Topic Regex Patterns (one per line)",
+        description=(
+            "Python regex patterns (re.search, IGNORECASE) that block off-topic messages. "
+            "One pattern per line. Invalid patterns are skipped silently."
+        ),
+        default=(
+            r"^\s*(who|what)\s+(are|r)\s+(you|u|ur)\b" "\n"
+            r"^\s*(what|who)\s+(is|r|are)\s+(your|ur)\s+name\b" "\n"
+            r"^\s*(what|how)\s+(can|do)\s+(you|u)\s+(do|help|assist)\b" "\n"
+            r"^\s*(tell\s+me\s+about\s+(your|ur)self|introduce\s+your|what\s+do\s+you\s+do)\b" "\n"
+            r"^\s*(are\s+you|r\s+u)\s+(a\s+)?(bot|ai|robot|human|real|chatgpt|gpt)\b" "\n"
+            r"^\s*(write|create|generate)\s+(a\s+)?(poem|story|song|essay|joke|code)\b" "\n"
+            r"^\s*(who|what)\s+(is|are)\s+(god|jesus|allah|buddha|trump|biden|obama|elon|musk)\b" "\n"
+            r"^\s*(what|how)\s+(is|to)\s+(cook|recipe|weather|temperature|stock price)\b" "\n"
+            r"^\s*(tell\s+me\s+a\s+joke|make\s+me\s+laugh)\b" "\n"
+            r"^\s*(i\s+love|i\s+hate|i\s+feel|i\s+am\s+sad|i\s+am\s+happy)\b" "\n"
+            r"^\s*(play|watch|listen|movie|music|game|sport)\b"
+        ),
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="guardrail.data_keywords",
+        section="guardrail",
+        label="Data Domain Keywords (comma-separated)",
+        description=(
+            "If ANY of these words appear in the message it is treated as a data query "
+            "and bypasses the off-topic check. Add domain-specific terms here."
+        ),
+        default=(
+            "show,list,what,how many,top,trend,compare,breakdown,"
+            "total,count,sum,average,avg,rate,fraud,spend,"
+            "transaction,transactions,payment,payments,"
+            "customer,customers,account,accounts,credit,delinquency,"
+            "utilization,dispute,disputes,merchant,merchants,category,"
+            "month,year,week,date,metric,data,report,analysis,"
+            "analyze,analyse,query,revenue,volume,distribution,"
+            "highest,lowest,most,least,which,when,chart,graph,table,sql,"
+            "balance,score,income,product,segment,region,status,"
+            "card,cards,id,ids,statement,statements,alert,alerts,"
+            "fraud_alert,interchange,fee,limit,available,open,closed,active,"
+            "give,get,fetch,find,display,pull"
+        ),
+        input_type="textarea",
+    ),
 
     # ── Planner ───────────────────────────────────────────────────────────────
     ConfigEntry(
@@ -350,6 +418,61 @@ CONFIG_ENTRIES: list[ConfigEntry] = [
         description="Use LLM to classify intent when rule-based matching is inconclusive.",
         default="true",
         input_type="boolean",
+    ),
+    ConfigEntry(
+        key="planner.extra_preview_keywords",
+        section="planner",
+        label="Extra Preview Verb Keywords (comma-separated)",
+        description=(
+            "Additional words that trigger a table-preview intent on top of the built-in set "
+            "(preview,sample,select *,display,fetch,pull,get,list,dump …). "
+            "Leave blank to use defaults only."
+        ),
+        default="",
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="planner.extra_metric_keywords",
+        section="planner",
+        label="Extra Metric/Aggregation Keywords (comma-separated)",
+        description=(
+            "Additional words that trigger a metric/aggregation intent on top of the built-in set "
+            "(total,count,rate,ratio,trend,average,avg,sum,breakdown …). "
+            "Leave blank to use defaults only."
+        ),
+        default="",
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="planner.extra_insight_keywords",
+        section="planner",
+        label="Extra Insight/Narrative Keywords (comma-separated)",
+        description=(
+            "Additional words that trigger an insight/narrative intent on top of the built-in set "
+            "(insight,summary,summarize,recommend,why,analyse,analyze …). "
+            "Leave blank to use defaults only."
+        ),
+        default="",
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="planner.extra_schema_keywords",
+        section="planner",
+        label="Extra Schema/Describe Keywords (comma-separated)",
+        description=(
+            "Additional words that trigger a schema-describe intent on top of the built-in set "
+            "(describe,schema,columns,fields,structure,definition,metadata …). "
+            "Leave blank to use defaults only."
+        ),
+        default="",
+        input_type="textarea",
+    ),
+    ConfigEntry(
+        key="planner.report_keywords",
+        section="planner",
+        label="Report / Export Keywords (comma-separated)",
+        description="Words that classify a query as a 'report/export' intent.",
+        default="save,report,export",
     ),
 
     # ── Business Context ──────────────────────────────────────────────────────

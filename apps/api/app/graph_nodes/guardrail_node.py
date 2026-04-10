@@ -2,6 +2,7 @@
 import re
 from app.services.config_service import config_svc
 
+# ── Hardcoded fallback sets (used only when config entries are blank) ─────────
 _GREETINGS = {
     "hi", "hello", "hey", "helo", "hii", "hiii", "yo", "sup", "howdy",
     "good morning", "good afternoon", "good evening", "good night",
@@ -58,6 +59,32 @@ _DATA_KEYWORDS = {
 }
 
 
+# ── Config-driven helpers (read from config_svc; fall back to hardcoded sets) ─
+
+def _get_greetings() -> set[str]:
+    """Return greeting phrases from config, falling back to the hardcoded set."""
+    raw = config_svc.get("guardrail.greetings_list", "").strip()
+    if raw:
+        return {g.strip().lower() for g in raw.split(",") if g.strip()}
+    return _GREETINGS
+
+
+def _get_off_topic_patterns() -> list[str]:
+    """Return off-topic regex patterns from config (one per line), falling back to hardcoded."""
+    raw = config_svc.get("guardrail.off_topic_patterns", "").strip()
+    if raw:
+        return [p.strip() for p in raw.splitlines() if p.strip()]
+    return _OFF_TOPIC_PATTERNS
+
+
+def _get_data_keywords() -> set[str]:
+    """Return domain data-keywords from config, falling back to the hardcoded set."""
+    raw = config_svc.get("guardrail.data_keywords", "").strip()
+    if raw:
+        return {k.strip().lower() for k in raw.split(",") if k.strip()}
+    return _DATA_KEYWORDS
+
+
 def _is_gibberish(text: str) -> bool:
     """Heuristic: mostly consonant clusters or very short non-words."""
     if len(text) < 3:
@@ -85,13 +112,17 @@ def _classify(message: str) -> str:
         return "gibberish"
 
     # Check greeting set
-    if stripped in _GREETINGS or any(stripped.startswith(g + " ") or stripped.endswith(" " + g) for g in _GREETINGS):
+    greetings = _get_greetings()
+    if stripped in greetings or any(stripped.startswith(g + " ") or stripped.endswith(" " + g) for g in greetings):
         return "greeting"
 
     # Check off-topic patterns
-    for pat in _OFF_TOPIC_PATTERNS:
-        if re.search(pat, stripped, re.IGNORECASE):
-            return "off_topic"
+    for pat in _get_off_topic_patterns():
+        try:
+            if re.search(pat, stripped, re.IGNORECASE):
+                return "off_topic"
+        except re.error:
+            pass  # skip invalid pattern (user-edited config)
 
     # Check gibberish
     if _is_gibberish(stripped):
@@ -103,7 +134,7 @@ def _classify(message: str) -> str:
 
     # Check if message contains at least one data keyword
     words_in_msg = set(re.findall(r"\b\w+\b", stripped))
-    if words_in_msg & _DATA_KEYWORDS:
+    if words_in_msg & _get_data_keywords():
         return "valid"
 
     # No data keyword found — not a data query regardless of length

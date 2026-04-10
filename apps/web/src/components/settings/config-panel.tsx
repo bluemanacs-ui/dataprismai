@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   fetchConfig,
   patchConfig,
@@ -20,6 +20,104 @@ function entryBadge(entry: ConfigEntry) {
   if (entry.restart_req)  return { text: "restart req.", color: "#f59e0b" };
   if (entry.overridden)   return { text: "overridden", color: "#3b82f6" };
   return null;
+}
+
+// ── Modes at a Glance card ────────────────────────────────────────────────────
+
+const TABLE_STRATEGY_LABELS: Record<string, string> = {
+  semantic_first: "Semantic First",
+  raw_first:      "Raw First",
+  auto:           "Auto",
+};
+
+const INTENT_LABELS: Record<string, string> = {
+  metric_query:  "Metric",
+  insight_query: "Insight",
+  preview_data:  "Preview",
+};
+
+type ModeItem =
+  | { kind: "value"; label: string; value: string; map?: Record<string, string> }
+  | { kind: "bool"; label: string; value: string };
+
+function ModesCard({ configMap }: { configMap: Record<string, string> }) {
+  const cv = (key: string, fallback = "—") => configMap[key] ?? fallback;
+
+  const valueItems: ModeItem[] = [
+    { kind: "value", label: "Primary LLM",     value: cv("llm.model") },
+    { kind: "value", label: "General LLM",     value: cv("llm.general_model") },
+    { kind: "value", label: "Table Strategy",  value: cv("semantic.preferred_table_strategy"), map: TABLE_STRATEGY_LABELS },
+    { kind: "value", label: "Query Engine",    value: cv("router.primary_engine") },
+    { kind: "value", label: "Catalog Source",  value: cv("semantic.catalog_source") },
+    { kind: "value", label: "Default Intent",  value: cv("planner.default_intent"), map: INTENT_LABELS },
+  ];
+
+  const toggleItems: ModeItem[] = [
+    { kind: "bool", label: "Guardrail",        value: cv("guardrail.enabled",                  "true") },
+    { kind: "bool", label: "Vanna SQL",        value: cv("vanna.enabled",                      "false") },
+    { kind: "bool", label: "Entity Resolver",  value: cv("graph.enable_entity_resolver",       "true") },
+    { kind: "bool", label: "SQL Validator",    value: cv("graph.enable_sql_validator",         "true") },
+    { kind: "bool", label: "Chart Rec.",       value: cv("graph.enable_chart_recommendation",  "true") },
+    { kind: "bool", label: "Thread Memory",    value: cv("graph.enable_thread_memory",         "false") },
+    { kind: "bool", label: "LLM Planner",      value: cv("planner.enable_llm_fallback",        "true") },
+  ];
+
+  return (
+    <div
+      className="rounded-2xl p-4 space-y-3"
+      style={{ border: "1px solid var(--card-border)", backgroundColor: "var(--card-bg)" }}
+    >
+      <div className="flex items-center gap-2 mb-1">
+        <span className="text-base">🗺</span>
+        <span className="text-xs font-bold" style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}>
+          Operational Modes at a Glance
+        </span>
+        <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(0,165,81,0.1)", color: "var(--accent-1)", border: "1px solid rgba(0,165,81,0.25)" }}>
+          live config
+        </span>
+      </div>
+
+      {/* Model / strategy chips */}
+      <div className="flex flex-wrap gap-2">
+        {valueItems.map((item) => {
+          const display = (item.kind === "value" && item.map) ? (item.map[item.value] ?? item.value) : item.value;
+          return (
+            <div
+              key={item.label}
+              className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-[11px]"
+              style={{ backgroundColor: "var(--panel-bg)", border: "1px solid var(--card-border)" }}
+            >
+              <span style={{ color: "var(--muted)" }}>{item.label}</span>
+              <span className="font-semibold" style={{ color: "var(--foreground)" }}>{display}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Feature toggles */}
+      <div className="flex flex-wrap gap-2">
+        {toggleItems.map((item) => {
+          const on = item.value === "true";
+          return (
+            <div
+              key={item.label}
+              className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-[11px]"
+              style={{
+                backgroundColor: on ? "rgba(0,165,81,0.08)" : "var(--panel-bg)",
+                border: `1px solid ${on ? "rgba(0,165,81,0.35)" : "var(--card-border)"}`,
+              }}
+            >
+              <span
+                className="h-2 w-2 rounded-full inline-block"
+                style={{ backgroundColor: on ? "var(--accent-1)" : "#6b7280" }}
+              />
+              <span style={{ color: on ? "var(--accent-1)" : "var(--muted)" }}>{item.label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 // ── Input renderer ────────────────────────────────────────────────────────────
@@ -151,7 +249,7 @@ function SectionCard({
   onSaveSection: (sectionId: string) => void;
   onResetKey: (key: string) => void;
 }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const sectionDirty = section.entries.some((e) => dirtyKeys.has(e.key));
 
   return (
@@ -299,6 +397,13 @@ export function ConfigPanel() {
   const [filter, setFilter] = useState("");
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Flat key → current-value map (used by ModesCard)
+  const configMap = useMemo(() => {
+    const m: Record<string, string> = {};
+    sections.forEach((s) => s.entries.forEach((e) => { m[e.key] = e.value; }));
+    return m;
+  }, [sections]);
+
   const showToast = useCallback((msg: string, type: "ok" | "err" = "ok") => {
     setToast({ msg, type });
     if (toastTimer.current) clearTimeout(toastTimer.current);
@@ -441,6 +546,9 @@ export function ConfigPanel() {
           </span>
         ))}
       </div>
+
+      {/* Modes at a Glance — shown once config is loaded */}
+      {!loading && sections.length > 0 && <ModesCard configMap={configMap} />}
 
       {/* Loading state */}
       {loading && (

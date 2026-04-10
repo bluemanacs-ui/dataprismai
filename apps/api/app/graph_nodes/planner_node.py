@@ -18,6 +18,27 @@ response_mode maps intent to render mode:
 """
 import re
 from app.services.schema_registry import registry as _schema_registry
+from app.services.config_service import config_svc
+
+
+def _extend_re(base_re: re.Pattern, config_key: str) -> re.Pattern:
+    """Return base_re optionally extended with extra keywords from config.
+
+    Config value is a comma-separated list of words/phrases.  Each word is
+    regex-escaped and OR'd into the existing pattern.  Invalid additions are
+    silently ignored so a bad config value never breaks the planner.
+    """
+    extra_raw = config_svc.get(config_key, "").strip()
+    if not extra_raw:
+        return base_re
+    extra_words = [re.escape(w.strip()) for w in extra_raw.split(",") if w.strip()]
+    if not extra_words:
+        return base_re
+    extra_pattern = r"\b(" + "|".join(extra_words) + r")\b"
+    try:
+        return re.compile(base_re.pattern + "|" + extra_pattern, re.IGNORECASE)
+    except re.error:
+        return base_re
 
 # Patterns that strongly indicate a request for literal rows from a named table.
 # Must include an explicit table-like name (containing underscore and alphanums).
@@ -106,6 +127,13 @@ def planner_node(state: dict) -> dict:
     literal_table = _extract_literal_table(message)
     entity_filter: dict | None = None
 
+    # Build config-extended verb patterns (extra keywords from Settings config)
+    preview_re  = _extend_re(_PREVIEW_VERBS_RE,  "planner.extra_preview_keywords")
+    metric_re   = _extend_re(_METRIC_VERBS_RE,   "planner.extra_metric_keywords")
+    insight_re  = _extend_re(_INSIGHT_VERBS_RE,  "planner.extra_insight_keywords")
+    schema_re   = _extend_re(_SCHEMA_VERBS_RE,   "planner.extra_schema_keywords")
+    report_kws  = [k.strip() for k in config_svc.get("planner.report_keywords", "save,report,export").split(",") if k.strip()]
+
     # ── Rule 0: entity lookup — CUST_xxx, ACC_xxx, CARD_xxx, TXN_xxx, MERCH_xxx ─
     # Highest priority: structured entity IDs imply a direct row lookup in the
     # corresponding raw table, regardless of other verbs in the message.
@@ -118,32 +146,32 @@ def planner_node(state: dict) -> dict:
             break
     else:
         # ── Rule 1: schema_query — "describe raw_customer" / "what columns in …" ─
-        if _SCHEMA_VERBS_RE.search(message) and literal_table:
+        if schema_re.search(message) and literal_table:
             intent_type = "schema_query"
 
         # ── Rule 2: preview_data — explicit table + preview/show/list/select * ───
-        elif literal_table and _PREVIEW_VERBS_RE.search(message):
+        elif literal_table and preview_re.search(message):
             intent_type = "preview_data"
 
         # ── Rule 3: bare table reference with no aggregation / insight signal ────
         # e.g. "raw_customer" or "show dp_risk_signals" without metric words
-        elif literal_table and not _METRIC_VERBS_RE.search(message) and not _INSIGHT_VERBS_RE.search(message):
+        elif literal_table and not metric_re.search(message) and not insight_re.search(message):
             intent_type = "preview_data"
 
         # ── Rule 4: insight / narrative ──────────────────────────────────────────
-        elif _INSIGHT_VERBS_RE.search(message):
+        elif insight_re.search(message):
             intent_type = "insight_query"
 
         # ── Rule 5: aggregation / metric ─────────────────────────────────────────
-        elif _METRIC_VERBS_RE.search(message):
+        elif metric_re.search(message):
             intent_type = "metric_query"
 
         # ── Rule 6: schema words WITHOUT a table name — could be concept explain ─
-        elif _SCHEMA_VERBS_RE.search(message):
+        elif schema_re.search(message):
             intent_type = "explanation"
 
-        # ── Rule 7: report / export ──────────────────────────────────────────────
-        elif any(w in msg_lower for w in ("save", "report", "export")):
+        # ── Rule 7: report / export (config-driven keyword list) ─────────────────
+        elif any(w in msg_lower for w in report_kws):
             intent_type = "report"
 
         # ── Default: metric query (current system behaviour) ─────────────────────
